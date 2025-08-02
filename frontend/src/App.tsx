@@ -41,6 +41,18 @@ function App() {
   const handleSave = async (testCase: Partial<TestCase>) => {
     try {
       const isUpdate = !!testCase.id;
+      
+      if (isUpdate) {
+        // 楽観的更新: 即座にローカル state を更新
+        setTestCases(prevTestCases => 
+          prevTestCases.map(tc => 
+            tc.id === testCase.id 
+              ? { ...tc, ...testCase, updatedAt: new Date().toISOString() }
+              : tc
+          )
+        );
+      }
+      
       const url = isUpdate ? `/api/testcases/${testCase.id}` : '/api/testcases';
       const method = isUpdate ? 'PUT' : 'POST';
 
@@ -53,10 +65,16 @@ function App() {
       });
 
       if (response.ok) {
+        // API完了後に正式なデータで再同期
+        await fetchTestCases();
+      } else {
+        // API失敗時は元に戻す必要があるが、fetchTestCases()で最新データを取得
         await fetchTestCases();
       }
     } catch (error) {
       console.error('Failed to save test case:', error);
+      // エラー時も最新データで復元
+      await fetchTestCases();
     }
   };
 

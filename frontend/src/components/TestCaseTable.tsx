@@ -14,17 +14,10 @@ interface EditingCell {
   field: string;
 }
 
-interface PendingValue {
-  testCaseId: string;
-  field: string;
-  value: string;
-}
-
 export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProjectId }: TestCaseTableProps) {
   const [editingCell, setEditingCell] = useState<EditingCell | null>(null);
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
-  const [pendingValues, setPendingValues] = useState<PendingValue[]>([]);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
 
   const startEdit = (testCaseId: string, field: string, currentValue: string) => {
@@ -70,30 +63,14 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
       updateData.tags = editValue.split(',').map(t => t.trim()).filter(t => t);
     }
 
-    // 編集中の値を保留状態として保存
-    const pendingValue: PendingValue = {
-      testCaseId: editingCell.testCaseId,
-      field: editingCell.field,
-      value: editValue
-    };
-    
-    setPendingValues(prev => {
-      const filtered = prev.filter(p => !(p.testCaseId === pendingValue.testCaseId && p.field === pendingValue.field));
-      return [...filtered, pendingValue];
-    });
-
-    // 編集状態を即座に解除
+    // 編集状態を解除
     setEditingCell(null);
 
-    try {
-      await onSave(updateData);
-      
-      // 最後のテストケースに入力があった場合、新しいテストケースを自動追加
-      checkAndAddNewTestCase(testCase);
-    } finally {
-      // 保存完了後、保留値を削除
-      setPendingValues(prev => prev.filter(p => !(p.testCaseId === pendingValue.testCaseId && p.field === pendingValue.field)));
-    }
+    // 楽観的更新により親コンポーネントで即座に state が更新される
+    await onSave(updateData);
+    
+    // 最後のテストケースに入力があった場合、新しいテストケースを自動追加
+    checkAndAddNewTestCase(testCase);
   };
 
   const checkAndAddNewTestCase = (updatedTestCase: TestCase) => {
@@ -207,12 +184,6 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   };
 
   const getFieldValue = (testCase: TestCase, field: string): string => {
-    // 保留中の値があればそれを返す
-    const pendingValue = pendingValues.find(p => p.testCaseId === testCase.id && p.field === field);
-    if (pendingValue) {
-      return pendingValue.value;
-    }
-
     switch (field) {
       case 'specification': return testCase.specification;
       case 'preconditions': return testCase.preconditions;
@@ -265,14 +236,13 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
       );
     }
 
-    // 非選択状態での表示: 保留値も考慮して実際の値を取得
-    const actualValue = getFieldValue(currentTestCase, field);
-    const displayValue = getDisplayValue(actualValue);
+    // 非選択状態での表示: 楽観的更新により即座に反映される
+    const displayValue = getDisplayValue(value);
 
     return (
       <div
         className="editable-cell"
-        onClick={() => startEdit(currentTestCase.id, field, actualValue)}
+        onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
         {displayValue || <span className="placeholder">Click to edit</span>}
