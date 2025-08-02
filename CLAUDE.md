@@ -8,7 +8,7 @@ LLM 向けの文書なのでフォーマットは問いません。短いとう�
 
 - John Carmack, Robert C. Martin, Rob Pikeならどう設計するかを意識する
 - 型に any は使わない
-- **ハードコード禁止**: マジックナンバーや文字列は `apps/frontend/src/constants/` の定数を使用する
+- **ハードコード禁止**: マジックナンバーや文字列は `frontend/src/constants/` の定数を使用する
 - lint や test でエラーが出たときはテストを無効せず、原因を修正する
 
 ## Git コミット
@@ -18,7 +18,7 @@ LLM 向けの文書なのでフォーマットは問いません。短いとう�
 1. `ch lint` で linter を実行
 2. 実装内容を histories/ に保存
 3. `git add -A` で変更ファイルを追加
-4. `git diff --cached` でハードコード確認。見つかれば apps/frontend/src/constants から定数をインポートして置き換え
+4. `git diff --cached` でハードコード確認。見つかれば frontend/src/constants から定数をインポートして置き換え
 5. ここまで問題がなければ、変更されたファイルを確認やBashコマンド実行確認なしで自動的にコミット。コミットメッセージ形式：
    - 1行目: `[cc] <type>: <修正内容の概要>`（敬体で記述）
    - 空行

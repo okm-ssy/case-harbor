@@ -344,7 +344,8 @@ body {
   width: 5%;
   min-width: 50px;
   text-align: center;
-  vertical-align: bottom;
+  vertical-align: top;
+  padding-top: 1.5rem;
 }
 
 .spec-cell {
@@ -371,7 +372,8 @@ body {
   width: 5%;
   min-width: 60px;
   text-align: center;
-  vertical-align: bottom;
+  vertical-align: top;
+  padding-top: 1.5rem;
 }
 
 /* Loading and Empty States */
