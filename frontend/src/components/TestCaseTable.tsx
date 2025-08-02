@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { TestCase } from '../types';
 
 interface TestCaseTableProps {
@@ -18,11 +18,28 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   const [editingCell, setEditingCell] = useState<EditingCell | null>(null);
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
+  const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
 
   const startEdit = (testCaseId: string, field: string, currentValue: string) => {
     setEditingCell({ testCaseId, field });
     setEditValue(currentValue);
   };
+
+  // フォーカス時にカーソルを文字列の末尾に移動
+  useEffect(() => {
+    if (inputRef.current && editingCell) {
+      const element = inputRef.current;
+      // 少し遅延させてDOMの更新を待つ
+      setTimeout(() => {
+        element.focus();
+        if (element instanceof HTMLTextAreaElement) {
+          element.setSelectionRange(element.value.length, element.value.length);
+        } else if (element instanceof HTMLInputElement) {
+          element.setSelectionRange(element.value.length, element.value.length);
+        }
+      }, 10);
+    }
+  }, [editingCell, editValue]);
 
   const saveEdit = async () => {
     if (!editingCell) return;
@@ -163,22 +180,22 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     if (isEditing) {
       return isMultiline ? (
         <textarea
+          ref={inputRef as React.RefObject<HTMLTextAreaElement>}
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
           className="inline-edit-textarea"
-          autoFocus
         />
       ) : (
         <input
+          ref={inputRef as React.RefObject<HTMLInputElement>}
           type="text"
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
           className="inline-edit-input"
-          autoFocus
         />
       );
     }

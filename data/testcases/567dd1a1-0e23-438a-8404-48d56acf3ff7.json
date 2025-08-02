@@ -3,10 +3,10 @@
   "projectId": "4ea7d93c-d9dc-4791-b192-6e8e3e81dde3",
   "title": "新しいテストケース",
   "specification": "A 機能\n",
-  "preconditions": "起動していること",
+  "preconditions": "起動していることaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "steps": "ボタンを押す",
   "verification": "画面が変わること",
   "tags": [],
   "createdAt": "2025-08-02T06:05:05.577Z",
-  "updatedAt": "2025-08-02T06:46:17.321Z"
+  "updatedAt": "2025-08-02T07:24:28.624Z"
 }
