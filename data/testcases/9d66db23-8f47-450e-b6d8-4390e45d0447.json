@@ -4,9 +4,9 @@
   "title": "新しいテストケース",
   "specification": "B機能",
   "preconditions": "やっていること\nやっていないこと",
-  "steps": "",
+  "steps": "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\n",
   "verification": "",
   "tags": [],
   "createdAt": "2025-08-02T06:33:48.609Z",
-  "updatedAt": "2025-08-02T06:38:49.122Z"
+  "updatedAt": "2025-08-02T07:20:03.129Z"
 }

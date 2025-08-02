@@ -144,6 +144,19 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     }
   };
 
+  const getDisplayValue = (value: string): string => {
+    if (!value) return '';
+    
+    const lines = value.split('\n');
+    if (lines.length <= 3) {
+      return value;
+    }
+    
+    // 3行以上の場合は最初の3行 + "..."
+    const firstThreeLines = lines.slice(0, 3).join('\n');
+    return firstThreeLines + '\n...';
+  };
+
   const renderEditableCell = (currentTestCase: TestCase, field: string, value: string, isMultiline = false) => {
     const isEditing = editingCell?.testCaseId === currentTestCase.id && editingCell?.field === field;
 
@@ -170,13 +183,16 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
       );
     }
 
+    // 非選択状態での表示: 3行制限
+    const displayValue = getDisplayValue(value);
+
     return (
       <div
         className="editable-cell"
         onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {value || <span className="placeholder">Click to edit</span>}
+        {displayValue || <span className="placeholder">Click to edit</span>}
       </div>
     );
   };
