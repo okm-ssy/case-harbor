@@ -1,0 +1,115 @@
+import { useState, useEffect } from 'react';
+import { Sidebar } from './components/Sidebar';
+import { TestCaseTable } from './components/TestCaseTable';
+import { TestCase } from './types';
+import './App.css';
+
+function App() {
+  const [testCases, setTestCases] = useState<TestCase[]>([]);
+  const [selectedProjectId, setSelectedProjectId] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (selectedProjectId) {
+      fetchTestCases();
+    } else {
+      setTestCases([]);
+      setLoading(false);
+    }
+  }, [selectedProjectId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const fetchTestCases = async () => {
+    if (!selectedProjectId) {
+      setTestCases([]);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/testcases?projectId=${selectedProjectId}`);
+      const data = await response.json();
+      setTestCases(data);
+    } catch (error) {
+      console.error('Failed to fetch test cases:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async (testCase: Partial<TestCase>) => {
+    try {
+      const isUpdate = !!testCase.id;
+      const url = isUpdate ? `/api/testcases/${testCase.id}` : '/api/testcases';
+      const method = isUpdate ? 'PUT' : 'POST';
+
+      const payload = isUpdate ? testCase : { ...testCase, projectId: selectedProjectId };
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        await fetchTestCases();
+      }
+    } catch (error) {
+      console.error('Failed to save test case:', error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this test case?')) return;
+
+    try {
+      const response = await fetch(`/api/testcases/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        await fetchTestCases();
+      }
+    } catch (error) {
+      console.error('Failed to delete test case:', error);
+    }
+  };
+
+  const handleAddTestCase = async () => {
+    if (!selectedProjectId) return;
+
+    const newTestCase = {
+      projectId: selectedProjectId,
+      title: '新しいテストケース',
+      specification: '',
+      preconditions: '',
+      steps: '',
+      verification: '',
+      tags: []
+    };
+
+    await handleSave(newTestCase);
+  };
+
+  return (
+    <div className="app">
+      <Sidebar 
+        selectedProjectId={selectedProjectId}
+        onProjectChange={setSelectedProjectId}
+        testCases={testCases}
+      />
+      
+      <main className="main-content">
+        {loading ? (
+          <div className="loading">Loading test cases...</div>
+        ) : (
+          <TestCaseTable
+            testCases={testCases}
+            onSave={handleSave}
+            onDelete={handleDelete}
+            onAdd={handleAddTestCase}
+            selectedProjectId={selectedProjectId}
+          />
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;
