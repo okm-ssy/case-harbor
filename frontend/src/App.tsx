@@ -28,7 +28,9 @@ function App() {
     try {
       const response = await fetch(`/api/testcases?projectId=${selectedProjectId}`);
       const data = await response.json();
-      setTestCases(data);
+      // 作成日時でソートして、新しいテストケースが最後に来るようにする
+      const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      setTestCases(sortedData);
     } catch (error) {
       console.error('Failed to fetch test cases:', error);
     } finally {
