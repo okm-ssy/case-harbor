@@ -77,15 +77,21 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     const isLastTestCase = currentIndex === testCases.length - 1;
     
     if (isLastTestCase) {
-      // 最後のテストケースに何か内容があるかチェック
-      const hasContent = editValue.trim() !== '' && 
-        (updatedTestCase.specification.trim() !== '' ||
-         updatedTestCase.preconditions.trim() !== '' ||
-         updatedTestCase.steps.trim() !== '' ||
-         updatedTestCase.verification.trim() !== '');
+      // 最後のテストケースの任意のフィールドに内容があるかチェック
+      const hasAnyContent = editValue.trim() !== '' ||
+        updatedTestCase.specification.trim() !== '' ||
+        updatedTestCase.preconditions.trim() !== '' ||
+        updatedTestCase.steps.trim() !== '' ||
+        updatedTestCase.verification.trim() !== '';
       
-      if (hasContent) {
-        // 新しい空のテストケースを追加
+      // 現在空のテストケースで、初めて何かを入力した場合のみ追加
+      const wasEmpty = updatedTestCase.specification.trim() === '' &&
+        updatedTestCase.preconditions.trim() === '' &&
+        updatedTestCase.steps.trim() === '' &&
+        updatedTestCase.verification.trim() === '';
+      
+      if (hasAnyContent && wasEmpty) {
+        // 新しい空のテストケースを最後に追加
         onAdd();
       }
     }
