@@ -7,7 +7,7 @@ import {
   deleteTestCase
 } from '../utils/fileStorage.js';
 import { HTTP_STATUS } from '../constants/http.js';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages.js';
+import { ERROR_MESSAGES } from '../constants/messages.js';
 import { TEST_CASE_DEFAULTS } from '../constants/defaults.js';
 
 const router = Router();

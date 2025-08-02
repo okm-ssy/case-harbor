@@ -24,7 +24,7 @@ export const HTTP_STATUS = {
   NOT_IMPLEMENTED: 501,
   BAD_GATEWAY: 502,
   SERVICE_UNAVAILABLE: 503
-} as const;
+};
 
 // HTTPメソッド
 export const HTTP_METHODS = {
@@ -35,7 +35,7 @@ export const HTTP_METHODS = {
   DELETE: 'DELETE',
   HEAD: 'HEAD',
   OPTIONS: 'OPTIONS'
-} as const;
+};
 
 // Content-Type
 export const CONTENT_TYPES = {
@@ -46,7 +46,7 @@ export const CONTENT_TYPES = {
   XML: 'application/xml',
   FORM_URLENCODED: 'application/x-www-form-urlencoded',
   MULTIPART_FORM: 'multipart/form-data'
-} as const;
+};
 
 // HTTPヘッダー
 export const HTTP_HEADERS = {
@@ -59,4 +59,4 @@ export const HTTP_HEADERS = {
   CORS_ORIGIN: 'Access-Control-Allow-Origin',
   CORS_METHODS: 'Access-Control-Allow-Methods',
   CORS_HEADERS: 'Access-Control-Allow-Headers'
-} as const;
+};

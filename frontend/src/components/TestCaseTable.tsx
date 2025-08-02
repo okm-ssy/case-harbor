@@ -264,7 +264,14 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   return (
     <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600">
       <div className="flex justify-between items-center p-6 bg-gray-800 border-b border-gray-600">
-        <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
+          <div className="flex items-center gap-3 text-sm text-gray-400">
+            <span>プロジェクト: {selectedProjectId}</span>
+            <span>•</span>
+            <span>テストケース数: {testCases.length}件</span>
+          </div>
+        </div>
         <button 
           className="px-4 py-2 bg-blue-600 text-gray-100 rounded-md hover:bg-blue-500 transition-colors duration-200 text-sm font-medium"
           onClick={onAdd}
