@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# CaseHarbor CLI エントリポイント
+# このスクリプトをPATHに追加することで、どこからでも ch コマンドが使えるようになります
+
+set -e
+
+# スクリプトの場所から repository root を特定
+script_dir=$(dirname "$0")
+repository_root=$(cd "$script_dir/.." && pwd)
+
+# 実際のCLIスクリプトを実行
+exec "$repository_root/cli/ch.sh" "$@"
