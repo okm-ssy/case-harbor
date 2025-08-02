@@ -165,7 +165,6 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     if (!value) return '';
     
     const lines = value.split('\n');
-    console.log('getDisplayValue:', { value, linesCount: lines.length, lines });
     
     if (lines.length <= 3) {
       return value;
@@ -173,9 +172,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     
     // 3行以上の場合は最初の3行 + "..."
     const firstThreeLines = lines.slice(0, 3).join('\n');
-    const result = firstThreeLines + '\n...';
-    console.log('getDisplayValue result:', result);
-    return result;
+    return firstThreeLines + '\n...';
   };
 
   const renderEditableCell = (currentTestCase: TestCase, field: string, value: string, isMultiline = false) => {
