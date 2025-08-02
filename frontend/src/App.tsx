@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TestCaseTable } from './components/TestCaseTable';
 import { TestCase } from './types';
+import { API_CONSTANTS, TEXT_CONSTANTS } from './constants/ui';
 import './App.css';
 
 function App() {
@@ -26,13 +27,13 @@ function App() {
     }
 
     try {
-      const response = await fetch(`/api/testcases?projectId=${selectedProjectId}`);
+      const response = await fetch(`${API_CONSTANTS.ENDPOINTS.TEST_CASES}?projectId=${selectedProjectId}`);
       const data = await response.json();
       // 作成日時でソートして、新しいテストケースが最後に来るようにする
       const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       setTestCases(sortedData);
     } catch (error) {
-      console.error('Failed to fetch test cases:', error);
+      console.error(TEXT_CONSTANTS.MESSAGES.FETCH_ERROR, error);
     } finally {
       setLoading(false);
     }
@@ -53,8 +54,8 @@ function App() {
         );
       }
       
-      const url = isUpdate ? `/api/testcases/${testCase.id}` : '/api/testcases';
-      const method = isUpdate ? 'PUT' : 'POST';
+      const url = isUpdate ? `${API_CONSTANTS.ENDPOINTS.TEST_CASES}/${testCase.id}` : API_CONSTANTS.ENDPOINTS.TEST_CASES;
+      const method = isUpdate ? API_CONSTANTS.METHODS.PUT : API_CONSTANTS.METHODS.POST;
 
       const payload = isUpdate ? testCase : { ...testCase, projectId: selectedProjectId };
 
@@ -72,22 +73,22 @@ function App() {
         await fetchTestCases();
       }
     } catch (error) {
-      console.error('Failed to save test case:', error);
+      console.error(TEXT_CONSTANTS.MESSAGES.SAVE_ERROR, error);
       // エラー時も最新データで復元
       await fetchTestCases();
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this test case?')) return;
+    if (!confirm(TEXT_CONSTANTS.MESSAGES.DELETE_CONFIRM)) return;
 
     try {
-      const response = await fetch(`/api/testcases/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_CONSTANTS.ENDPOINTS.TEST_CASES}/${id}`, { method: API_CONSTANTS.METHODS.DELETE });
       if (response.ok) {
         await fetchTestCases();
       }
     } catch (error) {
-      console.error('Failed to delete test case:', error);
+      console.error(TEXT_CONSTANTS.MESSAGES.DELETE_ERROR, error);
     }
   };
 
@@ -96,7 +97,7 @@ function App() {
 
     const newTestCase = {
       projectId: selectedProjectId,
-      title: '新しいテストケース',
+      title: TEXT_CONSTANTS.DEFAULTS.NEW_TEST_CASE,
       specification: '',
       preconditions: '',
       steps: '',
@@ -117,7 +118,7 @@ function App() {
       
       <main className="main-content">
         {loading ? (
-          <div className="loading">Loading test cases...</div>
+          <div className="loading">{TEXT_CONSTANTS.PLACEHOLDERS.LOADING}</div>
         ) : (
           <TestCaseTable
             testCases={testCases}

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { TestCase } from '../types';
+import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS } from '../constants/ui';
 
 interface TestCaseTableProps {
   testCases: TestCase[];
@@ -37,7 +38,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         } else if (element instanceof HTMLInputElement) {
           element.setSelectionRange(element.value.length, element.value.length);
         }
-      }, 10);
+      }, UI_CONSTANTS.FOCUS_DELAY_MS);
     }
   }, [editingCell, editValue]);
 
@@ -201,13 +202,13 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     const trimmedValue = value.replace(/\n+$/, '');
     const lines = trimmedValue.split('\n');
     
-    if (lines.length <= 3) {
+    if (lines.length <= DISPLAY_CONSTANTS.MAX_DISPLAY_LINES) {
       return value;
     }
     
-    // 3行以上の場合は最初の3行 + "..."
-    const firstThreeLines = lines.slice(0, 3).join('\n');
-    return firstThreeLines + '\n...';
+    // 制限行数以上の場合は最初の制限行数 + "..."
+    const firstLines = lines.slice(0, DISPLAY_CONSTANTS.MAX_DISPLAY_LINES).join('\n');
+    return firstLines + '\n' + DISPLAY_CONSTANTS.ELLIPSIS;
   };
 
   const renderEditableCell = (currentTestCase: TestCase, field: string, value: string, isMultiline = false) => {
@@ -245,7 +246,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {displayValue || <span className="placeholder">Click to edit</span>}
+        {displayValue || <span className="placeholder">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
       </div>
     );
   };
@@ -254,7 +255,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     return (
       <div className="test-case-table">
         <div className="empty-state">
-          <p>プロジェクトを選択してテストケースを表示してください</p>
+          <p>{TEXT_CONSTANTS.PLACEHOLDERS.SELECT_PROJECT}</p>
         </div>
       </div>
     );
@@ -263,25 +264,25 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   return (
     <div className="test-case-table">
       <div className="table-header">
-        <h2>テストケース</h2>
+        <h2>{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
         <button className="btn btn-primary" onClick={onAdd}>
-          追加
+          {TEXT_CONSTANTS.BUTTONS.ADD}
         </button>
       </div>
 
       {testCases.length === 0 ? (
         <div className="empty-state">
-          <p>テストケースがありません。最初のテストケースを追加しましょう！</p>
+          <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>仕様</th>
-              <th>事前条件</th>
-              <th>手順</th>
-              <th>確認事項</th>
+              <th>{TEXT_CONSTANTS.HEADERS.ID}</th>
+              <th>{TEXT_CONSTANTS.HEADERS.SPECIFICATION}</th>
+              <th>{TEXT_CONSTANTS.HEADERS.PRECONDITIONS}</th>
+              <th>{TEXT_CONSTANTS.HEADERS.STEPS}</th>
+              <th>{TEXT_CONSTANTS.HEADERS.VERIFICATION}</th>
               <th></th>
             </tr>
           </thead>
@@ -308,7 +309,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
                     className="btn btn-sm btn-danger"
                     onClick={() => onDelete(testCase.id)}
                   >
-                    🗑️
+                    {TEXT_CONSTANTS.BUTTONS.DELETE}
                   </button>
                 </td>
               </tr>
