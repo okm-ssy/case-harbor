@@ -18,6 +18,9 @@ ch() {
   run)
     script_name='run.sh'
     ;;
+  test)
+    script_name='test.sh'
+    ;;
   mcp-build)
     script_name='mcp-build.sh'
     ;;
@@ -40,6 +43,7 @@ help() {
 
   ch lint         コードをlintする（フロントエンド、バックエンド、MCPサーバー）
   ch run          システムを立ち上げる（フロントエンド + バックエンド）
+  ch test         自動テストを実行する（バックエンド）
   ch mcp-build    MCPサーバーのコードをビルドする
   ch help         このヘルプを表示する
 
