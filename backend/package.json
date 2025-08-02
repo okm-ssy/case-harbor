@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend API server for CaseHarbor test case management",
   "main": "src/index.js",
-  "type": "module",
   "engines": {
     "node": "24.4.1"
   },
@@ -29,7 +28,6 @@
   "jest": {
     "testEnvironment": "node",
     "transform": {},
-    "extensionsToTreatAsEsm": [".js"],
     "globals": {
       "NODE_ENV": "test"
     }
