@@ -69,11 +69,11 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
   };
 
   return (
-    <div className="project-selector">
+    <div className="flex flex-col gap-4">
       <select 
         value={selectedProjectId} 
         onChange={(e) => onProjectChange(e.target.value)}
-        className="project-dropdown"
+        className="w-full p-2 border border-gray-600 rounded-md bg-gray-800 text-sm text-gray-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/25"
       >
         <option value="">プロジェクトを選択</option>
         {projects.map(project => (
@@ -84,7 +84,7 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
       </select>
 
       {isCreating ? (
-        <div className="project-create">
+        <div className="flex flex-col gap-2">
           <input
             type="text"
             placeholder="プロジェクト名"
@@ -94,28 +94,35 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
               if (e.key === 'Enter') createProject();
               if (e.key === 'Escape') setIsCreating(false);
             }}
+            className="p-2 border border-gray-600 rounded-md bg-gray-800 text-gray-200 text-sm focus:outline-none focus:border-blue-400"
             autoFocus
           />
-          <div className="project-create-buttons">
-            <button className="btn btn-sm btn-primary" onClick={createProject}>
+          <div className="flex gap-2">
+            <button 
+              className="px-3 py-1.5 bg-blue-600 text-gray-100 rounded text-xs font-medium hover:bg-blue-500 transition-colors duration-200"
+              onClick={createProject}
+            >
               ✅
             </button>
-            <button className="btn btn-sm" onClick={() => setIsCreating(false)}>
+            <button 
+              className="px-3 py-1.5 bg-gray-600 text-gray-200 rounded text-xs font-medium hover:bg-gray-500 transition-colors duration-200"
+              onClick={() => setIsCreating(false)}
+            >
               ❌
             </button>
           </div>
         </div>
       ) : (
-        <div className="project-actions">
+        <div className="flex flex-col gap-2">
           <button 
-            className="btn btn-sm btn-primary"
+            className="px-4 py-2 bg-blue-600 text-gray-100 rounded text-sm font-medium hover:bg-blue-500 transition-colors duration-200"
             onClick={() => setIsCreating(true)}
           >
             新規作成
           </button>
           {selectedProjectId && (
             <button 
-              className="btn btn-sm btn-danger"
+              className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
               onClick={() => deleteProject(selectedProjectId)}
             >
               🗑️

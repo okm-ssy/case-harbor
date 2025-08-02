@@ -3,7 +3,6 @@ import { Sidebar } from './components/Sidebar';
 import { TestCaseTable } from './components/TestCaseTable';
 import { TestCase } from './types';
 import { API_CONSTANTS, TEXT_CONSTANTS } from './constants/ui';
-import './App.css';
 
 function App() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
@@ -109,16 +108,18 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="flex min-h-screen bg-gray-800">
       <Sidebar 
         selectedProjectId={selectedProjectId}
         onProjectChange={setSelectedProjectId}
         testCases={testCases}
       />
       
-      <main className="main-content">
+      <main className="flex-1 p-8 overflow-auto bg-gray-800">
         {loading ? (
-          <div className="loading">{TEXT_CONSTANTS.PLACEHOLDERS.LOADING}</div>
+          <div className="flex items-center justify-center p-16 text-gray-400 text-lg">
+            {TEXT_CONSTANTS.PLACEHOLDERS.LOADING}
+          </div>
         ) : (
           <TestCaseTable
             testCases={testCases}

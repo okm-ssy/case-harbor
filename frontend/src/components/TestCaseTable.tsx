@@ -222,7 +222,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
-          className="inline-edit-textarea"
+          className="w-full p-2 border-2 border-blue-400 rounded-md text-inherit font-inherit bg-gray-800 text-gray-100 resize-y min-h-[6rem] max-h-[200px] outline-none"
         />
       ) : (
         <input
@@ -232,7 +232,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
-          className="inline-edit-input"
+          className="w-full p-2 border-2 border-blue-400 rounded-md text-inherit font-inherit bg-gray-800 text-gray-100 outline-none"
         />
       );
     }
@@ -242,19 +242,19 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
     return (
       <div
-        className="editable-cell"
+        className="min-h-[5.5rem] max-h-[5.5rem] p-2 rounded-md cursor-text transition-colors duration-200 bg-transparent text-gray-200 flex items-start overflow-hidden leading-6 break-words hover:bg-gray-700"
         onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {displayValue || <span className="placeholder">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
+        {displayValue || <span className="text-gray-500 italic">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
       </div>
     );
   };
 
   if (!selectedProjectId) {
     return (
-      <div className="test-case-table">
-        <div className="empty-state">
+      <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600">
+        <div className="flex items-center justify-center p-16 text-gray-400 text-center">
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.SELECT_PROJECT}</p>
         </div>
       </div>
@@ -262,51 +262,64 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   }
 
   return (
-    <div className="test-case-table">
-      <div className="table-header">
-        <h2>{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
-        <button className="btn btn-primary" onClick={onAdd}>
+    <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600">
+      <div className="flex justify-between items-center p-6 bg-gray-800 border-b border-gray-600">
+        <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
+        <button 
+          className="px-4 py-2 bg-blue-600 text-gray-100 rounded-md hover:bg-blue-500 transition-colors duration-200 text-sm font-medium"
+          onClick={onAdd}
+        >
           {TEXT_CONSTANTS.BUTTONS.ADD}
         </button>
       </div>
 
       {testCases.length === 0 ? (
-        <div className="empty-state">
+        <div className="flex items-center justify-center p-16 text-gray-400 text-center">
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
-        <table className="table">
+        <table className="w-full border-collapse bg-gray-900">
           <thead>
             <tr>
-              <th>{TEXT_CONSTANTS.HEADERS.ID}</th>
-              <th>{TEXT_CONSTANTS.HEADERS.SPECIFICATION}</th>
-              <th>{TEXT_CONSTANTS.HEADERS.PRECONDITIONS}</th>
-              <th>{TEXT_CONSTANTS.HEADERS.STEPS}</th>
-              <th>{TEXT_CONSTANTS.HEADERS.VERIFICATION}</th>
-              <th></th>
+              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
+                {TEXT_CONSTANTS.HEADERS.ID}
+              </th>
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
+              </th>
+              <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
+              </th>
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                {TEXT_CONSTANTS.HEADERS.STEPS}
+              </th>
+              <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                {TEXT_CONSTANTS.HEADERS.VERIFICATION}
+              </th>
+              <th className="w-[5%] min-w-[60px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
             </tr>
           </thead>
           <tbody>
             {testCases.map((testCase, index) => (
-              <tr key={testCase.id}>
-                <td className="id-cell">
+              <tr key={testCase.id} className="hover:bg-gray-800 transition-colors duration-150">
+                <td className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200">
                   {index + 1}
                 </td>
-                <td className="spec-cell">
+                <td className="p-4 border-b border-gray-600 align-top">
                   {renderEditableCell(testCase, 'specification', testCase.specification, true)}
                 </td>
-                <td className="precond-cell">
+                <td className="p-4 border-b border-gray-600 align-top">
                   {renderEditableCell(testCase, 'preconditions', testCase.preconditions, true)}
                 </td>
-                <td className="steps-cell">
+                <td className="p-4 border-b border-gray-600 align-top">
                   {renderEditableCell(testCase, 'steps', testCase.steps, true)}
                 </td>
-                <td className="verify-cell">
+                <td className="p-4 border-b border-gray-600 align-top">
                   {renderEditableCell(testCase, 'verification', testCase.verification, true)}
                 </td>
-                <td className="actions-cell">
+                <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
                   <button 
-                    className="btn btn-sm btn-danger"
+                    className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
                     onClick={() => onDelete(testCase.id)}
                   >
                     {TEXT_CONSTANTS.BUTTONS.DELETE}

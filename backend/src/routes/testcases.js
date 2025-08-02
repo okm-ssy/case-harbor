@@ -6,6 +6,9 @@ import {
   writeTestCase,
   deleteTestCase
 } from '../utils/fileStorage.js';
+import { HTTP_STATUS } from '../constants/http.js';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages.js';
+import { TEST_CASE_DEFAULTS } from '../constants/defaults.js';
 
 const router = Router();
 
@@ -21,7 +24,7 @@ router.get('/', async (req, res) => {
     
     res.json(filtered);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to read test cases' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_CREATION_FAILED });
   }
 });
 
@@ -31,7 +34,7 @@ router.get('/:id', async (req, res) => {
     const testCase = await readTestCase(req.params.id);
     
     if (!testCase) {
-      return res.status(404).json({ error: 'Test case not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
     }
     
     res.json(testCase);
@@ -46,20 +49,20 @@ router.post('/', async (req, res) => {
     const testCase = {
       id: uuidv4(),
       projectId: req.body.projectId || '',
-      title: req.body.title || 'Untitled Test Case',
-      specification: req.body.specification || '',
-      preconditions: req.body.preconditions || '',
-      steps: req.body.steps || '',
-      verification: req.body.verification || '',
-      tags: req.body.tags || [],
+      title: req.body.title || TEST_CASE_DEFAULTS.TITLE,
+      specification: req.body.specification || TEST_CASE_DEFAULTS.SPECIFICATION,
+      preconditions: req.body.preconditions || TEST_CASE_DEFAULTS.PRECONDITIONS,
+      steps: req.body.steps || TEST_CASE_DEFAULTS.STEPS,
+      verification: req.body.verification || TEST_CASE_DEFAULTS.VERIFICATION,
+      tags: req.body.tags || TEST_CASE_DEFAULTS.TAGS,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
     
     await writeTestCase(testCase);
-    res.status(201).json(testCase);
+    res.status(HTTP_STATUS.CREATED).json(testCase);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to create test case' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_CREATION_FAILED });
   }
 });
 

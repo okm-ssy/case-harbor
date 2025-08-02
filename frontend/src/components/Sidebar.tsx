@@ -17,36 +17,41 @@ export function Sidebar({ selectedProjectId, onProjectChange, testCases }: Sideb
   return (
     <div 
       ref={sidebarRef}
-      className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}
+      className={`bg-gray-900 border-r border-gray-600 flex flex-col relative transition-all duration-300 ${
+        isCollapsed ? 'w-10' : 'w-80'
+      }`}
     >
-      <div className="sidebar-toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
+      <div 
+        className="absolute top-4 left-2 z-10 bg-gray-600 border border-gray-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-gray-200 text-xs transition-colors duration-200 hover:bg-gray-500"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
         {isCollapsed ? '▶' : '◀'}
       </div>
 
-      <div className="sidebar-content" style={{ display: isCollapsed ? 'none' : 'block' }}>
-        <div className="sidebar-header">
-          <h1>🚢 CaseHarbor</h1>
-          <p className="subtitle">Test Case Management</p>
+      <div className={`p-6 pl-12 overflow-y-auto flex-1 ${isCollapsed ? 'hidden' : 'block'}`}>
+        <div className="mb-8">
+          <h1 className="text-2xl text-gray-100 mb-1">🚢 CaseHarbor</h1>
+          <p className="text-sm text-gray-400">Test Case Management</p>
         </div>
 
-        <div className="sidebar-section">
-          <h3>プロジェクト</h3>
+        <div className="mb-8">
+          <h3 className="text-base text-gray-200 mb-4 font-semibold">プロジェクト</h3>
           <ProjectSelector
             selectedProjectId={selectedProjectId}
             onProjectChange={onProjectChange}
           />
         </div>
 
-        <div className="sidebar-section">
-          <h3>エクスポート</h3>
+        <div className="mb-8">
+          <h3 className="text-base text-gray-200 mb-4 font-semibold">エクスポート</h3>
           <ExportPanel testCases={testCases} />
         </div>
 
-        <div className="sidebar-section">
-          <div className="stats">
-            <div className="stat-item">
-              <span className="stat-label">テストケース数</span>
-              <span className="stat-value">{testCases.length}</span>
+        <div className="mb-8">
+          <div className="bg-gray-800 p-4 rounded-md border border-gray-600">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-400">テストケース数</span>
+              <span className="text-xl font-semibold text-gray-200">{testCases.length}</span>
             </div>
           </div>
         </div>
