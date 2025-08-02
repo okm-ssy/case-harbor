@@ -307,6 +307,8 @@ body {
   align-items: flex-start;
   overflow: hidden;
   line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .editable-cell:hover {
