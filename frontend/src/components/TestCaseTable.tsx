@@ -22,11 +22,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
   const startEdit = (testCaseId: string, field: string, currentValue: string) => {
     setEditingCell({ testCaseId, field });
-    // multilineフィールドの場合は自動で末尾に改行を追加
-    const valueToEdit = ['specification', 'preconditions', 'steps', 'verification'].includes(field) 
-      ? ensureTrailingNewline(currentValue) 
-      : currentValue;
-    setEditValue(valueToEdit);
+    setEditValue(currentValue);
   };
 
   // フォーカス時にカーソルを文字列の末尾に移動
@@ -68,7 +64,31 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     }
 
     await onSave(updateData);
+    
+    // 最後のテストケースに入力があった場合、新しいテストケースを自動追加
+    checkAndAddNewTestCase(testCase);
+    
     setEditingCell(null);
+  };
+
+  const checkAndAddNewTestCase = (updatedTestCase: TestCase) => {
+    // 現在のテストケースが最後かどうかをチェック
+    const currentIndex = testCases.findIndex(tc => tc.id === updatedTestCase.id);
+    const isLastTestCase = currentIndex === testCases.length - 1;
+    
+    if (isLastTestCase) {
+      // 最後のテストケースに何か内容があるかチェック
+      const hasContent = editValue.trim() !== '' && 
+        (updatedTestCase.specification.trim() !== '' ||
+         updatedTestCase.preconditions.trim() !== '' ||
+         updatedTestCase.steps.trim() !== '' ||
+         updatedTestCase.verification.trim() !== '');
+      
+      if (hasContent) {
+        // 新しい空のテストケースを追加
+        onAdd();
+      }
+    }
   };
 
   const cancelEdit = () => {
@@ -165,20 +185,6 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     }
   };
 
-  // 自動行追加処理
-  const ensureTrailingNewline = (value: string): string => {
-    if (!value) return '';
-    
-    const lines = value.split('\n');
-    const lastLine = lines[lines.length - 1];
-    
-    // 最後の行が空でない場合、新しい空行を追加
-    if (lastLine.trim() !== '') {
-      return value + '\n';
-    }
-    
-    return value;
-  };
 
   const getDisplayValue = (value: string): string => {
     if (!value) return '';
@@ -204,11 +210,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         <textarea
           ref={inputRef as React.RefObject<HTMLTextAreaElement>}
           value={editValue}
-          onChange={(e) => {
-            const newValue = e.target.value;
-            const valueWithNewline = ensureTrailingNewline(newValue);
-            setEditValue(valueWithNewline);
-          }}
+          onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
           className="inline-edit-textarea"

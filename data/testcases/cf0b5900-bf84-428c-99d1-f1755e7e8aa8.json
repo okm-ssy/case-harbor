@@ -3,10 +3,10 @@
   "projectId": "4ea7d93c-d9dc-4791-b192-6e8e3e81dde3",
   "title": "新しいテストケース",
   "specification": "",
-  "preconditions": "d\n",
+  "preconditions": "",
   "steps": "",
   "verification": "",
   "tags": [],
   "createdAt": "2025-08-02T06:33:49.136Z",
-  "updatedAt": "2025-08-02T07:41:47.683Z"
+  "updatedAt": "2025-08-02T07:45:59.404Z"
 }
