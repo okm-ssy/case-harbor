@@ -22,7 +22,11 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
   const startEdit = (testCaseId: string, field: string, currentValue: string) => {
     setEditingCell({ testCaseId, field });
-    setEditValue(currentValue);
+    // multilineフィールドの場合は自動で末尾に改行を追加
+    const valueToEdit = ['specification', 'preconditions', 'steps', 'verification'].includes(field) 
+      ? ensureTrailingNewline(currentValue) 
+      : currentValue;
+    setEditValue(valueToEdit);
   };
 
   // フォーカス時にカーソルを文字列の末尾に移動
@@ -161,10 +165,25 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
     }
   };
 
+  // 自動行追加処理
+  const ensureTrailingNewline = (value: string): string => {
+    if (!value) return '';
+    
+    const lines = value.split('\n');
+    const lastLine = lines[lines.length - 1];
+    
+    // 最後の行が空でない場合、新しい空行を追加
+    if (lastLine.trim() !== '') {
+      return value + '\n';
+    }
+    
+    return value;
+  };
+
   const getDisplayValue = (value: string): string => {
     if (!value) return '';
     
-    // 末尾の改行を除去してから行に分割
+    // 表示用に末尾の空行を除去してから行数をカウント
     const trimmedValue = value.replace(/\n+$/, '');
     const lines = trimmedValue.split('\n');
     
@@ -185,7 +204,11 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         <textarea
           ref={inputRef as React.RefObject<HTMLTextAreaElement>}
           value={editValue}
-          onChange={(e) => setEditValue(e.target.value)}
+          onChange={(e) => {
+            const newValue = e.target.value;
+            const valueWithNewline = ensureTrailingNewline(newValue);
+            setEditValue(valueWithNewline);
+          }}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
           className="inline-edit-textarea"
