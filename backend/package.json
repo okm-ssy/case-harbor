@@ -4,6 +4,9 @@
   "description": "Backend API server for CaseHarbor test case management",
   "main": "src/index.js",
   "type": "module",
+  "engines": {
+    "node": "24.4.1"
+  },
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
