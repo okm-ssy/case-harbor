@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TestCaseTable } from './components/TestCaseTable';
-import { TestCase } from './types';
+import { TestCase, Project } from './types';
 import { API_CONSTANTS, TEXT_CONSTANTS } from './constants/ui';
 
 function App() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState('');
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   useEffect(() => {
     if (selectedProjectId) {
@@ -17,6 +22,21 @@ function App() {
       setLoading(false);
     }
   }, [selectedProjectId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch(API_CONSTANTS.ENDPOINTS.PROJECTS);
+      const data = await response.json();
+      setProjects(data);
+    } catch (error) {
+      console.error('Failed to fetch projects:', error);
+    }
+  };
+
+  const getProjectName = (projectId: string): string => {
+    const project = projects.find(p => p.id === projectId);
+    return project ? project.name : projectId;
+  };
 
   const fetchTestCases = async () => {
     if (!selectedProjectId) {
@@ -127,6 +147,7 @@ function App() {
             onDelete={handleDelete}
             onAdd={handleAddTestCase}
             selectedProjectId={selectedProjectId}
+            projectName={getProjectName(selectedProjectId)}
           />
         )}
       </main>

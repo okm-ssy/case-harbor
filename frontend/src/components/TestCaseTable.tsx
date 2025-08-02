@@ -8,6 +8,7 @@ interface TestCaseTableProps {
   onDelete: (id: string) => void;
   onAdd: () => void;
   selectedProjectId: string;
+  projectName: string;
 }
 
 interface EditingCell {
@@ -15,7 +16,7 @@ interface EditingCell {
   field: string;
 }
 
-export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProjectId }: TestCaseTableProps) {
+export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProjectId, projectName }: TestCaseTableProps) {
   const [editingCell, setEditingCell] = useState<EditingCell | null>(null);
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
@@ -267,7 +268,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         <div className="flex items-center gap-4">
           <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
           <div className="flex items-center gap-3 text-sm text-gray-400">
-            <span>プロジェクト: {selectedProjectId}</span>
+            <span>プロジェクト: {projectName}</span>
             <span>•</span>
             <span>テストケース数: {testCases.length}件</span>
           </div>
