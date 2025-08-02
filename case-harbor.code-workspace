@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.comments.insertSpace": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.useTabStops": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.detectIndentation": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "files.associations": {
+      "tailwind.scss": "tailwindcss"
+    },
+    "[shellscript]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint"
+    ],
+    "unwantedRecommendations": []
+  }
+}
