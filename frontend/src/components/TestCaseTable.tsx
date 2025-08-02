@@ -164,7 +164,9 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
   const getDisplayValue = (value: string): string => {
     if (!value) return '';
     
-    const lines = value.split('\n');
+    // 末尾の改行を除去してから行に分割
+    const trimmedValue = value.replace(/\n+$/, '');
+    const lines = trimmedValue.split('\n');
     
     if (lines.length <= 3) {
       return value;
