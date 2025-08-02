@@ -223,7 +223,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
-          className="w-full p-2 border-2 border-blue-400 rounded-md text-inherit font-inherit bg-gray-800 text-gray-100 resize-y min-h-[6rem] max-h-[200px] outline-none"
+          className="w-full p-2 border-2 border-blue-400 rounded-md font-inherit bg-gray-800 text-gray-100 resize-y min-h-[6rem] max-h-[200px] outline-none"
         />
       ) : (
         <input
@@ -233,7 +233,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
-          className="w-full p-2 border-2 border-blue-400 rounded-md text-inherit font-inherit bg-gray-800 text-gray-100 outline-none"
+          className="w-full p-2 border-2 border-blue-400 rounded-md font-inherit bg-gray-800 text-gray-100 outline-none"
         />
       );
     }
@@ -264,13 +264,13 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
   return (
     <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600">
-      <div className="flex justify-between items-center p-6 bg-gray-800 border-b border-gray-600">
-        <div className="flex items-center gap-4">
+      <div className="flex justify-between items-end p-6 bg-gray-800 border-b border-gray-600">
+        <div className="flex items-end gap-4">
           <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
-          <div className="flex items-center gap-3 text-sm text-gray-400">
-            <span>プロジェクト: {projectName}</span>
+          <div className="flex items-end gap-3 text-sm text-gray-400">
+            <span>{projectName}</span>
             <span>•</span>
-            <span>テストケース数: {testCases.length}件</span>
+            <span>{testCases.length}件</span>
           </div>
         </div>
         <button 
@@ -286,7 +286,8 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
-        <table className="w-full border-collapse bg-gray-900">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px] border-collapse bg-gray-900">
           <thead>
             <tr>
               <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
@@ -304,7 +305,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
               <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.VERIFICATION}
               </th>
-              <th className="w-[5%] min-w-[60px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
+              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
             </tr>
           </thead>
           <tbody>
@@ -337,6 +338,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
