@@ -8,12 +8,25 @@ export class TestCaseStorage {
   private projectDir: string;
 
   constructor() {
-    // Determine case-harbor project root from MCP server location
-    const currentFile = fileURLToPath(import.meta.url);
-    const currentDir = dirname(currentFile);
-    // From mcp-server/dist/storage.js -> ../../data (case-harbor root)
-    const caseHarborRoot = join(currentDir, '../..');
-    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(caseHarborRoot, 'data');
+    let baseDir: string;
+    
+    // Priority 1: Direct data directory override
+    if (process.env.CASE_HARBOR_DATA_DIR) {
+      baseDir = process.env.CASE_HARBOR_DATA_DIR;
+    }
+    // Priority 2: Case Harbor project root environment variable
+    else if (process.env.CASE_HARBOR_ROOT) {
+      baseDir = join(process.env.CASE_HARBOR_ROOT, 'data');
+    }
+    // Priority 3: Determine from MCP server location (when running from case-harbor repo)
+    else {
+      const currentFile = fileURLToPath(import.meta.url);
+      const currentDir = dirname(currentFile);
+      // From mcp-server/dist/storage.js -> ../../data (case-harbor root)
+      const caseHarborRoot = join(currentDir, '../..');
+      baseDir = join(caseHarborRoot, 'data');
+    }
+    
     this.testCaseDir = join(baseDir, 'testcases');
     this.projectDir = join(baseDir, 'projects');
   }
