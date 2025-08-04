@@ -103,8 +103,11 @@ temp/
 # Claude Code specific
 .claude/
 
-# Data files (if they should be ignored - comment out if you want to track them)
-# data/
+# Data files - ignore all but keep directory structure
+data/*
+!data/.gitkeep
+!data/projects/.gitkeep
+!data/testcases/.gitkeep
 
 # Case Harbor specific temporary files
 *.tmp

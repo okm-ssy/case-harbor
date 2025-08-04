@@ -5,7 +5,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const DATA_DIR = join(__dirname, '../../../data/testcases');
+// Use environment variable or default to repository root data directory
+const repositoryRoot = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
+const DATA_DIR = join(repositoryRoot, 'data/testcases');
 
 // Ensure data directory exists
 export async function ensureDataDir() {

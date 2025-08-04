@@ -7,7 +7,9 @@ export class TestCaseStorage {
   private projectDir: string;
 
   constructor() {
-    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(process.cwd(), 'data');
+    // Use environment variable or default to repository root data directory
+    const repositoryRoot = process.env.REPOSITORY_ROOT || process.cwd();
+    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(repositoryRoot, 'data');
     this.testCaseDir = join(baseDir, 'testcases');
     this.projectDir = join(baseDir, 'projects');
   }
