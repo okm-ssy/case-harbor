@@ -51,9 +51,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
     const updateData: Partial<TestCase> = { id: testCase.id };
 
-    if (editingCell.field === 'title') {
-      updateData.title = editValue;
-    } else if (editingCell.field === 'specification') {
+    if (editingCell.field === 'specification') {
       updateData.specification = editValue;
     } else if (editingCell.field === 'preconditions') {
       updateData.preconditions = editValue;
@@ -293,13 +291,13 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
               <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
                 {TEXT_CONSTANTS.HEADERS.ID}
               </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
               </th>
               <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
               </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[35%] min-w-[220px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.STEPS}
               </th>
               <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">

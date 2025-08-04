@@ -1,7 +1,6 @@
 export interface TestCase {
   id: string;
   projectId: string;
-  title: string;
   specification: string;      // 仕様
   preconditions: string;      // 事前条件
   steps: string;              // 手順
@@ -13,7 +12,6 @@ export interface TestCase {
 
 export interface CreateTestCaseData {
   projectId: string;
-  title: string;
   specification?: string;
   preconditions?: string;
   steps?: string;
@@ -22,7 +20,6 @@ export interface CreateTestCaseData {
 }
 
 export interface UpdateTestCaseData {
-  title?: string;
   specification?: string;
   preconditions?: string;
   steps?: string;

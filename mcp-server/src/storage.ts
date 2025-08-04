@@ -138,13 +138,33 @@ export class TestCaseStorage {
     return join(this.projectDir, `${id}.json`);
   }
 
+  private async resolveProjectId(projectIdOrName: string): Promise<string> {
+    // If it looks like a UUID, return as-is
+    if (projectIdOrName.match(/^[a-f0-9-]{36}$/i)) {
+      return projectIdOrName;
+    }
+    
+    // Search for project by name
+    const projects = await this.getAllProjects();
+    const project = projects.find(p => p.name === projectIdOrName);
+    
+    if (project) {
+      return project.id;
+    }
+    
+    // If not found, return the original value (might be a project ID)
+    return projectIdOrName;
+  }
+
   async createTestCase(data: CreateTestCaseData): Promise<TestCase> {
     await this.ensureDataDir();
 
+    // Resolve project name to project ID if needed
+    const projectId = await this.resolveProjectId(data.projectId);
+
     const testCase: TestCase = {
       id: this.generateId(),
-      projectId: data.projectId,
-      title: data.title,
+      projectId: projectId,
       specification: data.specification || '',
       preconditions: data.preconditions || '',
       steps: data.steps || '',

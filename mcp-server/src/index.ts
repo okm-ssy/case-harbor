@@ -53,8 +53,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         inputSchema: {
           type: 'object',
           properties: {
-            projectId: { type: 'string', description: 'Project ID (required)' },
-            title: { type: 'string', description: 'Test case title' },
+            projectId: { type: 'string', description: 'Project ID or project name (required)' },
             specification: { type: 'string', description: 'Test specification' },
             preconditions: { type: 'string', description: 'Preconditions' },
             steps: { type: 'string', description: 'Test steps' },
@@ -65,7 +64,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               description: 'Tags for categorization'
             }
           },
-          required: ['projectId', 'title']
+          required: ['projectId']
         }
       },
       {
@@ -98,7 +97,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           type: 'object',
           properties: {
             id: { type: 'string', description: 'Test case ID' },
-            title: { type: 'string', description: 'Test case title' },
             specification: { type: 'string', description: 'Test specification' },
             preconditions: { type: 'string', description: 'Preconditions' },
             steps: { type: 'string', description: 'Test steps' },
@@ -177,7 +175,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     case 'create_test_case': {
       const testCase = await storage.createTestCase({
         projectId: args.projectId as string,
-        title: args.title as string,
         specification: (args.specification as string) || '',
         preconditions: (args.preconditions as string) || '',
         steps: (args.steps as string) || '',
@@ -189,7 +186,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         content: [
           {
             type: 'text',
-            text: `Test case created successfully!\n\nID: ${testCase.id}\nTitle: ${testCase.title}\nProject: ${testCase.projectId}`
+            text: `Test case created successfully!\n\nID: ${testCase.id}\nProject: ${testCase.projectId}`
           }
         ]
       };
@@ -209,7 +206,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       const summary = filtered.map(tc => {
         const projectInfo = tc.projectId ? ` [Project: ${tc.projectId}]` : '';
-        return `- ${tc.title} (${tc.id}) [${tc.tags.join(', ')}]${projectInfo}`;
+        const tags = tc.tags.length > 0 ? ` [${tc.tags.join(', ')}]` : '';
+        return `- ${tc.id}${tags}${projectInfo}`;
       }).join('\n');
 
       const filterInfo = args.projectId ? ` in project ${args.projectId}` : '';
@@ -246,24 +244,24 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       const details = [
-        `# ${testCase.title}`,
+        `# Test Case ${testCase.id}`,
         '',
         `**ID:** ${testCase.id}`,
         `**Project:** ${testCase.projectId}`,
         '',
         '## Specification',
-        testCase.specification,
+        testCase.specification || '(No specification)',
         '',
         '## Preconditions',  
-        testCase.preconditions,
+        testCase.preconditions || '(No preconditions)',
         '',
         '## Steps',
-        testCase.steps,
+        testCase.steps || '(No steps)',
         '',
         '## Verification',
-        testCase.verification,
+        testCase.verification || '(No verification)',
         '',
-        `**Tags:** ${testCase.tags.join(', ')}`,
+        `**Tags:** ${testCase.tags.join(', ') || '(No tags)'}`,
         `**Created:** ${testCase.createdAt}`,
         `**Updated:** ${testCase.updatedAt}`
       ].filter(line => line !== '').join('\n');
@@ -280,7 +278,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
     case 'update_test_case': {
       const updated = await storage.updateTestCase(args.id as string, {
-        title: args.title as string,
         specification: args.specification as string,
         preconditions: args.preconditions as string,
         steps: args.steps as string,
@@ -303,7 +300,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         content: [
           {
             type: 'text',
-            text: `Test case updated successfully!\n\nID: ${updated.id}\nTitle: ${updated.title}`
+            text: `Test case updated successfully!\n\nID: ${updated.id}\nProject: ${updated.projectId}`
           }
         ]
       };

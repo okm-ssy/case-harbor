@@ -120,7 +120,7 @@ export function ExportPanel({ testCases }: ExportPanelProps) {
                       onChange={() => toggleSelection(tc.id)}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
-                    <span className="text-sm text-gray-900 truncate">{tc.title}</span>
+                    <span className="text-sm text-gray-900 truncate">{tc.id}</span>
                   </label>
                 ))}
               </div>

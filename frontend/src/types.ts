@@ -9,7 +9,6 @@ export interface Project {
 export interface TestCase {
   id: string;
   projectId: string;
-  title: string;
   specification: string;      // 仕様
   preconditions: string;      // 事前条件
   steps: string;              // 手順
