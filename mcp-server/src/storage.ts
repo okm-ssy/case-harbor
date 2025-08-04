@@ -1,19 +1,23 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { TestCase, CreateTestCaseData, UpdateTestCaseData } from './types.js';
+import { TestCase, CreateTestCaseData, UpdateTestCaseData, Project } from './types.js';
 
 export class TestCaseStorage {
-  private dataDir: string;
+  private testCaseDir: string;
+  private projectDir: string;
 
   constructor() {
-    this.dataDir = process.env.CASE_HARBOR_DATA_DIR || join(process.cwd(), 'data', 'testcases');
+    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(process.cwd(), 'data');
+    this.testCaseDir = join(baseDir, 'testcases');
+    this.projectDir = join(baseDir, 'projects');
   }
 
   private async ensureDataDir(): Promise<void> {
     try {
-      await fs.mkdir(this.dataDir, { recursive: true });
+      await fs.mkdir(this.testCaseDir, { recursive: true });
+      await fs.mkdir(this.projectDir, { recursive: true });
     } catch (error) {
-      console.error('Failed to create data directory:', error);
+      console.error('Failed to create data directories:', error);
     }
   }
 
@@ -21,8 +25,12 @@ export class TestCaseStorage {
     return `tc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  private getFilePath(id: string): string {
-    return join(this.dataDir, `${id}.json`);
+  private getTestCaseFilePath(id: string): string {
+    return join(this.testCaseDir, `${id}.json`);
+  }
+
+  private getProjectFilePath(id: string): string {
+    return join(this.projectDir, `${id}.json`);
   }
 
   async createTestCase(data: CreateTestCaseData): Promise<TestCase> {
@@ -30,6 +38,7 @@ export class TestCaseStorage {
 
     const testCase: TestCase = {
       id: this.generateId(),
+      projectId: data.projectId,
       title: data.title,
       description: data.description || '',
       preconditions: data.preconditions || [],
@@ -39,7 +48,7 @@ export class TestCaseStorage {
       updatedAt: new Date().toISOString()
     };
 
-    const filePath = this.getFilePath(testCase.id);
+    const filePath = this.getTestCaseFilePath(testCase.id);
     await fs.writeFile(filePath, JSON.stringify(testCase, null, 2));
 
     return testCase;
@@ -47,7 +56,7 @@ export class TestCaseStorage {
 
   async getTestCase(id: string): Promise<TestCase | null> {
     try {
-      const filePath = this.getFilePath(id);
+      const filePath = this.getTestCaseFilePath(id);
       const content = await fs.readFile(filePath, 'utf8');
       return JSON.parse(content);
     } catch (error) {
@@ -62,12 +71,12 @@ export class TestCaseStorage {
     await this.ensureDataDir();
 
     try {
-      const files = await fs.readdir(this.dataDir);
+      const files = await fs.readdir(this.testCaseDir);
       const testCases: TestCase[] = [];
 
       for (const file of files) {
         if (file.endsWith('.json')) {
-          const content = await fs.readFile(join(this.dataDir, file), 'utf8');
+          const content = await fs.readFile(join(this.testCaseDir, file), 'utf8');
           testCases.push(JSON.parse(content));
         }
       }
@@ -95,7 +104,7 @@ export class TestCaseStorage {
       updatedAt: new Date().toISOString()
     };
 
-    const filePath = this.getFilePath(id);
+    const filePath = this.getTestCaseFilePath(id);
     await fs.writeFile(filePath, JSON.stringify(updated, null, 2));
 
     return updated;
@@ -103,7 +112,7 @@ export class TestCaseStorage {
 
   async deleteTestCase(id: string): Promise<boolean> {
     try {
-      const filePath = this.getFilePath(id);
+      const filePath = this.getTestCaseFilePath(id);
       await fs.unlink(filePath);
       return true;
     } catch (error) {
@@ -112,5 +121,90 @@ export class TestCaseStorage {
       }
       throw error;
     }
+  }
+
+  // Project management methods
+  async getAllProjects(): Promise<Project[]> {
+    await this.ensureDataDir();
+
+    try {
+      const files = await fs.readdir(this.projectDir);
+      const projects: Project[] = [];
+
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          const content = await fs.readFile(join(this.projectDir, file), 'utf8');
+          projects.push(JSON.parse(content));
+        }
+      }
+
+      return projects.sort((a, b) => 
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+    } catch (error) {
+      console.error('Failed to read projects:', error);
+      return [];
+    }
+  }
+
+  async getProject(id: string): Promise<Project | null> {
+    try {
+      const filePath = this.getProjectFilePath(id);
+      const content = await fs.readFile(filePath, 'utf8');
+      return JSON.parse(content);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  async toggleProject(id: string, name?: string): Promise<{ action: 'created' | 'deleted', project?: Project }> {
+    const existing = await this.getProject(id);
+    
+    if (existing) {
+      // Project exists, delete it
+      const filePath = this.getProjectFilePath(id);
+      await fs.unlink(filePath);
+      return { action: 'deleted' };
+    } else {
+      // Project doesn't exist, create it
+      await this.ensureDataDir();
+      
+      const project: Project = {
+        id,
+        name: name || `Project ${id}`,
+        description: '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      const filePath = this.getProjectFilePath(id);
+      await fs.writeFile(filePath, JSON.stringify(project, null, 2));
+      
+      return { action: 'created', project };
+    }
+  }
+
+  async getTestCasesByProject(projectId: string): Promise<TestCase[]> {
+    const allTestCases = await this.getAllTestCases();
+    return allTestCases.filter(tc => tc.projectId === projectId);
+  }
+
+  async getTestCaseByProjectAndId(projectId: string, testCaseId: string): Promise<TestCase | null> {
+    const testCase = await this.getTestCase(testCaseId);
+    if (testCase && testCase.projectId === projectId) {
+      return testCase;
+    }
+    return null;
+  }
+
+  async deleteTestCaseByProjectAndId(projectId: string, testCaseId: string): Promise<boolean> {
+    const testCase = await this.getTestCase(testCaseId);
+    if (testCase && testCase.projectId === projectId) {
+      return await this.deleteTestCase(testCaseId);
+    }
+    return false;
   }
 }

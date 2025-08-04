@@ -5,6 +5,7 @@ export interface TestStep {
 
 export interface TestCase {
   id: string;
+  projectId?: string;
   title: string;
   description: string;
   preconditions: string[];
@@ -15,6 +16,7 @@ export interface TestCase {
 }
 
 export interface CreateTestCaseData {
+  projectId?: string;
   title: string;
   description?: string;
   preconditions?: string[];
@@ -28,4 +30,12 @@ export interface UpdateTestCaseData {
   preconditions?: string[];
   steps?: TestStep[];
   tags?: string[];
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
 }
