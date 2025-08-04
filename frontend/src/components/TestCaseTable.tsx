@@ -241,7 +241,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
     return (
       <div
-        className="min-h-[5.5rem] max-h-[5.5rem] p-2 rounded-md cursor-text transition-colors duration-200 bg-transparent text-gray-200 flex items-start overflow-hidden leading-6 break-words hover:bg-gray-700"
+        className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md cursor-text transition-colors duration-200 bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words hover:bg-gray-700"
         onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
@@ -286,24 +286,24 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[800px] border-collapse bg-gray-900">
-          <thead>
+          <thead className="sticky top-0 z-10">
             <tr>
-              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
+              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center sticky top-0 z-10">
                 {TEXT_CONSTANTS.HEADERS.ID}
               </th>
-              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
                 {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
               </th>
-              <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
                 {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
               </th>
-              <th className="w-[35%] min-w-[220px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
                 {TEXT_CONSTANTS.HEADERS.STEPS}
               </th>
-              <th className="w-[25%] min-w-[180px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
                 {TEXT_CONSTANTS.HEADERS.VERIFICATION}
               </th>
-              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
+              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10"></th>
             </tr>
           </thead>
           <tbody>
