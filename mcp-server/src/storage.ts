@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { TestCase, CreateTestCaseData, UpdateTestCaseData, Project } from './types.js';
 
 export class TestCaseStorage {
@@ -7,9 +8,12 @@ export class TestCaseStorage {
   private projectDir: string;
 
   constructor() {
-    // Use environment variable or default to repository root data directory
-    const repositoryRoot = process.env.REPOSITORY_ROOT || process.cwd();
-    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(repositoryRoot, 'data');
+    // Determine case-harbor project root from MCP server location
+    const currentFile = fileURLToPath(import.meta.url);
+    const currentDir = dirname(currentFile);
+    // From mcp-server/dist/storage.js -> ../../data (case-harbor root)
+    const caseHarborRoot = join(currentDir, '../..');
+    const baseDir = process.env.CASE_HARBOR_DATA_DIR || join(caseHarborRoot, 'data');
     this.testCaseDir = join(baseDir, 'testcases');
     this.projectDir = join(baseDir, 'projects');
   }
