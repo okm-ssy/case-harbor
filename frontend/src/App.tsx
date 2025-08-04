@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TestCaseTable } from './components/TestCaseTable';
 import { TestCase, Project } from './types';
-import { API_CONSTANTS, TEXT_CONSTANTS } from './constants/ui';
+import { API_CONSTANTS, TEXT_CONSTANTS, STORAGE_CONSTANTS } from './constants/ui';
 
 function App() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
@@ -12,6 +12,13 @@ function App() {
 
   useEffect(() => {
     fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    const savedProjectId = localStorage.getItem(STORAGE_CONSTANTS.KEYS.SELECTED_PROJECT_ID);
+    if (savedProjectId) {
+      setSelectedProjectId(savedProjectId);
+    }
   }, []);
 
   useEffect(() => {
@@ -116,7 +123,6 @@ function App() {
 
     const newTestCase = {
       projectId: selectedProjectId,
-      title: TEXT_CONSTANTS.DEFAULTS.NEW_TEST_CASE,
       specification: '',
       preconditions: '',
       steps: '',
@@ -131,7 +137,10 @@ function App() {
     <div className="flex min-h-screen bg-gray-800">
       <Sidebar 
         selectedProjectId={selectedProjectId}
-        onProjectChange={setSelectedProjectId}
+        onProjectChange={(projectId) => {
+          setSelectedProjectId(projectId);
+          localStorage.setItem(STORAGE_CONSTANTS.KEYS.SELECTED_PROJECT_ID, projectId);
+        }}
         testCases={testCases}
       />
       

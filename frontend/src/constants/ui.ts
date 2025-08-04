@@ -44,6 +44,13 @@ export const API_CONSTANTS = {
   },
 } as const;
 
+// LocalStorage関連の定数
+export const STORAGE_CONSTANTS = {
+  KEYS: {
+    SELECTED_PROJECT_ID: 'caseharb_selected_project_id',
+  },
+} as const;
+
 // 文字列定数
 export const TEXT_CONSTANTS = {
   PLACEHOLDERS: {
