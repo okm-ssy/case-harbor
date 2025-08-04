@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Project } from '../types';
+import { STORAGE_CONSTANTS } from '../constants/ui';
 
 interface ProjectSelectorProps {
   selectedProjectId: string;
@@ -21,8 +22,9 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
       const data = await response.json();
       setProjects(data);
       
-      // Auto-select first project if none selected
-      if (!selectedProjectId && data.length > 0) {
+      // Auto-select first project only if none selected AND no localStorage value exists
+      const savedProjectId = localStorage.getItem(STORAGE_CONSTANTS.KEYS.SELECTED_PROJECT_ID);
+      if (!selectedProjectId && !savedProjectId && data.length > 0) {
         onProjectChange(data[0].id);
       }
     } catch (error) {
