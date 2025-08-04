@@ -12,6 +12,9 @@ ch() {
   subcommand=$1
   [ $# -gt 0 ] && shift
   case $subcommand in
+  edit)
+    script_name='edit.sh'
+    ;;
   lint)
     script_name='lint.sh'
     ;;
@@ -41,6 +44,7 @@ help() {
   CaseHarbor CLI コマンド
   ======================
 
+  ch edit         サーバーを停止してコード編集に切り替える
   ch lint         コードをlintする（フロントエンド、バックエンド、MCPサーバー）
   ch run          システムを立ち上げる（フロントエンド + バックエンド）
   ch test         自動テストを実行する（バックエンド）
