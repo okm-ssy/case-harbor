@@ -18,17 +18,103 @@ export class TestCaseStorage {
     else if (process.env.CASE_HARBOR_ROOT) {
       baseDir = join(process.env.CASE_HARBOR_ROOT, 'data');
     }
-    // Priority 3: Determine from MCP server location (when running from case-harbor repo)
+    // Priority 3: Auto-detect Case Harbor project
     else {
-      const currentFile = fileURLToPath(import.meta.url);
-      const currentDir = dirname(currentFile);
-      // From mcp-server/dist/storage.js -> ../../data (case-harbor root)
-      const caseHarborRoot = join(currentDir, '../..');
+      const caseHarborRoot = this.findCaseHarborProject();
       baseDir = join(caseHarborRoot, 'data');
     }
     
     this.testCaseDir = join(baseDir, 'testcases');
     this.projectDir = join(baseDir, 'projects');
+  }
+
+  private findCaseHarborProject(): string {
+    // First, try from MCP server location (when running from case-harbor repo)
+    const currentFile = fileURLToPath(import.meta.url);
+    const currentDir = dirname(currentFile);
+    const mcpServerRoot = join(currentDir, '../..');
+    
+    if (this.isCaseHarborProject(mcpServerRoot)) {
+      return mcpServerRoot;
+    }
+    
+    // Search upward from current working directory
+    let searchDir = process.cwd();
+    for (let i = 0; i < 10; i++) { // Limit search depth
+      if (this.isCaseHarborProject(searchDir)) {
+        return searchDir;
+      }
+      
+      const parentDir = dirname(searchDir);
+      if (parentDir === searchDir) break; // Reached root
+      searchDir = parentDir;
+    }
+    
+    // Search common project locations
+    const commonPaths = [
+      join(process.env.HOME || '~', 'case-harbor'),
+      join(process.env.HOME || '~', 'projects', 'case-harbor'),
+      join(process.env.HOME || '~', 'dev', 'case-harbor'),
+      '/workspace', // devcontainer path
+    ];
+    
+    for (const path of commonPaths) {
+      if (this.isCaseHarborProject(path)) {
+        return path;
+      }
+    }
+    
+    // Fallback to MCP server location
+    return mcpServerRoot;
+  }
+
+  private isCaseHarborProject(dir: string): boolean {
+    try {
+      // Check for characteristic files that indicate this is the case-harbor project
+      const packageJsonPath = join(dir, 'package.json');
+      const claudeMdPath = join(dir, 'CLAUDE.md');
+      const cliPath = join(dir, 'cli', 'ch.sh');
+      const mcpServerPath = join(dir, 'mcp-server', 'package.json');
+      
+      // Synchronous check for performance
+      const fs = require('fs');
+      
+      // Must have CLAUDE.md (project-specific file)
+      if (!fs.existsSync(claudeMdPath)) return false;
+      
+      // Must have cli/ch.sh (case-harbor specific)
+      if (!fs.existsSync(cliPath)) return false;
+      
+      // Must have mcp-server directory
+      if (!fs.existsSync(mcpServerPath)) return false;
+      
+      // Check package.json content if it exists
+      if (fs.existsSync(packageJsonPath)) {
+        try {
+          const packageContent = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          // Look for case-harbor specific indicators
+          if (packageContent.name && packageContent.name.includes('case-harbor')) {
+            return true;
+          }
+        } catch (e) {
+          // Continue with other checks
+        }
+      }
+      
+      // Check CLAUDE.md content
+      try {
+        const claudeContent = fs.readFileSync(claudeMdPath, 'utf8');
+        if (claudeContent.includes('Case Harbor') || claudeContent.includes('case-harbor')) {
+          return true;
+        }
+      } catch (e) {
+        // Continue with other checks
+      }
+      
+      return true; // If we have the required files, assume it's case-harbor
+    } catch (e) {
+      return false;
+    }
   }
 
   private async ensureDataDir(): Promise<void> {
