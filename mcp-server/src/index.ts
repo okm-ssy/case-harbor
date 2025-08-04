@@ -7,7 +7,6 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { TestCaseStorage } from './storage.js';
-import { TestStep } from './types.js';
 
 const server = new Server(
   {
@@ -54,33 +53,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         inputSchema: {
           type: 'object',
           properties: {
-            projectId: { type: 'string', description: 'Project ID (optional)' },
+            projectId: { type: 'string', description: 'Project ID (required)' },
             title: { type: 'string', description: 'Test case title' },
-            description: { type: 'string', description: 'Test case description' },
-            preconditions: { 
-              type: 'array', 
-              items: { type: 'string' },
-              description: 'List of preconditions'
-            },
-            steps: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  action: { type: 'string' },
-                  expectedResult: { type: 'string' }
-                },
-                required: ['action', 'expectedResult']
-              },
-              description: 'Test steps'
-            },
+            specification: { type: 'string', description: 'Test specification' },
+            preconditions: { type: 'string', description: 'Preconditions' },
+            steps: { type: 'string', description: 'Test steps' },
+            verification: { type: 'string', description: 'Verification criteria' },
             tags: {
               type: 'array',
               items: { type: 'string' },
               description: 'Tags for categorization'
             }
           },
-          required: ['title']
+          required: ['projectId', 'title']
         }
       },
       {
@@ -114,24 +99,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           properties: {
             id: { type: 'string', description: 'Test case ID' },
             title: { type: 'string', description: 'Test case title' },
-            description: { type: 'string', description: 'Test case description' },
-            preconditions: { 
-              type: 'array', 
-              items: { type: 'string' },
-              description: 'List of preconditions'
-            },
-            steps: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  action: { type: 'string' },
-                  expectedResult: { type: 'string' }
-                },
-                required: ['action', 'expectedResult']
-              },
-              description: 'Test steps'
-            },
+            specification: { type: 'string', description: 'Test specification' },
+            preconditions: { type: 'string', description: 'Preconditions' },
+            steps: { type: 'string', description: 'Test steps' },
+            verification: { type: 'string', description: 'Verification criteria' },
             tags: {
               type: 'array',
               items: { type: 'string' },
@@ -207,18 +178,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const testCase = await storage.createTestCase({
         projectId: args.projectId as string,
         title: args.title as string,
-        description: (args.description as string) || '',
-        preconditions: (args.preconditions as string[]) || [],
-        steps: (args.steps as TestStep[]) || [],
+        specification: (args.specification as string) || '',
+        preconditions: (args.preconditions as string) || '',
+        steps: (args.steps as string) || '',
+        verification: (args.verification as string) || '',
         tags: (args.tags as string[]) || []
       });
         
-      const projectInfo = testCase.projectId ? ` (Project: ${testCase.projectId})` : '';
       return {
         content: [
           {
             type: 'text',
-            text: `Test case created successfully!\n\nID: ${testCase.id}\nTitle: ${testCase.title}${projectInfo}\nSteps: ${testCase.steps.length}`
+            text: `Test case created successfully!\n\nID: ${testCase.id}\nTitle: ${testCase.title}\nProject: ${testCase.projectId}`
           }
         ]
       };
@@ -238,7 +209,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       const summary = filtered.map(tc => {
         const projectInfo = tc.projectId ? ` [Project: ${tc.projectId}]` : '';
-        return `- ${tc.title} (${tc.id}) - ${tc.steps.length} steps [${tc.tags.join(', ')}]${projectInfo}`;
+        return `- ${tc.title} (${tc.id}) [${tc.tags.join(', ')}]${projectInfo}`;
       }).join('\n');
 
       const filterInfo = args.projectId ? ` in project ${args.projectId}` : '';
@@ -278,14 +249,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         `# ${testCase.title}`,
         '',
         `**ID:** ${testCase.id}`,
-        testCase.projectId ? `**Project:** ${testCase.projectId}` : '',
-        `**Description:** ${testCase.description}`,
+        `**Project:** ${testCase.projectId}`,
         '',
-        '## Preconditions',
-        testCase.preconditions.map(p => `- ${p}`).join('\n'),
+        '## Specification',
+        testCase.specification,
+        '',
+        '## Preconditions',  
+        testCase.preconditions,
         '',
         '## Steps',
-        testCase.steps.map((s, i) => `${i + 1}. ${s.action} → ${s.expectedResult}`).join('\n'),
+        testCase.steps,
+        '',
+        '## Verification',
+        testCase.verification,
         '',
         `**Tags:** ${testCase.tags.join(', ')}`,
         `**Created:** ${testCase.createdAt}`,
@@ -305,9 +281,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     case 'update_test_case': {
       const updated = await storage.updateTestCase(args.id as string, {
         title: args.title as string,
-        description: args.description as string,
-        preconditions: args.preconditions as string[],
-        steps: args.steps as TestStep[],
+        specification: args.specification as string,
+        preconditions: args.preconditions as string,
+        steps: args.steps as string,
+        verification: args.verification as string,
         tags: args.tags as string[]
       });
 

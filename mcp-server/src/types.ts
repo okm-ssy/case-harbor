@@ -1,34 +1,32 @@
-export interface TestStep {
-  action: string;
-  expectedResult: string;
-}
-
 export interface TestCase {
   id: string;
-  projectId?: string;
+  projectId: string;
   title: string;
-  description: string;
-  preconditions: string[];
-  steps: TestStep[];
+  specification: string;      // 仕様
+  preconditions: string;      // 事前条件
+  steps: string;              // 手順
+  verification: string;       // 確認事項
   tags: string[];
   createdAt: string;
   updatedAt: string;
 }
 
 export interface CreateTestCaseData {
-  projectId?: string;
+  projectId: string;
   title: string;
-  description?: string;
-  preconditions?: string[];
-  steps?: TestStep[];
+  specification?: string;
+  preconditions?: string;
+  steps?: string;
+  verification?: string;
   tags?: string[];
 }
 
 export interface UpdateTestCaseData {
   title?: string;
-  description?: string;
-  preconditions?: string[];
-  steps?: TestStep[];
+  specification?: string;
+  preconditions?: string;
+  steps?: string;
+  verification?: string;
   tags?: string[];
 }
 

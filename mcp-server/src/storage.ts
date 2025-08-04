@@ -40,9 +40,10 @@ export class TestCaseStorage {
       id: this.generateId(),
       projectId: data.projectId,
       title: data.title,
-      description: data.description || '',
-      preconditions: data.preconditions || [],
-      steps: data.steps || [],
+      specification: data.specification || '',
+      preconditions: data.preconditions || '',
+      steps: data.steps || '',
+      verification: data.verification || '',
       tags: data.tags || [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
