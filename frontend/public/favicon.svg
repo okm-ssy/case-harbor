@@ -1,0 +1,49 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hullGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#475569;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deckGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#64748B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#475569;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="containerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B91C1C;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background square with light blue border -->
+  <rect x="1" y="1" width="30" height="30" fill="currentcolor" stroke="#4284FC" stroke-width="2" rx="2"/>
+
+  <!-- Ship hull (larger tanker style) -->
+  <path d="M5 18 L27 18 L26 26 L6 26 Z" fill="url(#hullGradient)" stroke="#1E293B" stroke-width="0.5"/>
+  <path d="M6 18 L26 18 L25 20 L7 20 Z" fill="url(#deckGradient)"/>
+
+  <!-- Superstructure (bridge/command center) -->
+  <rect x="17" y="11" width="7" height="8" fill="#374151" stroke="#1F2937" stroke-width="0.5"/>
+  <rect x="18" y="12" width="5" height="3" fill="#6B7280"/>
+  <rect x="19" y="13" width="3" height="1" fill="#9CA3AF"/>
+
+  <!-- Simple tanker deck -->
+  <rect x="7" y="12" width="9" height="6" fill="url(#deckGradient)" stroke="#374151" stroke-width="0.5"/>
+  <rect x="8" y="13" width="7" height="3" fill="#64748B"/>
+
+  <!-- Simple deck details -->
+  <circle cx="9.5" cy="15" r="0.8" fill="#475569" stroke="#334155" stroke-width="0.3"/>
+  <circle cx="12.5" cy="15" r="0.8" fill="#475569" stroke="#334155" stroke-width="0.3"/>
+  <rect x="11" y="14.5" width="1" height="1" fill="#6B7280"/>
+
+  <!-- Smokestack -->
+  <rect x="20.5" y="7" width="1.5" height="8" fill="#EF4444" stroke="#DC2626" stroke-width="0.3"/>
+  <ellipse cx="21.25" cy="7" rx="1" ry="0.5" fill="#374151"/>
+
+  <!-- Additional port equipment -->
+  <rect x="22.5" y="16" width="1" height="3" fill="#475569"/>
+  <circle cx="23" cy="15.5" r="0.5" fill="#6B7280"/>
+
+  <!-- Water waves -->
+  <path d="M2 26 Q6 24 10 26 T18 26 T26 26 T30 26" stroke="#0EA5E9" stroke-width="1" fill="none" opacity="0.8"/>
+  <path d="M1 28 Q5 26 9 28 T17 28 T25 28 T31 28" stroke="#38BDF8" stroke-width="1" fill="none" opacity="0.6"/>
+</svg>
