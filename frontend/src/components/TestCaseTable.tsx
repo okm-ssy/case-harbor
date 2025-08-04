@@ -284,26 +284,26 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto max-h-[80vh] overflow-y-auto">
           <table className="w-full min-w-[800px] border-collapse bg-gray-900">
-          <thead className="sticky top-0 z-10">
+          <thead className="sticky top-0 z-20 bg-gray-800">
             <tr>
-              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center sticky top-0 z-10">
+              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
                 {TEXT_CONSTANTS.HEADERS.ID}
               </th>
-              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
+              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
               </th>
-              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
+              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
               </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.STEPS}
               </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10">
+              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
                 {TEXT_CONSTANTS.HEADERS.VERIFICATION}
               </th>
-              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 sticky top-0 z-10"></th>
+              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
             </tr>
           </thead>
           <tbody>
