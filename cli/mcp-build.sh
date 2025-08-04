@@ -3,50 +3,32 @@
 set -eu
 
 mcp_build() {
-  echo "🔨 MCP Server Build"
-  echo "==================="
-
   if [ -d "${REPOSITORY_ROOT}/mcp-server" ]; then
     cd "${REPOSITORY_ROOT}/mcp-server"
     
     if [ -f "package.json" ]; then
-      echo "📦 依存関係をインストール..."
       npm set progress=false
       npm i
       
-      echo ""
-      echo "🔧 TypeScriptをコンパイル..."
       npm run build
       
       echo ""
-      echo "📋 ビルド結果:"
-      if [ -d "dist" ]; then
-        echo "✅ ビルド成功"
-        echo ""
-        echo "ビルドされたファイル:"
-        find dist -type f -name "*.js" | sed 's/^/  - /'
-        
-        echo ""
-        echo "📝 MCP設定例:"
-        echo "-------------------"
-        cat <<-CONFIG
-{
-  "mcpServers": {
-    "case-harbor": {
-      "command": "node",
-      "args": ["${REPOSITORY_ROOT}/mcp-server/dist/index.js"],
-      "env": {
-        "CASE_HARBOR_DATA_DIR": "${REPOSITORY_ROOT}/data/testcases"
-      }
-    }
-  }
-}
-CONFIG
-      else
-        echo "❌ ビルドに失敗しました"
-        echo "   distディレクトリが作成されませんでした"
-        exit 1
-      fi
+      echo "🎉 MCPサーバーのビルドが完了しました！"
+      echo ""
+      echo "📋 Claude Codeに登録するには以下のコマンドを実行してください："
+      echo ""
+      echo "  claude mcp add case-harbor node ${REPOSITORY_ROOT}/mcp-server/dist/index.js"
+      echo ""
+      echo "📋 登録確認："
+      echo ""
+      echo "  claude mcp list"
+      echo ""
+      echo "📋 削除したい場合："
+      echo ""
+      echo "  claude mcp remove case-harbor"
+      echo ""
+      echo "💡 Claude Codeで以下のように質問してテストできます："
+      echo "   「テストケース一覧を表示して」"
     else
       echo "⚠️  MCPサーバーがまだセットアップされていません"
       echo "   mcp-server/ディレクトリにpackage.jsonを作成してください"
