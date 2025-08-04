@@ -4,7 +4,7 @@ export const UI_CONSTANTS = {
   CELL_MIN_HEIGHT: '7.5rem',
   CELL_MAX_HEIGHT: '7.5rem',
   CELL_PADDING_TOP: '1.5rem',
-  TEXTAREA_MIN_HEIGHT: '6rem',
+  TEXTAREA_MIN_HEIGHT: '7.5rem',
   TEXTAREA_MAX_HEIGHT: '200px',
   
   // タイムアウトとフォーカス

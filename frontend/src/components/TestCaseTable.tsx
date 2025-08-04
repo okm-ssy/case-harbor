@@ -221,7 +221,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={() => !isTabNavigating && saveEdit()}
           onKeyDown={(e) => handleKeyDown(e, currentTestCase, field)}
-          className="w-full p-2 border-2 border-blue-400 rounded-md font-inherit bg-gray-800 text-gray-100 resize-y min-h-[6rem] max-h-[200px] outline-none"
+          className="w-full p-2 border-2 border-blue-400 rounded-md font-inherit bg-gray-800 text-gray-100 resize-y min-h-[7.5rem] max-h-[200px] outline-none custom-scrollbar"
         />
       ) : (
         <input
@@ -241,7 +241,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
 
     return (
       <div
-        className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md cursor-text transition-colors duration-200 bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words hover:bg-gray-700"
+        className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md cursor-text transition-colors duration-200 bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words hover:bg-gray-700 custom-scrollbar"
         onClick={() => startEdit(currentTestCase.id, field, value)}
         style={{ whiteSpace: 'pre-wrap' }}
       >
