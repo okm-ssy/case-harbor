@@ -50,7 +50,7 @@ export const ERROR_MESSAGES = {
   EXPORT_FAILED: 'Failed to export data',
   UNSUPPORTED_FORMAT: 'Unsupported export format',
   NO_DATA_TO_EXPORT: 'No data available for export'
-};
+} as const;
 
 // 成功メッセージ
 export const SUCCESS_MESSAGES = {
@@ -71,7 +71,7 @@ export const SUCCESS_MESSAGES = {
   // エクスポート関連成功
   EXPORT_COMPLETED: 'Export completed successfully',
   FILE_GENERATED: 'File generated successfully'
-};
+} as const;
 
 // ログメッセージ
 export const LOG_MESSAGES = {
@@ -102,4 +102,9 @@ export const LOG_MESSAGES = {
   EXPORT_START: 'Export operation started',
   EXPORT_SUCCESS: 'Export operation successful',
   EXPORT_ERROR: 'Export operation error'
-};
+} as const;
+
+// 型定義
+export type ErrorMessage = typeof ERROR_MESSAGES[keyof typeof ERROR_MESSAGES];
+export type SuccessMessage = typeof SUCCESS_MESSAGES[keyof typeof SUCCESS_MESSAGES];
+export type LogMessage = typeof LOG_MESSAGES[keyof typeof LOG_MESSAGES];

@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import {
   readAllTestCases,
@@ -6,6 +6,7 @@ import {
   writeTestCase,
   deleteTestCase
 } from '../utils/fileStorage.js';
+import { TestCase } from '../types/index.js';
 import { HTTP_STATUS } from '../constants/http.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
 import { TEST_CASE_DEFAULTS } from '../constants/defaults.js';
@@ -13,13 +14,13 @@ import { TEST_CASE_DEFAULTS } from '../constants/defaults.js';
 const router = Router();
 
 // GET /api/testcases - Get all test cases (optionally filtered by project)
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const testCases = await readAllTestCases();
     const { projectId } = req.query;
     
     const filtered = projectId 
-      ? testCases.filter(tc => tc.projectId === projectId)
+      ? testCases.filter(tc => tc.projectId === projectId as string)
       : testCases;
     
     res.json(filtered);
@@ -29,7 +30,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET /api/testcases/:id - Get single test case
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const testCase = await readTestCase(req.params.id);
     
@@ -39,17 +40,16 @@ router.get('/:id', async (req, res) => {
     
     res.json(testCase);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to read test case' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read test case' });
   }
 });
 
 // POST /api/testcases - Create new test case
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
-    const testCase = {
+    const testCase: TestCase = {
       id: uuidv4(),
       projectId: req.body.projectId || '',
-      title: req.body.title || TEST_CASE_DEFAULTS.TITLE,
       specification: req.body.specification || TEST_CASE_DEFAULTS.SPECIFICATION,
       preconditions: req.body.preconditions || TEST_CASE_DEFAULTS.PRECONDITIONS,
       steps: req.body.steps || TEST_CASE_DEFAULTS.STEPS,
@@ -67,15 +67,15 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/testcases/:id - Update test case
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const existing = await readTestCase(req.params.id);
     
     if (!existing) {
-      return res.status(404).json({ error: 'Test case not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
     }
     
-    const updated = {
+    const updated: TestCase = {
       ...existing,
       ...req.body,
       id: req.params.id,
@@ -85,22 +85,22 @@ router.put('/:id', async (req, res) => {
     await writeTestCase(updated);
     res.json(updated);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to update test case' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
   }
 });
 
 // DELETE /api/testcases/:id - Delete test case
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const deleted = await deleteTestCase(req.params.id);
     
     if (!deleted) {
-      return res.status(404).json({ error: 'Test case not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
     }
     
-    res.status(204).send();
+    res.status(HTTP_STATUS.NO_CONTENT).send();
   } catch (err) {
-    res.status(500).json({ error: 'Failed to delete test case' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_DELETE_FAILED });
   }
 });
 

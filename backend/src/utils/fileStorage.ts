@@ -1,16 +1,17 @@
 import { promises as fs } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { TestCase, NodeError } from '../types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Use environment variable or default to repository root data directory
-const repositoryRoot = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
-const DATA_DIR = join(repositoryRoot, 'data/testcases');
+const repositoryRoot: string = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
+const DATA_DIR: string = join(repositoryRoot, 'data/testcases');
 
 // Ensure data directory exists
-export async function ensureDataDir() {
+export async function ensureDataDir(): Promise<void> {
   try {
     await fs.mkdir(DATA_DIR, { recursive: true });
   } catch (err) {
@@ -19,17 +20,17 @@ export async function ensureDataDir() {
 }
 
 // Read all test cases
-export async function readAllTestCases() {
+export async function readAllTestCases(): Promise<TestCase[]> {
   await ensureDataDir();
   
   try {
     const files = await fs.readdir(DATA_DIR);
-    const testCases = [];
+    const testCases: TestCase[] = [];
     
     for (const file of files) {
       if (file.endsWith('.json')) {
         const content = await fs.readFile(join(DATA_DIR, file), 'utf8');
-        testCases.push(JSON.parse(content));
+        testCases.push(JSON.parse(content) as TestCase);
       }
     }
     
@@ -41,14 +42,15 @@ export async function readAllTestCases() {
 }
 
 // Read single test case
-export async function readTestCase(id) {
+export async function readTestCase(id: string): Promise<TestCase | null> {
   const filePath = join(DATA_DIR, `${id}.json`);
   
   try {
     const content = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(content);
+    return JSON.parse(content) as TestCase;
   } catch (err) {
-    if (err.code === 'ENOENT') {
+    const nodeError = err as NodeError;
+    if (nodeError.code === 'ENOENT') {
       return null;
     }
     throw err;
@@ -56,7 +58,7 @@ export async function readTestCase(id) {
 }
 
 // Write test case
-export async function writeTestCase(testCase) {
+export async function writeTestCase(testCase: TestCase): Promise<TestCase> {
   await ensureDataDir();
   
   const filePath = join(DATA_DIR, `${testCase.id}.json`);
@@ -66,14 +68,15 @@ export async function writeTestCase(testCase) {
 }
 
 // Delete test case
-export async function deleteTestCase(id) {
+export async function deleteTestCase(id: string): Promise<boolean> {
   const filePath = join(DATA_DIR, `${id}.json`);
   
   try {
     await fs.unlink(filePath);
     return true;
   } catch (err) {
-    if (err.code === 'ENOENT') {
+    const nodeError = err as NodeError;
+    if (nodeError.code === 'ENOENT') {
       return false;
     }
     throw err;

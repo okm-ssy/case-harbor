@@ -1,16 +1,17 @@
 import { promises as fs } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { Project, NodeError } from '../types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Use environment variable or default to repository root data directory
-const repositoryRoot = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
-const DATA_DIR = join(repositoryRoot, 'data/projects');
+const repositoryRoot: string = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
+const DATA_DIR: string = join(repositoryRoot, 'data/projects');
 
 // Ensure data directory exists
-export async function ensureProjectDir() {
+export async function ensureProjectDir(): Promise<void> {
   try {
     await fs.mkdir(DATA_DIR, { recursive: true });
   } catch (err) {
@@ -19,21 +20,21 @@ export async function ensureProjectDir() {
 }
 
 // Read all projects
-export async function readAllProjects() {
+export async function readAllProjects(): Promise<Project[]> {
   await ensureProjectDir();
   
   try {
     const files = await fs.readdir(DATA_DIR);
-    const projects = [];
+    const projects: Project[] = [];
     
     for (const file of files) {
       if (file.endsWith('.json')) {
         const content = await fs.readFile(join(DATA_DIR, file), 'utf8');
-        projects.push(JSON.parse(content));
+        projects.push(JSON.parse(content) as Project);
       }
     }
     
-    return projects.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    return projects.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   } catch (err) {
     console.error('Failed to read projects:', err);
     return [];
@@ -41,14 +42,15 @@ export async function readAllProjects() {
 }
 
 // Read single project
-export async function readProject(id) {
+export async function readProject(id: string): Promise<Project | null> {
   const filePath = join(DATA_DIR, `${id}.json`);
   
   try {
     const content = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(content);
+    return JSON.parse(content) as Project;
   } catch (err) {
-    if (err.code === 'ENOENT') {
+    const nodeError = err as NodeError;
+    if (nodeError.code === 'ENOENT') {
       return null;
     }
     throw err;
@@ -56,7 +58,7 @@ export async function readProject(id) {
 }
 
 // Write project
-export async function writeProject(project) {
+export async function writeProject(project: Project): Promise<Project> {
   await ensureProjectDir();
   
   const filePath = join(DATA_DIR, `${project.id}.json`);
@@ -66,14 +68,15 @@ export async function writeProject(project) {
 }
 
 // Delete project
-export async function deleteProject(id) {
+export async function deleteProject(id: string): Promise<boolean> {
   const filePath = join(DATA_DIR, `${id}.json`);
   
   try {
     await fs.unlink(filePath);
     return true;
   } catch (err) {
-    if (err.code === 'ENOENT') {
+    const nodeError = err as NodeError;
+    if (nodeError.code === 'ENOENT') {
       return false;
     }
     throw err;

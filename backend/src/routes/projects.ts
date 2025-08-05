@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import {
   readAllProjects,
@@ -10,39 +10,40 @@ import {
   readAllTestCases,
   deleteTestCase
 } from '../utils/fileStorage.js';
-// Placeholder for constants - will be used when error handling is implemented
+import { Project } from '../types/index.js';
+import { HTTP_STATUS } from '../constants/http.js';
 
 const router = Router();
 
 // GET /api/projects - Get all projects
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const projects = await readAllProjects();
     res.json(projects);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to read projects' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read projects' });
   }
 });
 
 // GET /api/projects/:id - Get single project
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const project = await readProject(req.params.id);
     
     if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
     
     res.json(project);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to read project' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read project' });
   }
 });
 
 // POST /api/projects - Create new project
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
-    const project = {
+    const project: Project = {
       id: uuidv4(),
       name: req.body.name || 'Untitled Project',
       description: req.body.description || '',
@@ -51,22 +52,22 @@ router.post('/', async (req, res) => {
     };
     
     await writeProject(project);
-    res.status(201).json(project);
+    res.status(HTTP_STATUS.CREATED).json(project);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to create project' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to create project' });
   }
 });
 
 // PUT /api/projects/:id - Update project
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const existing = await readProject(req.params.id);
     
     if (!existing) {
-      return res.status(404).json({ error: 'Project not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
     
-    const updated = {
+    const updated: Project = {
       ...existing,
       ...req.body,
       id: req.params.id,
@@ -76,16 +77,16 @@ router.put('/:id', async (req, res) => {
     await writeProject(updated);
     res.json(updated);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to update project' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to update project' });
   }
 });
 
 // DELETE /api/projects/:id - Delete project and all its test cases
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const project = await readProject(req.params.id);
     if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
 
     // Delete all test cases for this project
@@ -100,7 +101,7 @@ router.delete('/:id', async (req, res) => {
     const deleted = await deleteProject(req.params.id);
     
     if (!deleted) {
-      return res.status(404).json({ error: 'Project not found' });
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
     
     res.json({ 
@@ -108,7 +109,7 @@ router.delete('/:id', async (req, res) => {
       deletedTestCases: projectTestCases.length
     });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to delete project' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to delete project' });
   }
 });
 

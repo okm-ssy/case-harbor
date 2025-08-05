@@ -1,14 +1,17 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { readAllTestCases } from '../utils/fileStorage.js';
+import { TestCase, ExportFormat } from '../types/index.js';
+import { HTTP_STATUS } from '../constants/http.js';
+import { ERROR_MESSAGES } from '../constants/messages.js';
 
 const router = Router();
 
 // Convert test cases to CSV format
-function toCSV(testCases) {
-  const headers = ['ID', 'Title', 'Specification', 'Preconditions', 'Steps', 'Verification', 'Tags', 'Created At', 'Updated At'];
+function toCSV(testCases: TestCase[]): string {
+  const headers = ['ID', 'Project ID', 'Specification', 'Preconditions', 'Steps', 'Verification', 'Tags', 'Created At', 'Updated At'];
   const rows = testCases.map(tc => [
     tc.id,
-    `"${tc.title.replace(/"/g, '""')}"`,
+    tc.projectId,
     `"${tc.specification.replace(/"/g, '""')}"`,
     `"${tc.preconditions.replace(/"/g, '""')}"`,
     `"${tc.steps.replace(/"/g, '""')}"`,
@@ -22,12 +25,12 @@ function toCSV(testCases) {
 }
 
 // Convert test cases to Markdown format
-function toMarkdown(testCases) {
+function toMarkdown(testCases: TestCase[]): string {
   return testCases.map(tc => {
     const sections = [
-      `# ${tc.title}`,
+      `# Test Case ${tc.id}`,
       '',
-      `**ID:** ${tc.id}`,
+      `**プロジェクトID:** ${tc.projectId}`,
       '',
       '## 仕様',
       tc.specification || '_仕様が入力されていません_',
@@ -56,16 +59,22 @@ function toMarkdown(testCases) {
   }).join('\n\n');
 }
 
+interface ExportRequest extends Request {
+  body: {
+    ids?: string[];
+  };
+}
+
 // POST /api/export/:format - Export test cases in specified format
-router.post('/:format', async (req, res) => {
+router.post('/:format', async (req: ExportRequest, res: Response) => {
   try {
-    const format = req.params.format.toLowerCase();
+    const format = req.params.format.toLowerCase() as ExportFormat;
     const testCases = await readAllTestCases();
     
     // Filter by IDs if provided
     let filtered = testCases;
     if (req.body.ids && Array.isArray(req.body.ids)) {
-      filtered = testCases.filter(tc => req.body.ids.includes(tc.id));
+      filtered = testCases.filter(tc => req.body.ids!.includes(tc.id));
     }
     
     switch (format) {
@@ -87,10 +96,10 @@ router.post('/:format', async (req, res) => {
       break;
       
     default:
-      res.status(400).json({ error: `Unsupported format: ${format}` });
+      res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Unsupported format: ${format}` });
     }
   } catch (err) {
-    res.status(500).json({ error: 'Failed to export test cases' });
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.EXPORT_FAILED });
   }
 });
 

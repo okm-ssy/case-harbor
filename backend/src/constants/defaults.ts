@@ -10,7 +10,7 @@ export const SERVER_DEFAULTS = {
   CORS_ORIGIN: '*',
   REQUEST_TIMEOUT: 30000, // 30秒
   MAX_REQUEST_SIZE: '10mb'
-};
+} as const;
 
 // テストケースのデフォルト値
 export const TEST_CASE_DEFAULTS = {
@@ -19,16 +19,16 @@ export const TEST_CASE_DEFAULTS = {
   PRECONDITIONS: '',
   STEPS: '',
   VERIFICATION: '',
-  TAGS: [],
+  TAGS: [] as string[],
   STATUS: 'draft'
-};
+} as const;
 
 // プロジェクトのデフォルト値
 export const PROJECT_DEFAULTS = {
   NAME: 'Untitled Project',
   DESCRIPTION: '',
   STATUS: 'active'
-};
+} as const;
 
 // ファイル・ディレクトリ設定
 export const FILE_DEFAULTS = {
@@ -38,7 +38,7 @@ export const FILE_DEFAULTS = {
   EXPORTS_DIR: 'exports',
   FILE_ENCODING: 'utf8',
   BACKUP_RETENTION_DAYS: 30
-};
+} as const;
 
 // エクスポート設定のデフォルト値
 export const EXPORT_DEFAULTS = {
@@ -49,7 +49,7 @@ export const EXPORT_DEFAULTS = {
   CSV_DELIMITER: ',',
   CSV_QUOTE_CHAR: '"',
   MAX_EXPORT_RECORDS: 10000
-};
+} as const;
 
 // バリデーション制限値
 export const VALIDATION_LIMITS = {
@@ -68,7 +68,7 @@ export const VALIDATION_LIMITS = {
   // ファイルサイズ制限
   MAX_EXPORT_FILE_SIZE: 100 * 1024 * 1024, // 100MB
   MAX_IMPORT_FILE_SIZE: 50 * 1024 * 1024   // 50MB
-};
+} as const;
 
 // 日時フォーマット
 export const DATE_FORMATS = {
@@ -78,7 +78,7 @@ export const DATE_FORMATS = {
   DISPLAY_DATETIME: 'YYYY年MM月DD日 HH:mm:ss',
   LOG_TIMESTAMP: 'YYYY-MM-DD HH:mm:ss.SSS',
   FILENAME_TIMESTAMP: 'YYYYMMDD_HHmmss'
-};
+} as const;
 
 // レスポンス構造のデフォルト
 export const RESPONSE_DEFAULTS = {
@@ -93,4 +93,10 @@ export const RESPONSE_DEFAULTS = {
     code: null,
     details: null
   }
-};
+} as const;
+
+// 型定義
+export type TestCaseStatus = typeof TEST_CASE_DEFAULTS.STATUS;
+export type ProjectStatus = typeof PROJECT_DEFAULTS.STATUS;
+export type ExportFormat = typeof EXPORT_DEFAULTS.FORMAT;
+export type FileEncoding = typeof FILE_DEFAULTS.FILE_ENCODING;
