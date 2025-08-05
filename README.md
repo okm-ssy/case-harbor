@@ -47,19 +47,6 @@ Case Harbor/
 - Node.js 24.4.1
 - npm または yarn
 
-### インストール
-
-```bash
-# リポジトリをクローン
-git clone <repository-url>
-cd case-harbor
-
-# 各コンポーネントの依存関係をインストール
-cd frontend && npm install && cd ..
-cd backend && npm install && cd ..
-cd mcp-server && npm install && cd ..
-```
-
 ### CLIコマンドのセットアップ
 
 `ch` コマンドを使用するために、CLIディレクトリにPATHを通します：
@@ -77,11 +64,11 @@ source ~/.bashrc  # または source ~/.zshrc
 ### システムの起動
 
 ```bash
-# 開発サーバーを起動（フロントエンド + バックエンド）
+# 開発サーバーを起動（依存関係の自動インストール + フロントエンド + バックエンド）
 ch run
 ```
 
-- フロントエンド: http://localhost:5173
+- フロントエンド: http://localhost:5656
 - バックエンド API: http://localhost:9696
 
 ### 基本操作
@@ -219,7 +206,7 @@ Claude Code と連携して、AIアシスタントからテストケースを直
 
 ```bash
 # プロセスを確認
-lsof -i :5173  # フロントエンド
+lsof -i :5656  # フロントエンド
 lsof -i :9696  # バックエンド
 
 # プロセスを終了
