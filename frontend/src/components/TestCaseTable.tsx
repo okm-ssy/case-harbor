@@ -284,7 +284,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto max-h-[calc(100vh-150px)] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[calc(100vh-155px)] overflow-y-auto">
           <table className="w-full min-w-[800px] border-collapse bg-gray-900">
           <thead className="sticky top-0 z-20 bg-gray-800">
             <tr>
