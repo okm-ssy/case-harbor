@@ -122,19 +122,9 @@ Claude Code と連携して、AIアシスタントからテストケースを直
    ch mcp-build
    ```
 
-2. Claude Desktop の設定ファイルに追加：
-   ```json
-   {
-     "mcpServers": {
-       "case-harbor": {
-         "command": "node",
-         "args": ["/path/to/case-harbor/mcp-server/dist/index.js"],
-         "env": {
-           "REPOSITORY_ROOT": "/path/to/case-harbor"
-         }
-       }
-     }
-   }
+2. Claude Desktop に MCP サーバーを追加：
+   ```bash
+   claude mcp add case-harbor node /path/to/case-harbor/mcp-server/dist/index.js --env REPOSITORY_ROOT=/path/to/case-harbor
    ```
 
 ### AI アシスタントでの利用例
