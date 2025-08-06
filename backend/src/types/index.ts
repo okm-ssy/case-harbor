@@ -39,7 +39,7 @@ export interface ExportData {
   version: string;
 }
 
-export type ExportFormat = 'json' | 'csv' | 'xml';
+export type ExportFormat = 'json' | 'csv' | 'xml' | 'markdown' | 'md';
 
 export interface NodeError extends Error {
   code?: string;

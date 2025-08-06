@@ -19,9 +19,9 @@ const router = Router();
 router.get('/', async (req: Request, res: Response) => {
   try {
     const projects = await readAllProjects();
-    res.json(projects);
+    return res.json(projects);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read projects' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read projects' });
   }
 });
 
@@ -34,9 +34,9 @@ router.get('/:id', async (req: Request, res: Response) => {
       return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
     
-    res.json(project);
+    return res.json(project);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read project' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read project' });
   }
 });
 
@@ -52,9 +52,9 @@ router.post('/', async (req: Request, res: Response) => {
     };
     
     await writeProject(project);
-    res.status(HTTP_STATUS.CREATED).json(project);
+    return res.status(HTTP_STATUS.CREATED).json(project);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to create project' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to create project' });
   }
 });
 
@@ -75,9 +75,9 @@ router.put('/:id', async (req: Request, res: Response) => {
     };
     
     await writeProject(updated);
-    res.json(updated);
+    return res.json(updated);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to update project' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to update project' });
   }
 });
 
@@ -104,12 +104,12 @@ router.delete('/:id', async (req: Request, res: Response) => {
       return res.status(HTTP_STATUS.NOT_FOUND).json({ error: 'Project not found' });
     }
     
-    res.json({ 
+    return res.json({ 
       message: 'Project deleted successfully',
       deletedTestCases: projectTestCases.length
     });
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to delete project' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to delete project' });
   }
 });
 

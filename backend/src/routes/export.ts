@@ -79,27 +79,24 @@ router.post('/:format', async (req: ExportRequest, res: Response) => {
     
     switch (format) {
     case 'json':
-      res.json(filtered);
-      break;
+      return res.json(filtered);
       
     case 'csv':
       res.setHeader('Content-Type', 'text/csv');
       res.setHeader('Content-Disposition', 'attachment; filename="testcases.csv"');
-      res.send(toCSV(filtered));
-      break;
+      return res.send(toCSV(filtered));
       
     case 'markdown':
     case 'md':
       res.setHeader('Content-Type', 'text/markdown');
       res.setHeader('Content-Disposition', 'attachment; filename="testcases.md"');
-      res.send(toMarkdown(filtered));
-      break;
+      return res.send(toMarkdown(filtered));
       
     default:
-      res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Unsupported format: ${format}` });
+      return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Unsupported format: ${format}` });
     }
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.EXPORT_FAILED });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.EXPORT_FAILED });
   }
 });
 

@@ -49,9 +49,9 @@ router.get('/:id', async (req: Request, res: Response) => {
       return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
     }
     
-    res.json(testCase);
+    return res.json(testCase);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read test case' });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: 'Failed to read test case' });
   }
 });
 
@@ -101,9 +101,9 @@ router.put('/:id', async (req: Request, res: Response) => {
     };
     
     await writeTestCase(updated);
-    res.json(updated);
+    return res.json(updated);
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
   }
 });
 
@@ -129,10 +129,10 @@ router.put('/reorder', async (req: Request, res: Response) => {
     
     await updateTestCasesOrder(updates);
     
-    res.json({ success: true, message: 'Test cases reordered successfully' });
+    return res.json({ success: true, message: 'Test cases reordered successfully' });
   } catch (err) {
     console.error('Failed to reorder test cases:', err);
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ 
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ 
       error: 'Failed to reorder test cases' 
     });
   }
@@ -147,9 +147,9 @@ router.delete('/:id', async (req: Request, res: Response) => {
       return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
     }
     
-    res.status(HTTP_STATUS.NO_CONTENT).send();
+    return res.status(HTTP_STATUS.NO_CONTENT).send();
   } catch (err) {
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_DELETE_FAILED });
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_DELETE_FAILED });
   }
 });
 
