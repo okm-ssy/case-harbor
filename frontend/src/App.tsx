@@ -55,9 +55,8 @@ function App() {
     try {
       const response = await fetch(`${API_CONSTANTS.ENDPOINTS.TEST_CASES}?projectId=${selectedProjectId}`);
       const data = await response.json();
-      // 作成日時でソートして、新しいテストケースが最後に来るようにする
-      const sortedData = data.sort((a: TestCase, b: TestCase) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-      setTestCases(sortedData);
+      // バックエンドで既にソート済みなので、そのまま使用
+      setTestCases(data);
     } catch (error) {
       console.error(TEXT_CONSTANTS.MESSAGES.FETCH_ERROR, error);
     } finally {
