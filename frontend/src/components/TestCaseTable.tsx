@@ -408,7 +408,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
           <p>{TEXT_CONSTANTS.PLACEHOLDERS.NO_TEST_CASES}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto max-h-[calc(100vh-155px)] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[calc(100vh-155px)] overflow-y-auto custom-scrollbar">
           <DndContext 
             sensors={sensors}
             collisionDetection={closestCenter}
