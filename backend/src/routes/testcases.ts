@@ -84,30 +84,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// PUT /api/testcases/:id - Update test case
-router.put('/:id', async (req: Request, res: Response) => {
-  try {
-    const existing = await readTestCase(req.params.id);
-    
-    if (!existing) {
-      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
-    }
-    
-    const updated: TestCase = {
-      ...existing,
-      ...req.body,
-      id: req.params.id,
-      updatedAt: new Date().toISOString()
-    };
-    
-    await writeTestCase(updated);
-    return res.json(updated);
-  } catch (err) {
-    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
-  }
-});
-
-// PUT /api/testcases/reorder - Reorder test cases
+// PUT /api/testcases/reorder - Reorder test cases (must be before /:id route)
 router.put('/reorder', async (req: Request, res: Response) => {
   try {
     const { updates, projectId } = req.body;
@@ -135,6 +112,29 @@ router.put('/reorder', async (req: Request, res: Response) => {
     return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ 
       error: 'Failed to reorder test cases' 
     });
+  }
+});
+
+// PUT /api/testcases/:id - Update test case
+router.put('/:id', async (req: Request, res: Response) => {
+  try {
+    const existing = await readTestCase(req.params.id);
+    
+    if (!existing) {
+      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: ERROR_MESSAGES.TEST_CASE_NOT_FOUND });
+    }
+    
+    const updated: TestCase = {
+      ...existing,
+      ...req.body,
+      id: req.params.id,
+      updatedAt: new Date().toISOString()
+    };
+    
+    await writeTestCase(updated);
+    return res.json(updated);
+  } catch (err) {
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
   }
 });
 
