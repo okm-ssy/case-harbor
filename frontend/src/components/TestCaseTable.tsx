@@ -452,14 +452,52 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
             </table>
             
             <DragOverlay>
-              {activeId ? (
-                <div className="bg-gray-800 rounded-lg shadow-2xl border-2 border-blue-500" style={{ opacity: UI_CONSTANTS.DRAG_OVERLAY_OPACITY }}>
-                  <div className="p-4 text-gray-200 flex items-center gap-3">
-                    <span className="text-blue-400 text-lg">⋮⋮</span>
-                    <span>テストケース #{testCases.findIndex(tc => tc.id === activeId) + 1}</span>
-                  </div>
-                </div>
-              ) : null}
+              {activeId ? (() => {
+                const draggedTestCase = testCases.find(tc => tc.id === activeId);
+                const draggedIndex = testCases.findIndex(tc => tc.id === activeId);
+                
+                if (!draggedTestCase) return null;
+                
+                return (
+                  <table className="w-full border-collapse bg-gray-900 shadow-2xl rounded-lg overflow-hidden" style={{ opacity: UI_CONSTANTS.DRAG_OVERLAY_OPACITY }}>
+                    <tbody>
+                      <tr className="bg-gray-800 border-2 border-blue-500">
+                        <td className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200 relative bg-gray-700">
+                          <div className="flex items-center justify-center gap-2 select-none">
+                            <span className="text-blue-400">{TEXT_CONSTANTS.BUTTONS.DRAG_HANDLE}</span>
+                            <span>{draggedIndex + 1}</span>
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-gray-600 align-top" style={{ minWidth: '150px' }}>
+                          <div className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words">
+                            {getDisplayValue(draggedTestCase.specification) || <span className="text-gray-500 italic">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-gray-600 align-top" style={{ minWidth: '150px' }}>
+                          <div className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words">
+                            {getDisplayValue(draggedTestCase.preconditions) || <span className="text-gray-500 italic">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-gray-600 align-top" style={{ minWidth: '200px' }}>
+                          <div className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words">
+                            {getDisplayValue(draggedTestCase.steps) || <span className="text-gray-500 italic">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-gray-600 align-top" style={{ minWidth: '200px' }}>
+                          <div className="min-h-[7.5rem] max-h-[7.5rem] p-2 rounded-md bg-transparent text-gray-200 flex items-start overflow-y-auto leading-6 break-words">
+                            {getDisplayValue(draggedTestCase.verification) || <span className="text-gray-500 italic">{TEXT_CONSTANTS.PLACEHOLDERS.CLICK_TO_EDIT}</span>}
+                          </div>
+                        </td>
+                        <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
+                          <button className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium">
+                            {TEXT_CONSTANTS.BUTTONS.DELETE}
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                );
+              })() : null}
             </DragOverlay>
           </DndContext>
         </div>
