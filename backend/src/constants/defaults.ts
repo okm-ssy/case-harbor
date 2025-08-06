@@ -20,6 +20,7 @@ export const TEST_CASE_DEFAULTS = {
   STEPS: '',
   VERIFICATION: '',
   TAGS: [] as string[],
+  ORDER: 0,
   STATUS: 'draft'
 } as const;
 

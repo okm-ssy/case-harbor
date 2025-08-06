@@ -67,6 +67,24 @@ export async function writeTestCase(testCase: TestCase): Promise<TestCase> {
   return testCase;
 }
 
+// Update multiple test cases order
+export async function updateTestCasesOrder(updates: { id: string; order: number }[]): Promise<void> {
+  await ensureDataDir();
+  
+  // Read existing test cases first
+  const allTestCases = await readAllTestCases();
+  
+  // Update order for each test case
+  for (const update of updates) {
+    const testCase = allTestCases.find(tc => tc.id === update.id);
+    if (testCase) {
+      testCase.order = update.order;
+      testCase.updatedAt = new Date().toISOString();
+      await writeTestCase(testCase);
+    }
+  }
+}
+
 // Delete test case
 export async function deleteTestCase(id: string): Promise<boolean> {
   const filePath = join(DATA_DIR, `${id}.json`);

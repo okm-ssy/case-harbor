@@ -4,7 +4,8 @@ import {
   readAllTestCases,
   readTestCase,
   writeTestCase,
-  deleteTestCase
+  deleteTestCase,
+  updateTestCasesOrder
 } from '../utils/fileStorage.js';
 import { TestCase } from '../types/index.js';
 import { HTTP_STATUS } from '../constants/http.js';
@@ -23,7 +24,17 @@ router.get('/', async (req: Request, res: Response) => {
       ? testCases.filter(tc => tc.projectId === projectId as string)
       : testCases;
     
-    res.json(filtered);
+    // Sort by order field, then by createdAt for backwards compatibility
+    const sorted = filtered.sort((a, b) => {
+      if (a.order !== undefined && b.order !== undefined) {
+        return a.order - b.order;
+      }
+      if (a.order !== undefined) return -1;
+      if (b.order !== undefined) return 1;
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
+    
+    res.json(sorted);
   } catch (err) {
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_CREATION_FAILED });
   }
@@ -47,6 +58,12 @@ router.get('/:id', async (req: Request, res: Response) => {
 // POST /api/testcases - Create new test case
 router.post('/', async (req: Request, res: Response) => {
   try {
+    // Get existing test cases to determine next order
+    const allTestCases = await readAllTestCases();
+    const projectTestCases = allTestCases.filter(tc => tc.projectId === (req.body.projectId || ''));
+    const maxOrder = projectTestCases.reduce((max, tc) => 
+      Math.max(max, tc.order || 0), -1);
+    
     const testCase: TestCase = {
       id: uuidv4(),
       projectId: req.body.projectId || '',
@@ -55,6 +72,7 @@ router.post('/', async (req: Request, res: Response) => {
       steps: req.body.steps || TEST_CASE_DEFAULTS.STEPS,
       verification: req.body.verification || TEST_CASE_DEFAULTS.VERIFICATION,
       tags: req.body.tags || TEST_CASE_DEFAULTS.TAGS,
+      order: maxOrder + 1,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -86,6 +104,37 @@ router.put('/:id', async (req: Request, res: Response) => {
     res.json(updated);
   } catch (err) {
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_UPDATE_FAILED });
+  }
+});
+
+// PUT /api/testcases/reorder - Reorder test cases
+router.put('/reorder', async (req: Request, res: Response) => {
+  try {
+    const { updates, projectId } = req.body;
+    
+    if (!Array.isArray(updates) || !projectId) {
+      return res.status(HTTP_STATUS.BAD_REQUEST).json({ 
+        error: 'Invalid request. Expected updates array and projectId.' 
+      });
+    }
+    
+    // Validate updates format
+    for (const update of updates) {
+      if (!update.id || typeof update.order !== 'number') {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ 
+          error: 'Invalid update format. Expected id and order for each update.' 
+        });
+      }
+    }
+    
+    await updateTestCasesOrder(updates);
+    
+    res.json({ success: true, message: 'Test cases reordered successfully' });
+  } catch (err) {
+    console.error('Failed to reorder test cases:', err);
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ 
+      error: 'Failed to reorder test cases' 
+    });
   }
 });
 

@@ -10,6 +10,7 @@ export interface TestCase {
   steps: string;
   verification: string;
   tags: string[];
+  order?: number;
   createdAt: string;
   updatedAt: string;
 }

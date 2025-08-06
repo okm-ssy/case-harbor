@@ -63,4 +63,36 @@
 2. 目的の位置でドロップ
 3. キーボード操作も対応（アクセシビリティ）
 
-バックエンドAPI `/api/testcases/reorder` の実装が必要。
+## バックエンド実装
+
+### 1. データモデルの拡張 (types/index.ts)
+- `TestCase` インターフェースに `order?: number` フィールドを追加
+- 既存データとの互換性を保つためオプショナル
+
+### 2. デフォルト値の追加 (constants/defaults.ts)
+- `TEST_CASE_DEFAULTS.ORDER = 0` を追加
+
+### 3. ストレージ機能の拡張 (utils/fileStorage.ts)
+- `updateTestCasesOrder()` 関数を追加
+- 複数テストケースの順序を一括更新
+
+### 4. API エンドポイントの実装 (routes/testcases.ts)
+
+#### GET /api/testcases の修正
+- order フィールドでソート（降順対応）
+- order が未設定の場合は createdAt でフォールバック
+
+#### POST /api/testcases の修正
+- 新規テストケースに自動的に適切な order 値を設定
+- 同一プロジェクト内の最大 order + 1
+
+#### PUT /api/testcases/reorder の追加
+- リクエスト形式: `{ updates: [{id, order}], projectId }`
+- バリデーション: updates配列とprojectIdの必須チェック
+- エラーハンドリングと適切なレスポンス
+
+### 5. 下位互換性
+- 既存データの order フィールドが未設定でも正常動作
+- 自動的に createdAt ベースでフォールバック
+
+完全に実装済み。フロントエンドとバックエンド間でのドラッグ&ドロップ並び替え機能が動作可能。
