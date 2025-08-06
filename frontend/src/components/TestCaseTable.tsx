@@ -75,17 +75,19 @@ function SortableTestCaseRow({
       key={testCase.id}
       className={`hover:bg-gray-800 transition-colors duration-150 ${isDragging ? 'shadow-lg' : ''}`}
     >
-      <td className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200 relative">
-        <div className="flex items-center justify-center gap-2">
-          <button
-            {...attributes}
-            {...listeners}
-            className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-200 transition-colors duration-200 select-none"
-            style={{ width: UI_CONSTANTS.DRAG_HANDLE_WIDTH, opacity: UI_CONSTANTS.DRAG_HANDLE_OPACITY }}
-            title="Drag to reorder"
+      <td 
+        className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200 relative cursor-grab active:cursor-grabbing hover:bg-gray-700 transition-colors duration-200"
+        {...attributes}
+        {...listeners}
+        title="Drag to reorder"
+      >
+        <div className="flex items-center justify-center gap-2 select-none pointer-events-none">
+          <span 
+            className="text-gray-400"
+            style={{ opacity: UI_CONSTANTS.DRAG_HANDLE_OPACITY }}
           >
             {TEXT_CONSTANTS.BUTTONS.DRAG_HANDLE}
-          </button>
+          </span>
           <span>{index + 1}</span>
         </div>
       </td>
@@ -416,7 +418,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
             <table className="w-full min-w-[800px] border-collapse bg-gray-900">
               <thead className="sticky top-0 z-20 bg-gray-800">
                 <tr>
-                  <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
+                  <th className="w-[7%] min-w-[70px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
                     {TEXT_CONSTANTS.HEADERS.ID}
                   </th>
                   <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
@@ -451,9 +453,10 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
             
             <DragOverlay>
               {activeId ? (
-                <div className="bg-gray-800 rounded-lg shadow-2xl border border-gray-600" style={{ opacity: UI_CONSTANTS.DRAG_OVERLAY_OPACITY }}>
-                  <div className="p-4 text-gray-200">
-                    テストケース #{testCases.findIndex(tc => tc.id === activeId) + 1}
+                <div className="bg-gray-800 rounded-lg shadow-2xl border-2 border-blue-500" style={{ opacity: UI_CONSTANTS.DRAG_OVERLAY_OPACITY }}>
+                  <div className="p-4 text-gray-200 flex items-center gap-3">
+                    <span className="text-blue-400 text-lg">⋮⋮</span>
+                    <span>テストケース #{testCases.findIndex(tc => tc.id === activeId) + 1}</span>
                   </div>
                 </div>
               ) : null}

@@ -16,8 +16,8 @@ export const UI_CONSTANTS = {
   DRAG_OVERLAY_OPACITY: 0.8,
   
   // テーブル幅
-  ID_CELL_WIDTH: '5%',
-  ID_CELL_MIN_WIDTH: '50px',
+  ID_CELL_WIDTH: '7%',
+  ID_CELL_MIN_WIDTH: '70px',
   SPEC_CELL_WIDTH: '20%',
   SPEC_CELL_MIN_WIDTH: '150px',
   PRECOND_CELL_WIDTH: '20%',
