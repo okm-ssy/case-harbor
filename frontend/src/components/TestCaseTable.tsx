@@ -1,4 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import {
+  CSS,
+} from '@dnd-kit/utilities';
 import { TestCase } from '../types';
 import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS } from '../constants/ui';
 
@@ -7,6 +28,7 @@ interface TestCaseTableProps {
   onSave: (testCase: Partial<TestCase>) => void;
   onDelete: (id: string) => void;
   onAdd: () => void;
+  onReorder?: (testCases: TestCase[]) => void;
   selectedProjectId: string;
   projectName: string;
 }
@@ -16,11 +38,111 @@ interface EditingCell {
   field: string;
 }
 
-export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProjectId, projectName }: TestCaseTableProps) {
+interface SortableTestCaseRowProps {
+  testCase: TestCase;
+  index: number;
+  onDelete: (id: string) => void;
+  renderEditableCell: (testCase: TestCase, field: string, value: string, isMultiline?: boolean) => JSX.Element;
+}
+
+function SortableTestCaseRow({
+  testCase,
+  index,
+  onDelete,
+  renderEditableCell,
+}: SortableTestCaseRowProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: testCase.id,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? UI_CONSTANTS.DRAG_OVERLAY_OPACITY : 1,
+  };
+
+  return (
+    <tr
+      ref={setNodeRef}
+      style={style}
+      key={testCase.id}
+      className={`hover:bg-gray-800 transition-colors duration-150 ${isDragging ? 'shadow-lg' : ''}`}
+    >
+      <td className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200 relative">
+        <div className="flex items-center justify-center gap-2">
+          <button
+            {...attributes}
+            {...listeners}
+            className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-200 transition-colors duration-200 select-none"
+            style={{ width: UI_CONSTANTS.DRAG_HANDLE_WIDTH, opacity: UI_CONSTANTS.DRAG_HANDLE_OPACITY }}
+            title="Drag to reorder"
+          >
+            {TEXT_CONSTANTS.BUTTONS.DRAG_HANDLE}
+          </button>
+          <span>{index + 1}</span>
+        </div>
+      </td>
+      <td className="p-4 border-b border-gray-600 align-top">
+        {renderEditableCell(testCase, 'specification', testCase.specification, true)}
+      </td>
+      <td className="p-4 border-b border-gray-600 align-top">
+        {renderEditableCell(testCase, 'preconditions', testCase.preconditions, true)}
+      </td>
+      <td className="p-4 border-b border-gray-600 align-top">
+        {renderEditableCell(testCase, 'steps', testCase.steps, true)}
+      </td>
+      <td className="p-4 border-b border-gray-600 align-top">
+        {renderEditableCell(testCase, 'verification', testCase.verification, true)}
+      </td>
+      <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
+        <button 
+          className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
+          onClick={() => onDelete(testCase.id)}
+        >
+          {TEXT_CONSTANTS.BUTTONS.DELETE}
+        </button>
+      </td>
+    </tr>
+  );
+}
+
+export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, selectedProjectId, projectName }: TestCaseTableProps) {
   const [editingCell, setEditingCell] = useState<EditingCell | null>(null);
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveId(null);
+
+    if (active.id !== over?.id && onReorder) {
+      const oldIndex = testCases.findIndex((item) => item.id === active.id);
+      const newIndex = testCases.findIndex((item) => item.id === over?.id);
+
+      const newTestCases = arrayMove(testCases, oldIndex, newIndex);
+      onReorder(newTestCases);
+    }
+  };
 
   const startEdit = (testCaseId: string, field: string, currentValue: string) => {
     setEditingCell({ testCaseId, field });
@@ -285,57 +407,58 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, selectedProj
         </div>
       ) : (
         <div className="overflow-x-auto max-h-[calc(100vh-155px)] overflow-y-auto">
-          <table className="w-full min-w-[800px] border-collapse bg-gray-900">
-          <thead className="sticky top-0 z-20 bg-gray-800">
-            <tr>
-              <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
-                {TEXT_CONSTANTS.HEADERS.ID}
-              </th>
-              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
-                {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
-              </th>
-              <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
-                {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
-              </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
-                {TEXT_CONSTANTS.HEADERS.STEPS}
-              </th>
-              <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
-                {TEXT_CONSTANTS.HEADERS.VERIFICATION}
-              </th>
-              <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {testCases.map((testCase, index) => (
-              <tr key={testCase.id} className="hover:bg-gray-800 transition-colors duration-150">
-                <td className="p-4 text-center border-b border-gray-600 align-top pt-6 text-gray-200">
-                  {index + 1}
-                </td>
-                <td className="p-4 border-b border-gray-600 align-top">
-                  {renderEditableCell(testCase, 'specification', testCase.specification, true)}
-                </td>
-                <td className="p-4 border-b border-gray-600 align-top">
-                  {renderEditableCell(testCase, 'preconditions', testCase.preconditions, true)}
-                </td>
-                <td className="p-4 border-b border-gray-600 align-top">
-                  {renderEditableCell(testCase, 'steps', testCase.steps, true)}
-                </td>
-                <td className="p-4 border-b border-gray-600 align-top">
-                  {renderEditableCell(testCase, 'verification', testCase.verification, true)}
-                </td>
-                <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
-                  <button 
-                    className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
-                    onClick={() => onDelete(testCase.id)}
-                  >
-                    {TEXT_CONSTANTS.BUTTONS.DELETE}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <DndContext 
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+          >
+            <table className="w-full min-w-[800px] border-collapse bg-gray-900">
+              <thead className="sticky top-0 z-20 bg-gray-800">
+                <tr>
+                  <th className="w-[5%] min-w-[50px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600 text-center">
+                    {TEXT_CONSTANTS.HEADERS.ID}
+                  </th>
+                  <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                    {TEXT_CONSTANTS.HEADERS.SPECIFICATION}
+                  </th>
+                  <th className="w-[20%] min-w-[150px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                    {TEXT_CONSTANTS.HEADERS.PRECONDITIONS}
+                  </th>
+                  <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                    {TEXT_CONSTANTS.HEADERS.STEPS}
+                  </th>
+                  <th className="w-[30%] min-w-[200px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600">
+                    {TEXT_CONSTANTS.HEADERS.VERIFICATION}
+                  </th>
+                  <th className="w-[8%] min-w-[80px] p-4 text-left bg-gray-800 font-semibold text-gray-400 text-sm uppercase tracking-wide border-b border-gray-600"></th>
+                </tr>
+              </thead>
+              <SortableContext items={testCases.map(tc => tc.id)} strategy={verticalListSortingStrategy}>
+                <tbody>
+                  {testCases.map((testCase, index) => (
+                    <SortableTestCaseRow
+                      key={testCase.id}
+                      testCase={testCase}
+                      index={index}
+                      onDelete={onDelete}
+                      renderEditableCell={renderEditableCell}
+                    />
+                  ))}
+                </tbody>
+              </SortableContext>
+            </table>
+            
+            <DragOverlay>
+              {activeId ? (
+                <div className="bg-gray-800 rounded-lg shadow-2xl border border-gray-600" style={{ opacity: UI_CONSTANTS.DRAG_OVERLAY_OPACITY }}>
+                  <div className="p-4 text-gray-200">
+                    テストケース #{testCases.findIndex(tc => tc.id === activeId) + 1}
+                  </div>
+                </div>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
         </div>
       )}
     </div>

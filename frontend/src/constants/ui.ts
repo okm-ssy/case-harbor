@@ -10,6 +10,11 @@ export const UI_CONSTANTS = {
   // タイムアウトとフォーカス
   FOCUS_DELAY_MS: 10,
   
+  // ドラッグ＆ドロップ
+  DRAG_HANDLE_WIDTH: '20px',
+  DRAG_HANDLE_OPACITY: 0.6,
+  DRAG_OVERLAY_OPACITY: 0.8,
+  
   // テーブル幅
   ID_CELL_WIDTH: '5%',
   ID_CELL_MIN_WIDTH: '50px',
@@ -72,6 +77,7 @@ export const TEXT_CONSTANTS = {
     DELETE: '🗑️',
     SAVE: '保存',
     CANCEL: 'キャンセル',
+    DRAG_HANDLE: '⋮⋮',
   },
   DEFAULTS: {
     NEW_TEST_CASE: '新しいテストケース',

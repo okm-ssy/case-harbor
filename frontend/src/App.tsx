@@ -133,6 +133,34 @@ function App() {
     await handleSave(newTestCase);
   };
 
+  const handleReorderTestCases = async (reorderedTestCases: TestCase[]) => {
+    // 楽観的更新で即座にUI更新
+    setTestCases(reorderedTestCases);
+
+    try {
+      // バックエンドに順序の更新をリクエスト
+      const orderUpdates = reorderedTestCases.map((testCase, index) => ({
+        id: testCase.id,
+        order: index
+      }));
+
+      const response = await fetch(`${API_CONSTANTS.ENDPOINTS.TEST_CASES}/reorder`, {
+        method: API_CONSTANTS.METHODS.PUT,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updates: orderUpdates, projectId: selectedProjectId })
+      });
+
+      if (!response.ok) {
+        // API失敗時は元に戻すためにデータを再取得
+        await fetchTestCases();
+      }
+    } catch (error) {
+      console.error('Failed to reorder test cases:', error);
+      // エラー時も元に戻すためにデータを再取得
+      await fetchTestCases();
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-800">
       <Sidebar 
@@ -155,6 +183,7 @@ function App() {
             onSave={handleSave}
             onDelete={handleDelete}
             onAdd={handleAddTestCase}
+            onReorder={handleReorderTestCases}
             selectedProjectId={selectedProjectId}
             projectName={getProjectName(selectedProjectId)}
           />
