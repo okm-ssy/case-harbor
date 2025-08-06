@@ -30,6 +30,15 @@ function App() {
     }
   }, [selectedProjectId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ブラウザタブのタイトルを動的に変更
+  useEffect(() => {
+    if (selectedProjectId) {
+      document.title = `[${selectedProjectId}] Case Harbor`;
+    } else {
+      document.title = 'Case Harbor';
+    }
+  }, [selectedProjectId]);
+
   const fetchProjects = async () => {
     try {
       const response = await fetch(API_CONSTANTS.ENDPOINTS.PROJECTS);
