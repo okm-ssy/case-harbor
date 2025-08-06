@@ -29,8 +29,10 @@
 
 - **プロジェクトベース管理**: テストケースをプロジェクト単位で整理
 - **インライン編集**: テーブル内で直接編集可能な直感的UI
+- **ドラッグ&ドロップ並び替え**: テストケースの順序を直感的に変更
 - **リアルタイム保存**: 入力と同時に自動保存される楽観的更新
 - **キーボードナビゲーション**: Tab/Shift+Tab、Ctrl+Enterでの高速移動
+- **動的ブラウザタイトル**: プロジェクトID表示で複数プロジェクトの管理が効率的
 
 ### 🔧 主な機能
 
@@ -87,8 +89,9 @@ ch run
 1. **プロジェクト作成**: サイドバーから新しいプロジェクトを作成
 2. **テストケース追加**: 「追加」ボタンまたは最終行への入力で自動追加
 3. **編集**: セルをクリックしてインライン編集
-4. **ナビゲーション**: Tab/Shift+Tab、Ctrl+Enterで項目間移動
-5. **エクスポート**: エクスポートパネルから形式を選択してダウンロード
+4. **並び替え**: IDカラムをドラッグ&ドロップしてテストケースの順序を変更
+5. **ナビゲーション**: Tab/Shift+Tab、Ctrl+Enterで項目間移動
+6. **エクスポート**: エクスポートパネルから形式を選択してダウンロード
 
 ## 開発コマンド
 
@@ -172,6 +175,7 @@ Claude Code と連携して、AIアシスタントからテストケースを直
   "steps": "実行手順",
   "verification": "確認事項",
   "tags": ["tag1", "tag2"],
+  "order": 0,
   "createdAt": "2025-01-01T00:00:00.000Z",
   "updatedAt": "2025-01-01T00:00:00.000Z"
 }
@@ -189,10 +193,11 @@ Claude Code と連携して、AIアシスタントからテストケースを直
 
 ### テストケース
 
-- `GET /api/testcases?projectId=:id` - プロジェクトのテストケース取得
+- `GET /api/testcases?projectId=:id` - プロジェクトのテストケース取得（order順でソート）
 - `GET /api/testcases/:id` - テストケース詳細取得
 - `POST /api/testcases` - テストケース作成
 - `PUT /api/testcases/:id` - テストケース更新
+- `PUT /api/testcases/reorder` - テストケース順序変更
 - `DELETE /api/testcases/:id` - テストケース削除
 
 ### エクスポート
@@ -246,7 +251,7 @@ kill -9 <PID>
 
 ## 技術スタック
 
-- **フロントエンド**: React 18, TypeScript, Tailwind CSS, Vite
+- **フロントエンド**: React 18, TypeScript, Tailwind CSS, Vite, @dnd-kit (ドラッグ&ドロップ)
 - **バックエンド**: Node.js, Express, TypeScript
 - **データストレージ**: JSON ファイル
 - **MCP サーバー**: Model Context Protocol
