@@ -7,6 +7,7 @@ import {
   deleteTestCase,
   updateTestCasesOrder
 } from '../utils/fileStorage.js';
+import { readAllProjects } from '../utils/projectStorage.js';
 import { TestCase } from '../types/index.js';
 import { HTTP_STATUS } from '../constants/http.js';
 import { ERROR_MESSAGES } from '../constants/messages.js';
@@ -150,6 +151,38 @@ router.delete('/:id', async (req: Request, res: Response) => {
     return res.status(HTTP_STATUS.NO_CONTENT).send();
   } catch (err) {
     return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: ERROR_MESSAGES.TEST_CASE_DELETE_FAILED });
+  }
+});
+
+// POST /api/testcases/cleanup-orphans - Delete test cases for non-existent projects
+router.post('/cleanup-orphans', async (req: Request, res: Response) => {
+  try {
+    const allTestCases = await readAllTestCases();
+    const allProjects = await readAllProjects();
+    const existingProjectIds = new Set(allProjects.map(p => p.id));
+    
+    // Find orphaned test cases
+    const orphanedTestCases = allTestCases.filter(tc => !existingProjectIds.has(tc.projectId));
+    
+    // Delete orphaned test cases
+    let deletedCount = 0;
+    for (const testCase of orphanedTestCases) {
+      const deleted = await deleteTestCase(testCase.id);
+      if (deleted) {
+        deletedCount++;
+      }
+    }
+    
+    return res.json({ 
+      message: `Cleanup completed. Deleted ${deletedCount} orphaned test cases.`,
+      deletedCount,
+      orphanedTestCases: orphanedTestCases.map(tc => ({ id: tc.id, projectId: tc.projectId }))
+    });
+  } catch (err) {
+    console.error('Failed to cleanup orphaned test cases:', err);
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ 
+      error: 'Failed to cleanup orphaned test cases' 
+    });
   }
 });
 
