@@ -21,7 +21,7 @@ import {
   CSS,
 } from '@dnd-kit/utilities';
 import { TestCase } from '../types';
-import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS, CLIPBOARD_CONSTANTS } from '../constants/ui';
+import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS, CLIPBOARD_CONSTANTS, FEEDBACK_CONSTANTS } from '../constants/ui';
 import { useClipboard } from '../hooks/useClipboard';
 import { useUndoRedo } from '../hooks/useUndoRedo';
 
@@ -133,6 +133,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [showCopyToast, setShowCopyToast] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
   
   // Clipboard and Undo/Redo hooks
@@ -266,8 +267,10 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   const handleCopyRow = async (testCase: TestCase) => {
     const success = await copyRowToTSV(testCase);
     if (success) {
-      // 何らかの視覚的フィードバックを追加することも可能
-      console.log('Row copied to clipboard as TSV');
+      setShowCopyToast(true);
+      setTimeout(() => {
+        setShowCopyToast(false);
+      }, FEEDBACK_CONSTANTS.TOOLTIP_DURATION);
     }
   };
 
@@ -465,7 +468,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   }
 
   return (
-    <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600">
+    <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-600 relative">
       <div className="flex justify-between items-end p-6 bg-gray-800 border-b border-gray-600">
         <div className="flex items-end gap-4">
           <h2 className="text-xl text-gray-100 font-semibold">{TEXT_CONSTANTS.HEADERS.TEST_CASES}</h2>
@@ -612,6 +615,16 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
               })() : null}
             </DragOverlay>
           </DndContext>
+        </div>
+      )}
+      
+      {/* Copy Success Toast */}
+      {showCopyToast && (
+        <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
+          <div className="flex items-center gap-2">
+            <span>✅</span>
+            <span>{TEXT_CONSTANTS.MESSAGES.COPY_SUCCESS}</span>
+          </div>
         </div>
       )}
     </div>

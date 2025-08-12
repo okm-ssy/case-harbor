@@ -91,6 +91,7 @@ export const TEXT_CONSTANTS = {
     SAVE_ERROR: 'Failed to save test case:',
     DELETE_ERROR: 'Failed to delete test case:',
     FETCH_ERROR: 'Failed to fetch test cases:',
+    COPY_SUCCESS: 'コピーしました！',
   },
 } as const;
 
@@ -110,4 +111,10 @@ export const CLIPBOARD_CONSTANTS = {
 // 履歴関連の定数
 export const HISTORY_CONSTANTS = {
   MAX_HISTORY_SIZE: 50,
+} as const;
+
+// フィードバック関連の定数
+export const FEEDBACK_CONSTANTS = {
+  TOOLTIP_DURATION: 2000,
+  ANIMATION_DURATION: 300,
 } as const;
