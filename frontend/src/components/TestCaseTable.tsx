@@ -21,7 +21,9 @@ import {
   CSS,
 } from '@dnd-kit/utilities';
 import { TestCase } from '../types';
-import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS } from '../constants/ui';
+import { UI_CONSTANTS, TEXT_CONSTANTS, DISPLAY_CONSTANTS, CLIPBOARD_CONSTANTS } from '../constants/ui';
+import { useClipboard } from '../hooks/useClipboard';
+import { useUndoRedo } from '../hooks/useUndoRedo';
 
 interface TestCaseTableProps {
   testCases: TestCase[];
@@ -42,6 +44,7 @@ interface SortableTestCaseRowProps {
   testCase: TestCase;
   index: number;
   onDelete: (id: string) => void;
+  onCopyRow: (testCase: TestCase) => void;
   renderEditableCell: (testCase: TestCase, field: string, value: string, isMultiline?: boolean) => JSX.Element;
 }
 
@@ -49,6 +52,7 @@ function SortableTestCaseRow({
   testCase,
   index,
   onDelete,
+  onCopyRow,
   renderEditableCell,
 }: SortableTestCaseRowProps) {
   const {
@@ -104,12 +108,21 @@ function SortableTestCaseRow({
         {renderEditableCell(testCase, 'verification', testCase.verification, true)}
       </td>
       <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
-        <button 
-          className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
-          onClick={() => onDelete(testCase.id)}
-        >
-          {TEXT_CONSTANTS.BUTTONS.DELETE}
-        </button>
+        <div className="flex gap-2 justify-center">
+          <button 
+            className="px-2 py-1.5 bg-blue-600 text-gray-100 rounded text-xs font-medium hover:bg-blue-500 transition-colors duration-200"
+            onClick={() => onCopyRow(testCase)}
+            title="Copy row as TSV"
+          >
+            📋
+          </button>
+          <button 
+            className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium hover:bg-red-500 transition-colors duration-200"
+            onClick={() => onDelete(testCase.id)}
+          >
+            {TEXT_CONSTANTS.BUTTONS.DELETE}
+          </button>
+        </div>
       </td>
     </tr>
   );
@@ -121,6 +134,17 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   const [isTabNavigating, setIsTabNavigating] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
+  
+  // Clipboard and Undo/Redo hooks
+  const { copyRowToTSV, pasteFromTSV } = useClipboard();
+  const { currentData: historyData, pushHistory, undo, redo, canUndo, canRedo } = useUndoRedo<TestCase[]>(testCases);
+  
+  // Update history when testCases change
+  useEffect(() => {
+    if (JSON.stringify(historyData) !== JSON.stringify(testCases)) {
+      pushHistory(testCases);
+    }
+  }, [testCases, historyData, pushHistory]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -239,8 +263,64 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
     }
   };
 
+  const handleCopyRow = async (testCase: TestCase) => {
+    const success = await copyRowToTSV(testCase);
+    if (success) {
+      // 何らかの視覚的フィードバックを追加することも可能
+      console.log('Row copied to clipboard as TSV');
+    }
+  };
+
+  const handlePaste = async (targetTestCase: TestCase, startField: string) => {
+    const pastedData = await pasteFromTSV();
+    if (!pastedData) return;
+
+    const fieldIndex = CLIPBOARD_CONSTANTS.FIELDS.indexOf(startField as typeof CLIPBOARD_CONSTANTS.FIELDS[number]);
+    if (fieldIndex === -1) return;
+
+    // 貼り付け対象のフィールドを決定（範囲外は無効）
+    const updates: Partial<TestCase> = { id: targetTestCase.id };
+    let hasUpdates = false;
+
+    for (let i = 0; i < pastedData.length; i++) {
+      const targetFieldIndex = fieldIndex + i;
+      if (targetFieldIndex >= CLIPBOARD_CONSTANTS.FIELDS.length) break; // 範囲外は無効
+
+      const fieldName = CLIPBOARD_CONSTANTS.FIELDS[targetFieldIndex];
+      const value = pastedData[i];
+      
+      if (value !== undefined) {
+        updates[fieldName] = value;
+        hasUpdates = true;
+      }
+    }
+
+    if (hasUpdates) {
+      await onSave(updates);
+    }
+  };
+
+  const handleUndoRedo = (action: 'undo' | 'redo') => {
+    const newData = action === 'undo' ? undo() : redo();
+    if (newData && onReorder) {
+      onReorder(newData);
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent, currentTestCase: TestCase, field: string) => {
-    if (e.key === 'Enter' && e.ctrlKey) {
+    if (e.key === 'z' && e.ctrlKey && !e.shiftKey) {
+      // Ctrl+Z でundo
+      e.preventDefault();
+      handleUndoRedo('undo');
+    } else if ((e.key === 'y' && e.ctrlKey) || (e.key === 'z' && e.ctrlKey && e.shiftKey)) {
+      // Ctrl+Y または Ctrl+Shift+Z でredo
+      e.preventDefault();
+      handleUndoRedo('redo');
+    } else if (e.key === 'v' && e.ctrlKey) {
+      // Ctrl+V で貼り付け
+      e.preventDefault();
+      handlePaste(currentTestCase, field);
+    } else if (e.key === 'Enter' && e.ctrlKey) {
       // Ctrl+Enter で次項目に移動
       e.preventDefault();
       navigateToNextField(currentTestCase, field, 'next');
@@ -395,12 +475,38 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
             <span>{testCases.length}件</span>
           </div>
         </div>
-        <button 
-          className="px-4 py-2 bg-blue-600 text-gray-100 rounded-md hover:bg-blue-500 transition-colors duration-200 text-sm font-medium"
-          onClick={onAdd}
-        >
-          {TEXT_CONSTANTS.BUTTONS.ADD}
-        </button>
+        <div className="flex gap-2">
+          <button 
+            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+              canUndo 
+                ? 'bg-gray-600 text-gray-100 hover:bg-gray-500' 
+                : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+            }`}
+            onClick={() => handleUndoRedo('undo')}
+            disabled={!canUndo}
+            title="Undo (Ctrl+Z)"
+          >
+            ↶
+          </button>
+          <button 
+            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+              canRedo 
+                ? 'bg-gray-600 text-gray-100 hover:bg-gray-500' 
+                : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+            }`}
+            onClick={() => handleUndoRedo('redo')}
+            disabled={!canRedo}
+            title="Redo (Ctrl+Y)"
+          >
+            ↷
+          </button>
+          <button 
+            className="px-4 py-2 bg-blue-600 text-gray-100 rounded-md hover:bg-blue-500 transition-colors duration-200 text-sm font-medium"
+            onClick={onAdd}
+          >
+            {TEXT_CONSTANTS.BUTTONS.ADD}
+          </button>
+        </div>
       </div>
 
       {testCases.length === 0 ? (
@@ -444,6 +550,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
                       testCase={testCase}
                       index={index}
                       onDelete={onDelete}
+                      onCopyRow={handleCopyRow}
                       renderEditableCell={renderEditableCell}
                     />
                   ))}
@@ -489,9 +596,14 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
                           </div>
                         </td>
                         <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
-                          <button className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium">
-                            {TEXT_CONSTANTS.BUTTONS.DELETE}
-                          </button>
+                          <div className="flex gap-2 justify-center">
+                            <button className="px-2 py-1.5 bg-blue-600 text-gray-100 rounded text-xs font-medium">
+                              📋
+                            </button>
+                            <button className="px-3 py-1.5 bg-red-600 text-gray-100 rounded text-xs font-medium">
+                              {TEXT_CONSTANTS.BUTTONS.DELETE}
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

@@ -78,6 +78,10 @@ export const TEXT_CONSTANTS = {
     SAVE: '保存',
     CANCEL: 'キャンセル',
     DRAG_HANDLE: '⋮⋮',
+    COPY: 'コピー',
+    PASTE: '貼り付け',
+    UNDO: 'Undo',
+    REDO: 'Redo',
   },
   DEFAULTS: {
     NEW_TEST_CASE: '新しいテストケース',
@@ -94,4 +98,16 @@ export const TEXT_CONSTANTS = {
 export const DISPLAY_CONSTANTS = {
   MAX_DISPLAY_LINES: 4,
   ELLIPSIS: '...',
+} as const;
+
+// クリップボード関連の定数
+export const CLIPBOARD_CONSTANTS = {
+  TSV_SEPARATOR: '\t',
+  ROW_SEPARATOR: '\n',
+  FIELDS: ['specification', 'preconditions', 'steps', 'verification'] as const,
+} as const;
+
+// 履歴関連の定数
+export const HISTORY_CONSTANTS = {
+  MAX_HISTORY_SIZE: 50,
 } as const;
