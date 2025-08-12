@@ -45,6 +45,7 @@ interface SortableTestCaseRowProps {
   index: number;
   onDelete: (id: string) => void;
   onCopyRow: (testCase: TestCase) => void;
+  showCopySuccess: boolean;
   renderEditableCell: (testCase: TestCase, field: string, value: string, isMultiline?: boolean) => JSX.Element;
 }
 
@@ -53,6 +54,7 @@ function SortableTestCaseRow({
   index,
   onDelete,
   onCopyRow,
+  showCopySuccess,
   renderEditableCell,
 }: SortableTestCaseRowProps) {
   const {
@@ -108,7 +110,7 @@ function SortableTestCaseRow({
         {renderEditableCell(testCase, 'verification', testCase.verification, true)}
       </td>
       <td className="p-4 text-center border-b border-gray-600 align-top pt-6">
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center relative">
           <button 
             className="px-2 py-1.5 bg-blue-600 text-gray-100 rounded text-xs font-medium hover:bg-blue-500 transition-colors duration-200"
             onClick={() => onCopyRow(testCase)}
@@ -122,6 +124,18 @@ function SortableTestCaseRow({
           >
             {TEXT_CONSTANTS.BUTTONS.DELETE}
           </button>
+          
+          {/* Copy Success Tooltip */}
+          {showCopySuccess && (
+            <div className="absolute -top-10 left-0 bg-green-600 text-white px-2 py-1 rounded text-xs shadow-lg animate-pulse whitespace-nowrap z-10">
+              <div className="flex items-center gap-1">
+                <span>✅</span>
+                <span>{TEXT_CONSTANTS.MESSAGES.COPY_SUCCESS}</span>
+              </div>
+              {/* Arrow pointing down */}
+              <div className="absolute top-full left-4 w-0 h-0 border-l-2 border-r-2 border-t-4 border-l-transparent border-r-transparent border-t-green-600"></div>
+            </div>
+          )}
         </div>
       </td>
     </tr>
@@ -133,7 +147,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   const [editValue, setEditValue] = useState('');
   const [isTabNavigating, setIsTabNavigating] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [showCopyToast, setShowCopyToast] = useState(false);
+  const [copiedRowId, setCopiedRowId] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
   
   // Clipboard and Undo/Redo hooks
@@ -267,9 +281,9 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
   const handleCopyRow = async (testCase: TestCase) => {
     const success = await copyRowToTSV(testCase);
     if (success) {
-      setShowCopyToast(true);
+      setCopiedRowId(testCase.id);
       setTimeout(() => {
-        setShowCopyToast(false);
+        setCopiedRowId(null);
       }, FEEDBACK_CONSTANTS.TOOLTIP_DURATION);
     }
   };
@@ -554,6 +568,7 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
                       index={index}
                       onDelete={onDelete}
                       onCopyRow={handleCopyRow}
+                      showCopySuccess={copiedRowId === testCase.id}
                       renderEditableCell={renderEditableCell}
                     />
                   ))}
@@ -615,16 +630,6 @@ export function TestCaseTable({ testCases, onSave, onDelete, onAdd, onReorder, s
               })() : null}
             </DragOverlay>
           </DndContext>
-        </div>
-      )}
-      
-      {/* Copy Success Toast */}
-      {showCopyToast && (
-        <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
-          <div className="flex items-center gap-2">
-            <span>✅</span>
-            <span>{TEXT_CONSTANTS.MESSAGES.COPY_SUCCESS}</span>
-          </div>
         </div>
       )}
     </div>
