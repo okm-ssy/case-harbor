@@ -11,6 +11,7 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
   const [projects, setProjects] = useState<Project[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
+  const [newProjectId, setNewProjectId] = useState('');
 
   useEffect(() => {
     fetchProjects();
@@ -33,13 +34,16 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
   };
 
   const createProject = async () => {
-    if (!newProjectName.trim()) return;
+    if (!newProjectName.trim() || !newProjectId.trim()) return;
 
     try {
       const response = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newProjectName.trim() })
+        body: JSON.stringify({ 
+          name: newProjectName.trim(),
+          id: newProjectId.trim()
+        })
       });
 
       if (response.ok) {
@@ -47,7 +51,11 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
         await fetchProjects();
         onProjectChange(newProject.id);
         setNewProjectName('');
+        setNewProjectId('');
         setIsCreating(false);
+      } else {
+        const error = await response.json();
+        alert(error.error || 'Failed to create project');
       }
     } catch (error) {
       console.error('Failed to create project:', error);
@@ -89,15 +97,26 @@ export function ProjectSelector({ selectedProjectId, onProjectChange }: ProjectS
         <div className="flex flex-col gap-2">
           <input
             type="text"
-            placeholder="プロジェクト名"
-            value={newProjectName}
-            onChange={(e) => setNewProjectName(e.target.value)}
+            placeholder="プロジェクトID（英数字、ハイフン、アンダースコア）"
+            value={newProjectId}
+            onChange={(e) => setNewProjectId(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') createProject();
+              if (e.key === 'Enter' && newProjectName.trim()) createProject();
               if (e.key === 'Escape') setIsCreating(false);
             }}
             className="p-2 border border-gray-600 rounded-md bg-gray-800 text-gray-200 text-sm focus:outline-none focus:border-blue-400"
             autoFocus
+          />
+          <input
+            type="text"
+            placeholder="プロジェクト名"
+            value={newProjectName}
+            onChange={(e) => setNewProjectName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && newProjectId.trim()) createProject();
+              if (e.key === 'Escape') setIsCreating(false);
+            }}
+            className="p-2 border border-gray-600 rounded-md bg-gray-800 text-gray-200 text-sm focus:outline-none focus:border-blue-400"
           />
           <div className="flex gap-2">
             <button 

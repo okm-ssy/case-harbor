@@ -43,8 +43,27 @@ router.get('/:id', async (req: Request, res: Response) => {
 // POST /api/projects - Create new project
 router.post('/', async (req: Request, res: Response) => {
   try {
+    const projectId = req.body.id?.trim();
+    
+    // Validate project ID format if provided
+    if (projectId) {
+      if (!/^[a-zA-Z0-9_-]+$/.test(projectId)) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ 
+          error: 'Project ID must contain only letters, numbers, hyphens, and underscores' 
+        });
+      }
+      
+      // Check if project ID already exists
+      const existing = await readProject(projectId);
+      if (existing) {
+        return res.status(HTTP_STATUS.CONFLICT).json({ 
+          error: 'Project with this ID already exists' 
+        });
+      }
+    }
+    
     const project: Project = {
-      id: uuidv4(),
+      id: projectId || uuidv4(),
       name: req.body.name || 'Untitled Project',
       description: req.body.description || '',
       createdAt: new Date().toISOString(),
