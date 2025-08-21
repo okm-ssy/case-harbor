@@ -49,7 +49,7 @@ Case Harbor/
 ├── frontend/          # React + TypeScript + Vite
 ├── backend/           # Node.js + Express + TypeScript
 ├── mcp-server/        # MCP Protocol Server
-├── cli/               # シェルスクリプト集
+├── bin/               # シェルスクリプト集
 └── data/              # JSONファイル形式のデータストレージ
 ```
 
@@ -62,11 +62,11 @@ Case Harbor/
 
 ### CLIコマンドのセットアップ
 
-`ch` コマンドを使用するために、CLIディレクトリにPATHを通します：
+`ch` コマンドを使用するために、binディレクトリにPATHを通します：
 
 ```bash
 # ~/.bashrc または ~/.zshrc に追加
-export PATH="$PATH:/path/to/case-harbor/cli"
+export PATH="$PATH:/path/to/case-harbor/bin"
 
 # 設定を反映
 source ~/.bashrc  # または source ~/.zshrc
