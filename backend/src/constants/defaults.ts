@@ -26,7 +26,6 @@ export const TEST_CASE_DEFAULTS = {
 
 // プロジェクトのデフォルト値
 export const PROJECT_DEFAULTS = {
-  NAME: 'Untitled Project',
   DESCRIPTION: '',
   STATUS: 'active'
 } as const;
@@ -55,7 +54,6 @@ export const EXPORT_DEFAULTS = {
 // バリデーション制限値
 export const VALIDATION_LIMITS = {
   // 文字列長制限
-  PROJECT_NAME_MAX_LENGTH: 255,
   PROJECT_DESCRIPTION_MAX_LENGTH: 2000,
   TEST_CASE_TITLE_MAX_LENGTH: 255,
   TEST_CASE_FIELD_MAX_LENGTH: 10000,

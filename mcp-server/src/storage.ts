@@ -144,9 +144,9 @@ export class TestCaseStorage {
       return projectIdOrName;
     }
     
-    // Search for project by name
+    // Search for project by id (name is no longer used)
     const projects = await this.getAllProjects();
-    const project = projects.find(p => p.name === projectIdOrName);
+    const project = projects.find(p => p.id === projectIdOrName);
     
     if (project) {
       return project.id;
@@ -286,7 +286,7 @@ export class TestCaseStorage {
     }
   }
 
-  async toggleProject(id: string, name?: string): Promise<{ action: 'created' | 'deleted', project?: Project }> {
+  async toggleProject(id: string): Promise<{ action: 'created' | 'deleted', project?: Project }> {
     const existing = await this.getProject(id);
     
     if (existing) {
@@ -300,7 +300,6 @@ export class TestCaseStorage {
       
       const project: Project = {
         id,
-        name: name || `Project ${id}`,
         description: '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()

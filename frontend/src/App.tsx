@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TestCaseTable } from './components/TestCaseTable';
-import { TestCase, Project } from './types';
+import { TestCase } from './types';
 import { API_CONSTANTS, TEXT_CONSTANTS, STORAGE_CONSTANTS } from './constants/ui';
 
 function App() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState('');
-  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,18 +39,11 @@ function App() {
   }, [selectedProjectId]);
 
   const fetchProjects = async () => {
-    try {
-      const response = await fetch(API_CONSTANTS.ENDPOINTS.PROJECTS);
-      const data = await response.json();
-      setProjects(data);
-    } catch (error) {
-      console.error('Failed to fetch projects:', error);
-    }
+    // Projects are now managed in the Sidebar component
   };
 
   const getProjectName = (projectId: string): string => {
-    const project = projects.find(p => p.id === projectId);
-    return project ? project.name : projectId;
+    return projectId;
   };
 
   const fetchTestCases = async () => {

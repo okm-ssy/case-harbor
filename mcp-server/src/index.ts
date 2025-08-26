@@ -42,7 +42,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           type: 'object',
           properties: {
             id: { type: 'string', description: 'Project ID' },
-            name: { type: 'string', description: 'Project name (only used when creating)' }
           },
           required: ['id']
         }
@@ -135,7 +134,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     case 'list_projects': {
       const projects = await storage.getAllProjects();
       const summary = projects.length > 0 
-        ? projects.map(p => `- ${p.name} (${p.id})`).join('\n')
+        ? projects.map(p => `- ${p.id}`).join('\n')
         : 'No projects found.';
 
       return {
@@ -149,14 +148,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     case 'toggle_project': {
-      const result = await storage.toggleProject(args.id as string, args.name as string);
+      const result = await storage.toggleProject(args.id as string);
       
       if (result.action === 'created') {
         return {
           content: [
             {
               type: 'text',
-              text: `Project created successfully!\n\nID: ${result.project!.id}\nName: ${result.project!.name}`
+              text: `Project created successfully!\n\nID: ${result.project!.id}`
             }
           ]
         };

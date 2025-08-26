@@ -64,7 +64,6 @@ router.post('/', async (req: Request, res: Response) => {
     
     const project: Project = {
       id: projectId || uuidv4(),
-      name: req.body.name || 'Untitled Project',
       description: req.body.description || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
