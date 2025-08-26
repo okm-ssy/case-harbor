@@ -5,7 +5,7 @@ import { CLIPBOARD_CONSTANTS } from '../constants/ui';
 export const useClipboard = () => {
   const copyRowToTSV = useCallback(async (testCase: TestCase) => {
     const tsvData = CLIPBOARD_CONSTANTS.FIELDS
-      .map(field => testCase[field] || '')
+      .map(field => `"${testCase[field] || ''}"`)
       .join(CLIPBOARD_CONSTANTS.TSV_SEPARATOR);
     
     try {
@@ -28,7 +28,11 @@ export const useClipboard = () => {
       // 4つのフィールド（specification, preconditions, steps, verification）に合わせる
       const result = new Array(4).fill('');
       for (let i = 0; i < Math.min(values.length, 4); i++) {
-        result[i] = values[i] || '';
+        // ダブルクォートを除去
+        const value = values[i] || '';
+        result[i] = value.startsWith('"') && value.endsWith('"') 
+          ? value.slice(1, -1) 
+          : value;
       }
       
       return result;
