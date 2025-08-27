@@ -6,7 +6,7 @@ import { TestCase, Project } from '../types/index.js';
 import { 
   ProjectData, 
   ProjectsIndex, 
-  ensureStorageDir, 
+  ensureDataDir, 
   saveProjectFile, 
   saveProjectsIndex 
 } from './projectFileStorage.js';
@@ -84,8 +84,8 @@ export async function migrateToNewStructure(): Promise<void> {
     // Create backup first
     await backupOldData();
     
-    // Ensure storage directories exist
-    await ensureStorageDir();
+    // Ensure data directories exist
+    await ensureDataDir();
     
     // Read old data
     const oldTestCases = await readOldTestCases();

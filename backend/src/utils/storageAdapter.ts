@@ -50,7 +50,7 @@ export async function updateTestCasesOrder(updates: { id: string; order: number 
 // Ensure data directory exists
 export async function ensureDataDir(): Promise<void> {
   if (isNewStorageMode()) {
-    return newStorage.ensureStorageDir();
+    return newStorage.ensureDataDir();
   }
   return oldStorage.ensureDataDir();
 }

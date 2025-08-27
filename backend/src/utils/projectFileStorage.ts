@@ -8,9 +8,9 @@ const __dirname = dirname(__filename);
 
 // Use environment variable or default to repository root data directory
 const repositoryRoot: string = process.env.REPOSITORY_ROOT || join(__dirname, '../../..');
-const STORAGE_DIR: string = join(repositoryRoot, 'storage');
-const TEST_CASES_DIR: string = join(STORAGE_DIR, 'test-cases');
-const PROJECTS_FILE: string = join(STORAGE_DIR, 'projects.json');
+const DATA_DIR: string = join(repositoryRoot, 'data');
+const TEST_CASES_DIR: string = join(DATA_DIR, 'test-cases');
+const PROJECTS_FILE: string = join(DATA_DIR, 'projects.json');
 
 // Project data structure with test cases
 export interface ProjectData {
@@ -45,19 +45,19 @@ export interface ProjectsIndex {
   };
 }
 
-// Ensure storage directories exist
-export async function ensureStorageDir(): Promise<void> {
+// Ensure data directories exist
+export async function ensureDataDir(): Promise<void> {
   try {
-    await fs.mkdir(STORAGE_DIR, { recursive: true });
+    await fs.mkdir(DATA_DIR, { recursive: true });
     await fs.mkdir(TEST_CASES_DIR, { recursive: true });
   } catch (err) {
-    console.error('Failed to create storage directories:', err);
+    console.error('Failed to create data directories:', err);
   }
 }
 
 // Read or create project file
 export async function readOrCreateProjectFile(projectId: string): Promise<ProjectData> {
-  await ensureStorageDir();
+  await ensureDataDir();
   const filePath = join(TEST_CASES_DIR, `${projectId}.json`);
   
   try {
@@ -84,7 +84,7 @@ export async function readOrCreateProjectFile(projectId: string): Promise<Projec
 
 // Save project file
 export async function saveProjectFile(projectId: string, projectData: ProjectData): Promise<void> {
-  await ensureStorageDir();
+  await ensureDataDir();
   const filePath = join(TEST_CASES_DIR, `${projectId}.json`);
   const tempPath = `${filePath}.tmp`;
   
@@ -95,7 +95,7 @@ export async function saveProjectFile(projectId: string, projectData: ProjectDat
 
 // Read projects index
 export async function readProjectsIndex(): Promise<ProjectsIndex> {
-  await ensureStorageDir();
+  await ensureDataDir();
   
   try {
     const content = await fs.readFile(PROJECTS_FILE, 'utf8');
@@ -119,7 +119,7 @@ export async function readProjectsIndex(): Promise<ProjectsIndex> {
 
 // Save projects index
 export async function saveProjectsIndex(projectsIndex: ProjectsIndex): Promise<void> {
-  await ensureStorageDir();
+  await ensureDataDir();
   const tempPath = `${PROJECTS_FILE}.tmp`;
   
   // Update metadata
