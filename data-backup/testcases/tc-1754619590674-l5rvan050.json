@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619590674-l5rvan050",
+  "projectId": "crm-fairly",
+  "specification": "グラフ非表示 - 非表示実行",
+  "preconditions": "3点アイコンメニューが表示されている",
+  "steps": "「グラフを非表示」を押す",
+  "verification": "グラフがホーム画面から消えること",
+  "tags": [
+    "ホーム",
+    "グラフ非表示",
+    "機能"
+  ],
+  "createdAt": "2025-08-08T02:19:50.674Z",
+  "updatedAt": "2025-08-12T08:15:25.827Z",
+  "order": 19
+}

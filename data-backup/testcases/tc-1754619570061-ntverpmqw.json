@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619570061-ntverpmqw",
+  "projectId": "crm-fairly",
+  "specification": "ウィジェットリスト - グラフ追加ボタン押下時",
+  "preconditions": "ホーム画面が表示されている",
+  "steps": "グラフ追加ボタンを押す",
+  "verification": "画面の右側にウィジェットリストが表示されること",
+  "tags": [
+    "ホーム",
+    "ウィジェットリスト",
+    "表示"
+  ],
+  "createdAt": "2025-08-08T02:19:30.061Z",
+  "updatedAt": "2025-08-12T08:15:25.820Z",
+  "order": 16
+}

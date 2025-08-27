@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285089739-bjjqso8jy",
+  "projectId": "crm-2x0",
+  "specification": "行のドラッグ並び替え機能",
+  "preconditions": "",
+  "steps": "1. 行の左側にあるドラッグ用アイコンを上下にドラッグする",
+  "verification": "行の順番が変わること",
+  "tags": [
+    "グラフ設定",
+    "ドラッグ",
+    "並び替え"
+  ],
+  "createdAt": "2025-08-04T05:24:49.739Z",
+  "updatedAt": "2025-08-06T06:15:01.838Z",
+  "order": 16
+}

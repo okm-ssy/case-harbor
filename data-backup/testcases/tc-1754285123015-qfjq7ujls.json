@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285123015-qfjq7ujls",
+  "projectId": "crm-2x0",
+  "specification": "ランクのホーム設定保存",
+  "preconditions": "",
+  "steps": "1. ホーム設定を保存する",
+  "verification": "保存に成功すること",
+  "tags": [
+    "ランク",
+    "ホーム設定",
+    "保存"
+  ],
+  "createdAt": "2025-08-04T05:25:23.015Z",
+  "updatedAt": "2025-08-06T06:15:01.848Z",
+  "order": 23
+}

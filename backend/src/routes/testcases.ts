@@ -6,7 +6,7 @@ import {
   writeTestCase,
   deleteTestCase,
   updateTestCasesOrder
-} from '../utils/fileStorage.js';
+} from '../utils/storageAdapter.js';
 import { readAllProjects } from '../utils/projectStorage.js';
 import { TestCase } from '../types/index.js';
 import { HTTP_STATUS } from '../constants/http.js';

@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285357707-3r53yi3fi",
+  "projectId": "crm-2x0",
+  "specification": "ホーム設定OFF時のグラフ非表示確認",
+  "preconditions": "",
+  "steps": "1. グラフ設定画面で、ホーム設定をOFFにする\n2. ホームを開く",
+  "verification": "OFFにした項目のグラフはホームに表示されないこと",
+  "tags": [
+    "ホーム",
+    "グラフ非表示",
+    "設定OFF"
+  ],
+  "createdAt": "2025-08-04T05:29:17.707Z",
+  "updatedAt": "2025-08-06T06:15:01.900Z",
+  "order": 69
+}

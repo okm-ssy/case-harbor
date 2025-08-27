@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285021511-t3cn7wlc7",
+  "projectId": "crm-2x0",
+  "specification": "サイドバーの初期選択状態確認",
+  "preconditions": "",
+  "steps": "1. サイドバー状態を確認",
+  "verification": "サイドバーはセグメントが選択されていること",
+  "tags": [
+    "サイドバー",
+    "初期状態"
+  ],
+  "createdAt": "2025-08-04T05:23:41.511Z",
+  "updatedAt": "2025-08-06T06:15:01.825Z",
+  "order": 3
+}

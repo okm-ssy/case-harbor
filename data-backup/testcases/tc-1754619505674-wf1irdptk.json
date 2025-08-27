@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619505674-wf1irdptk",
+  "projectId": "crm-fairly",
+  "specification": "レイアウト変更 - リロード後も位置保持",
+  "preconditions": "グラフの位置を変更済み",
+  "steps": "リロードする",
+  "verification": "位置が変更されたままになっていること",
+  "tags": [
+    "ホーム",
+    "レイアウト",
+    "永続化"
+  ],
+  "createdAt": "2025-08-08T02:18:25.674Z",
+  "updatedAt": "2025-08-12T08:15:25.808Z",
+  "order": 8
+}

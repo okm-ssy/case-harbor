@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285215808-smxhxtbw2",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントのホーム設定編集",
+  "preconditions": "",
+  "steps": "1. ホーム設定を編集する",
+  "verification": "編集用の表示になること",
+  "tags": [
+    "保有ポイント",
+    "ホーム設定",
+    "編集"
+  ],
+  "createdAt": "2025-08-04T05:26:55.808Z",
+  "updatedAt": "2025-08-06T06:15:01.869Z",
+  "order": 42
+}

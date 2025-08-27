@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285017005-ymgz1dlv7",
+  "projectId": "crm-2x0",
+  "specification": "分析ページのメニューバー確認",
+  "preconditions": "",
+  "steps": "1. 画面確認",
+  "verification": "左にサイドメニューバーがあり、上から\n- セグメント\n- グラフ設定\nとなっていること",
+  "tags": [
+    "メニュー",
+    "分析",
+    "UI"
+  ],
+  "createdAt": "2025-08-04T05:23:37.005Z",
+  "updatedAt": "2025-08-06T06:15:01.825Z",
+  "order": 2
+}

@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211772077-evky6xkym",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "マイレージ保有ポイントをホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "マイレージ保有ポイント",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:36:12.077Z",
+  "updatedAt": "2025-08-26T12:36:12.077Z"
+}

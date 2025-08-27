@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285105645-yeut6pxsu",
+  "projectId": "crm-2x0",
+  "specification": "ランク詳細設定でマイレージ情報の確認",
+  "preconditions": "",
+  "steps": "1. マイレージ名・系統名・実施期間を確認する",
+  "verification": "マイレージ名・系統名・実施期間が正しいこと",
+  "tags": [
+    "ランク",
+    "マイレージ情報"
+  ],
+  "createdAt": "2025-08-04T05:25:05.645Z",
+  "updatedAt": "2025-08-06T06:15:01.843Z",
+  "order": 19
+}

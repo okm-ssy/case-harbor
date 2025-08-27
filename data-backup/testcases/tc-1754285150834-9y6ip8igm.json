@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285150834-9y6ip8igm",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントのポイント閾値初期値確認",
+  "preconditions": "",
+  "steps": "1. ポイント閾値を確認する",
+  "verification": "初期値が0以上になっていること",
+  "tags": [
+    "保有ポイント",
+    "ポイント闾値",
+    "初期値"
+  ],
+  "createdAt": "2025-08-04T05:25:50.834Z",
+  "updatedAt": "2025-08-06T06:15:01.853Z",
+  "order": 29
+}

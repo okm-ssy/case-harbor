@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211812523-y8ltdrg28",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "キャンペーン寄与数をホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "キャンペーン寄与数",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:36:52.523Z",
+  "updatedAt": "2025-08-26T12:36:52.523Z"
+}

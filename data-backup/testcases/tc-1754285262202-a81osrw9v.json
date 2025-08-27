@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285262202-a81osrw9v",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイントのポイント閾値初期値確認",
+  "preconditions": "",
+  "steps": "1. ポイント閾値を確認する",
+  "verification": "初期値が0以上になっていること",
+  "tags": [
+    "累計ポイント",
+    "ポイント闾値",
+    "初期値"
+  ],
+  "createdAt": "2025-08-04T05:27:42.202Z",
+  "updatedAt": "2025-08-06T06:15:01.878Z",
+  "order": 50
+}

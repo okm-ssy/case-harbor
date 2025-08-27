@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619493169-xwde6azzs",
+  "projectId": "crm-fairly",
+  "specification": "デザイン確認 - ホーム表示trueの円グラフが表示されている",
+  "preconditions": "アンケート > 項目に以下の項目が登録されている: ホーム表示 true のもの（グラフ種類が円グラフ、棒グラフ、折れ線グラフ、表）、ホーム表示 false のもの（任意の形式で1つ以上）、項目に回答した人がいる、各グラフについてホーム画面で設定変更をしていない",
+  "steps": "ホーム画面を開く",
+  "verification": "このようなデザインになっていること: https://docs.google.com/presentation/d/14rEwGLSZrne_bW-ffXlic3dhm6qMlE-2Q1EEpjt6CaI/edit?slide=id.g3531526daf9_0_35#slide=id.g3531526daf9_0_35",
+  "tags": [
+    "ホーム",
+    "デザイン",
+    "円グラフ"
+  ],
+  "createdAt": "2025-08-08T02:18:13.169Z",
+  "updatedAt": "2025-08-12T08:15:25.798Z",
+  "order": 0
+}

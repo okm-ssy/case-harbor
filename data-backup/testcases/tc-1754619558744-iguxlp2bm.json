@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619558744-iguxlp2bm",
+  "projectId": "crm-fairly",
+  "specification": "リセット機能 - 初期表示グラフ種類の復元",
+  "preconditions": "リセットを実行済み",
+  "steps": "画面を確認する",
+  "verification": "項目ごとに、設定した「初期表示するグラフ種類」の表示がされていること",
+  "tags": [
+    "ホーム",
+    "リセット",
+    "初期表示"
+  ],
+  "createdAt": "2025-08-08T02:19:18.744Z",
+  "updatedAt": "2025-08-12T08:15:25.817Z",
+  "order": 14
+}

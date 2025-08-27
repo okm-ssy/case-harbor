@@ -1,0 +1,12 @@
+{
+  "id": "fff92fee-c7d9-476e-a089-08503c5b9ab6",
+  "projectId": "crm-fairly",
+  "specification": "グラフ非表示 - ローディング表示",
+  "preconditions": "ウィジェットリストに非表示グラフが表示されている",
+  "steps": "ウィジェットリストのグラフを確認する",
+  "verification": "ローディングが終わったらグラフの内容が表示されること",
+  "tags": [],
+  "order": 23,
+  "createdAt": "2025-08-08T02:24:18.677Z",
+  "updatedAt": "2025-08-12T08:15:25.831Z"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211625290-51runtmzu",
+  "projectId": "crm-griffin",
+  "specification": "マイレージランクの詳細ページを開く",
+  "preconditions": "",
+  "steps": "",
+  "verification": "設定どおりの情報が表示されること",
+  "tags": [
+    "マイレージランク",
+    "詳細表示"
+  ],
+  "createdAt": "2025-08-26T12:33:45.290Z",
+  "updatedAt": "2025-08-26T12:33:45.290Z"
+}

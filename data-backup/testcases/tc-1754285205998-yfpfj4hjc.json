@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285205998-yfpfj4hjc",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントの不正閾値保存エラー",
+  "preconditions": "",
+  "steps": "1. 保存する",
+  "verification": "保存に失敗すること",
+  "tags": [
+    "保有ポイント",
+    "保存エラー",
+    "バリデーション"
+  ],
+  "createdAt": "2025-08-04T05:26:45.998Z",
+  "updatedAt": "2025-08-06T06:15:01.863Z",
+  "order": 40
+}

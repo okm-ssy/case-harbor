@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285251907-rk529zec3",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイント詳細設定でグラフ種別の確認",
+  "preconditions": "",
+  "steps": "1. グラフ種別を確認する",
+  "verification": "グラフが「累計ポイント」になっていること",
+  "tags": [
+    "累計ポイント",
+    "グラフ種別"
+  ],
+  "createdAt": "2025-08-04T05:27:31.907Z",
+  "updatedAt": "2025-08-06T06:15:01.876Z",
+  "order": 49
+}

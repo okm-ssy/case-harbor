@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285335472-r8pspg6tf",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイントのホーム設定保存",
+  "preconditions": "",
+  "steps": "1. ホーム設定を保存する",
+  "verification": "保存に成功すること",
+  "tags": [
+    "累計ポイント",
+    "ホーム設定",
+    "保存"
+  ],
+  "createdAt": "2025-08-04T05:28:55.472Z",
+  "updatedAt": "2025-08-06T06:15:01.897Z",
+  "order": 65
+}

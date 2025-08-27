@@ -27,6 +27,9 @@ ch() {
   mcp-build)
     script_name='mcp-build.sh'
     ;;
+  migrate)
+    script_name='migrate.sh'
+    ;;
   *)
     help && return
     ;;
@@ -49,6 +52,7 @@ help() {
   ch run          システムを立ち上げる（フロントエンド + バックエンド）
   ch test         自動テストを実行する（バックエンド）
   ch mcp-build    MCPサーバーのコードをビルドする
+  ch migrate      データを新しいファイル構造に移行する
   ch help         このヘルプを表示する
 
 END

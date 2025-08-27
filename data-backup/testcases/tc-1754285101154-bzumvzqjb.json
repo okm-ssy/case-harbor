@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285101154-bzumvzqjb",
+  "projectId": "crm-2x0",
+  "specification": "ランク詳細設定画面のデザイン確認",
+  "preconditions": "",
+  "steps": "1. デザイン確認",
+  "verification": "指定されたデザイン（「アンケートごとに表示」のオプションはない）に従っていること",
+  "tags": [
+    "ランク",
+    "デザイン",
+    "UI"
+  ],
+  "createdAt": "2025-08-04T05:25:01.154Z",
+  "updatedAt": "2025-08-06T06:15:01.842Z",
+  "order": 18
+}

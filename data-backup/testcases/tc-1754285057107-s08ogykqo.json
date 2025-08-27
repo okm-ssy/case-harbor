@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285057107-s08ogykqo",
+  "projectId": "crm-2x0",
+  "specification": "グラフ設定確認（データなし状態）",
+  "preconditions": "マイレージから取り込んだデータがS3 Tablesに存在しない",
+  "steps": "1. 分析 > グラフ設定を確認する",
+  "verification": "「データがありません」と表示されること",
+  "tags": [
+    "グラフ設定",
+    "データなし"
+  ],
+  "createdAt": "2025-08-04T05:24:17.107Z",
+  "updatedAt": "2025-08-06T06:15:01.832Z",
+  "order": 10
+}

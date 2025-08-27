@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285346339-kr4m94aoj",
+  "projectId": "crm-2x0",
+  "specification": "ホーム画面への移動",
+  "preconditions": "",
+  "steps": "1. ホーム画面に移動する",
+  "verification": "アンケート項目 > マイレージ項目の表示順でグラフが表示されること",
+  "tags": [
+    "ホーム",
+    "グラフ表示順"
+  ],
+  "createdAt": "2025-08-04T05:29:06.339Z",
+  "updatedAt": "2025-08-06T06:15:01.899Z",
+  "order": 67
+}

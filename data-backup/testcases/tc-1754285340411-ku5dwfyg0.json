@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285340411-ku5dwfyg0",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイント設定変更の永続化確認",
+  "preconditions": "",
+  "steps": "1. リロードする",
+  "verification": "変更した状態が表示されていること",
+  "tags": [
+    "累計ポイント",
+    "永続化",
+    "リロード"
+  ],
+  "createdAt": "2025-08-04T05:29:00.411Z",
+  "updatedAt": "2025-08-06T06:15:01.898Z",
+  "order": 66
+}

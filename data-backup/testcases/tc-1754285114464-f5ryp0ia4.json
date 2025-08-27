@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285114464-f5ryp0ia4",
+  "projectId": "crm-2x0",
+  "specification": "ランクのホーム設定編集",
+  "preconditions": "",
+  "steps": "1. ホーム設定を編集する",
+  "verification": "編集用の表示になること",
+  "tags": [
+    "ランク",
+    "ホーム設定",
+    "編集"
+  ],
+  "createdAt": "2025-08-04T05:25:14.464Z",
+  "updatedAt": "2025-08-06T06:15:01.846Z",
+  "order": 21
+}

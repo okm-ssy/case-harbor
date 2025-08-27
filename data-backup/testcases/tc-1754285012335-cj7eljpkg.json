@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285012335-cj7eljpkg",
+  "projectId": "crm-2x0",
+  "specification": "分析タブをクリックする",
+  "preconditions": "",
+  "steps": "1. 分析タブをクリックする",
+  "verification": "セグメントのページに移動すること",
+  "tags": [
+    "ナビゲーション",
+    "分析"
+  ],
+  "createdAt": "2025-08-04T05:23:32.335Z",
+  "updatedAt": "2025-08-06T06:15:01.824Z",
+  "order": 1
+}

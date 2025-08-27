@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285182169-t8obbiyct",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントの閾値複数追加（2回目）",
+  "preconditions": "",
+  "steps": "1. ポイント閾値を追加する",
+  "verification": "入力欄が増えること",
+  "tags": [
+    "保有ポイント",
+    "ポイント闾値",
+    "複数追加"
+  ],
+  "createdAt": "2025-08-04T05:26:22.169Z",
+  "updatedAt": "2025-08-06T06:15:01.859Z",
+  "order": 35
+}

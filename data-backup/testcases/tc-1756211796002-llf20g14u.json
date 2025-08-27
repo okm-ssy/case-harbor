@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211796002-llf20g14u",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "マイレージ時系列ポイントをホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "マイレージ時系列ポイント",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:36:36.002Z",
+  "updatedAt": "2025-08-26T12:36:36.002Z"
+}

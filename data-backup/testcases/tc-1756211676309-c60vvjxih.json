@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211676309-c60vvjxih",
+  "projectId": "crm-griffin",
+  "specification": "マイレージ累計ポイントの詳細ページを開く",
+  "preconditions": "",
+  "steps": "",
+  "verification": "設定どおりの情報が表示されること",
+  "tags": [
+    "マイレージ累計ポイント",
+    "詳細表示"
+  ],
+  "createdAt": "2025-08-26T12:34:36.309Z",
+  "updatedAt": "2025-08-26T12:34:36.309Z"
+}

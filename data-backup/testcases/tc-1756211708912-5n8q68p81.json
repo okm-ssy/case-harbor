@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211708912-5n8q68p81",
+  "projectId": "crm-griffin",
+  "specification": "キャンペーン参加数の詳細ページを開く",
+  "preconditions": "",
+  "steps": "",
+  "verification": "設定どおりの情報が表示されること",
+  "tags": [
+    "キャンペーン参加数",
+    "詳細表示"
+  ],
+  "createdAt": "2025-08-26T12:35:08.912Z",
+  "updatedAt": "2025-08-26T12:35:08.912Z"
+}

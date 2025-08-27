@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211804123-c6sg1wp9g",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "キャンペーン参加数をホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "キャンペーン参加数",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:36:44.123Z",
+  "updatedAt": "2025-08-26T12:36:44.123Z"
+}

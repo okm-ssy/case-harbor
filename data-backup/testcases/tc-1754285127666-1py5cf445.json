@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285127666-1py5cf445",
+  "projectId": "crm-2x0",
+  "specification": "ランク設定変更の永続化確認",
+  "preconditions": "",
+  "steps": "1. リロードする",
+  "verification": "変更した状態が表示されていること",
+  "tags": [
+    "ランク",
+    "永続化",
+    "リロード"
+  ],
+  "createdAt": "2025-08-04T05:25:27.666Z",
+  "updatedAt": "2025-08-06T06:15:01.849Z",
+  "order": 24
+}

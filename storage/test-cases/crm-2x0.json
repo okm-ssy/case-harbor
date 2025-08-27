@@ -1,0 +1,1110 @@
+{
+  "projectId": "crm-2x0",
+  "projectName": "crm-2x0",
+  "testCases": {
+    "tc-1754285008042-ic0vkkpd7": {
+      "id": "tc-1754285008042-ic0vkkpd7",
+      "projectId": "crm-2x0",
+      "specification": "CRMを開いてグローバルヘッダーを確認する",
+      "preconditions": "",
+      "steps": "1. CRMを開く\n2. グローバルヘッダーを確認する",
+      "verification": "タブが以下の4つであること\n- ホーム\n- アンケート\n- 分析\n- 配信",
+      "tags": [
+        "基本操作",
+        "ヘッダー"
+      ],
+      "createdAt": "2025-08-04T05:23:28.042Z",
+      "updatedAt": "2025-08-06T06:15:01.823Z",
+      "order": 0
+    },
+    "tc-1754285012335-cj7eljpkg": {
+      "id": "tc-1754285012335-cj7eljpkg",
+      "projectId": "crm-2x0",
+      "specification": "分析タブをクリックする",
+      "preconditions": "",
+      "steps": "1. 分析タブをクリックする",
+      "verification": "セグメントのページに移動すること",
+      "tags": [
+        "ナビゲーション",
+        "分析"
+      ],
+      "createdAt": "2025-08-04T05:23:32.335Z",
+      "updatedAt": "2025-08-06T06:15:01.824Z",
+      "order": 1
+    },
+    "tc-1754285017005-ymgz1dlv7": {
+      "id": "tc-1754285017005-ymgz1dlv7",
+      "projectId": "crm-2x0",
+      "specification": "分析ページのメニューバー確認",
+      "preconditions": "",
+      "steps": "1. 画面確認",
+      "verification": "左にサイドメニューバーがあり、上から\n- セグメント\n- グラフ設定\nとなっていること",
+      "tags": [
+        "メニュー",
+        "分析",
+        "UI"
+      ],
+      "createdAt": "2025-08-04T05:23:37.005Z",
+      "updatedAt": "2025-08-06T06:15:01.825Z",
+      "order": 2
+    },
+    "tc-1754285021511-t3cn7wlc7": {
+      "id": "tc-1754285021511-t3cn7wlc7",
+      "projectId": "crm-2x0",
+      "specification": "サイドバーの初期選択状態確認",
+      "preconditions": "",
+      "steps": "1. サイドバー状態を確認",
+      "verification": "サイドバーはセグメントが選択されていること",
+      "tags": [
+        "サイドバー",
+        "初期状態"
+      ],
+      "createdAt": "2025-08-04T05:23:41.511Z",
+      "updatedAt": "2025-08-06T06:15:01.825Z",
+      "order": 3
+    },
+    "tc-1754285027514-enf105lfk": {
+      "id": "tc-1754285027514-enf105lfk",
+      "projectId": "crm-2x0",
+      "specification": "サイドメニューバーの折りたたみ機能",
+      "preconditions": "",
+      "steps": "1. サイドメニューバーの「メニューを折りたたむ」をクリックする",
+      "verification": "アイコンを残して、サイドメニューバーが狭まること（アンケートページと同じ挙動をすること）",
+      "tags": [
+        "サイドバー",
+        "折りたたみ"
+      ],
+      "createdAt": "2025-08-04T05:23:47.514Z",
+      "updatedAt": "2025-08-06T06:15:01.826Z",
+      "order": 4
+    },
+    "tc-1754285031660-afa1c9o5l": {
+      "id": "tc-1754285031660-afa1c9o5l",
+      "projectId": "crm-2x0",
+      "specification": "折りたたみ状態でグラフ設定アイコンクリック",
+      "preconditions": "",
+      "steps": "1. サイドメニューバーのグラフ設定のアイコンをクリックする",
+      "verification": "グラフ設定の画面に移動すること",
+      "tags": [
+        "サイドバー",
+        "グラフ設定"
+      ],
+      "createdAt": "2025-08-04T05:23:51.660Z",
+      "updatedAt": "2025-08-06T06:15:01.827Z",
+      "order": 5
+    },
+    "tc-1754285036223-3jdr8slmb": {
+      "id": "tc-1754285036223-3jdr8slmb",
+      "projectId": "crm-2x0",
+      "specification": "折りたたみ状態でセグメントアイコンクリック",
+      "preconditions": "",
+      "steps": "1. サイドメニューバーのセグメントのアイコンをクリックする",
+      "verification": "セグメントの画面に移動すること",
+      "tags": [
+        "サイドバー",
+        "セグメント"
+      ],
+      "createdAt": "2025-08-04T05:23:56.223Z",
+      "updatedAt": "2025-08-06T06:15:01.828Z",
+      "order": 6
+    },
+    "tc-1754285041564-p1imy72g5": {
+      "id": "tc-1754285041564-p1imy72g5",
+      "projectId": "crm-2x0",
+      "specification": "サイドメニューバーの展開機能",
+      "preconditions": "",
+      "steps": "1. サイドメニューバーのハンバーガーメニューのアイコンをクリックする",
+      "verification": "サイドメニューバーが広がって、各ページの名前が表示されること\n- メニューを折りたたむ\n- セグメント\n- グラフ設定",
+      "tags": [
+        "サイドバー",
+        "展開"
+      ],
+      "createdAt": "2025-08-04T05:24:01.564Z",
+      "updatedAt": "2025-08-06T06:15:01.829Z",
+      "order": 7
+    },
+    "tc-1754285046961-dgcdrqfw4": {
+      "id": "tc-1754285046961-dgcdrqfw4",
+      "projectId": "crm-2x0",
+      "specification": "セグメントの新規作成",
+      "preconditions": "参加済みのアンケートがある",
+      "steps": "1. セグメントを新規作成する\n2. 任意の条件を指定する\n3. セグメントを保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "セグメント",
+        "新規作成"
+      ],
+      "createdAt": "2025-08-04T05:24:06.961Z",
+      "updatedAt": "2025-08-06T06:15:01.830Z",
+      "order": 8
+    },
+    "tc-1754285051287-w23sedu3e": {
+      "id": "tc-1754285051287-w23sedu3e",
+      "projectId": "crm-2x0",
+      "specification": "作成したセグメントの友だち数確認",
+      "preconditions": "",
+      "steps": "1. 作成したセグメントを確認する",
+      "verification": "正しい友だち数が集計されること",
+      "tags": [
+        "セグメント",
+        "集計"
+      ],
+      "createdAt": "2025-08-04T05:24:11.287Z",
+      "updatedAt": "2025-08-06T06:15:01.831Z",
+      "order": 9
+    },
+    "tc-1754285057107-s08ogykqo": {
+      "id": "tc-1754285057107-s08ogykqo",
+      "projectId": "crm-2x0",
+      "specification": "グラフ設定確認（データなし状態）",
+      "preconditions": "マイレージから取り込んだデータがS3 Tablesに存在しない",
+      "steps": "1. 分析 > グラフ設定を確認する",
+      "verification": "「データがありません」と表示されること",
+      "tags": [
+        "グラフ設定",
+        "データなし"
+      ],
+      "createdAt": "2025-08-04T05:24:17.107Z",
+      "updatedAt": "2025-08-06T06:15:01.832Z",
+      "order": 10
+    },
+    "tc-1754285063594-toy4wlsdt": {
+      "id": "tc-1754285063594-toy4wlsdt",
+      "projectId": "crm-2x0",
+      "specification": "グラフ設定テーブル下部の案内確認",
+      "preconditions": "",
+      "steps": "1. テーブル下部を確認する",
+      "verification": "テーブルの下部に「アンケートの項目については アンケート > 項目設定 で設定ください」と表示されていること",
+      "tags": [
+        "グラフ設定",
+        "案内メッセージ"
+      ],
+      "createdAt": "2025-08-04T05:24:23.594Z",
+      "updatedAt": "2025-08-06T06:15:01.833Z",
+      "order": 11
+    },
+    "tc-1754285069256-k4q52nw86": {
+      "id": "tc-1754285069256-k4q52nw86",
+      "projectId": "crm-2x0",
+      "specification": "案内リンクからアンケート項目設定への遷移",
+      "preconditions": "",
+      "steps": "1. テーブル下部の案内にある「アンケート > 項目設定」をクリックする",
+      "verification": "アンケート > 項目設定のページに遷移すること",
+      "tags": [
+        "リンク",
+        "遷移",
+        "アンケート"
+      ],
+      "createdAt": "2025-08-04T05:24:29.256Z",
+      "updatedAt": "2025-08-06T06:15:01.834Z",
+      "order": 12
+    },
+    "tc-1754285074735-rzo29b7n3": {
+      "id": "tc-1754285074735-rzo29b7n3",
+      "projectId": "crm-2x0",
+      "specification": "グラフ設定の一覧表示（データあり状態）",
+      "preconditions": "マイレージから取り込んだデータがS3 Tablesに存在する",
+      "steps": "1. 分析 > グラフ設定を確認する",
+      "verification": "マイレージ・系統ごとに\n- ランク\n- 保有ポイント\n- 累計ポイント\nのグラフが表示されること",
+      "tags": [
+        "グラフ設定",
+        "一覧表示"
+      ],
+      "createdAt": "2025-08-04T05:24:34.735Z",
+      "updatedAt": "2025-08-06T06:15:01.835Z",
+      "order": 13
+    },
+    "tc-1754285079876-l6ufuhiv1": {
+      "id": "tc-1754285079876-l6ufuhiv1",
+      "projectId": "crm-2x0",
+      "specification": "マイレージ名・系統名・実施期間の確認",
+      "preconditions": "",
+      "steps": "1. グラフ設定一覧の表示内容を確認する",
+      "verification": "マイレージ名・系統名・実施期間が正しいこと",
+      "tags": [
+        "グラフ設定",
+        "マイレージ情報"
+      ],
+      "createdAt": "2025-08-04T05:24:39.876Z",
+      "updatedAt": "2025-08-06T06:15:01.836Z",
+      "order": 14
+    },
+    "tc-1754285084172-5k980g5ks": {
+      "id": "tc-1754285084172-5k980g5ks",
+      "projectId": "crm-2x0",
+      "specification": "ホーム表示設定の初期値確認",
+      "preconditions": "",
+      "steps": "1. グラフ設定一覧のホーム表示値を確認する",
+      "verification": "ホーム表示の値が設定したものになっていること（デフォルト：ON）",
+      "tags": [
+        "グラフ設定",
+        "ホーム表示"
+      ],
+      "createdAt": "2025-08-04T05:24:44.172Z",
+      "updatedAt": "2025-08-06T06:15:01.837Z",
+      "order": 15
+    },
+    "tc-1754285089739-bjjqso8jy": {
+      "id": "tc-1754285089739-bjjqso8jy",
+      "projectId": "crm-2x0",
+      "specification": "行のドラッグ並び替え機能",
+      "preconditions": "",
+      "steps": "1. 行の左側にあるドラッグ用アイコンを上下にドラッグする",
+      "verification": "行の順番が変わること",
+      "tags": [
+        "グラフ設定",
+        "ドラッグ",
+        "並び替え"
+      ],
+      "createdAt": "2025-08-04T05:24:49.739Z",
+      "updatedAt": "2025-08-06T06:15:01.838Z",
+      "order": 16
+    },
+    "tc-1754285095060-7ji7x27fk": {
+      "id": "tc-1754285095060-7ji7x27fk",
+      "projectId": "crm-2x0",
+      "specification": "ランクグラフの詳細設定画面への遷移",
+      "preconditions": "",
+      "steps": "1. グラフ設定一覧のうち、グラフ列が「ランク」となっているものをクリックする",
+      "verification": "対象グラフの詳細設定画面に遷移すること",
+      "tags": [
+        "ランク",
+        "詳細設定",
+        "遷移"
+      ],
+      "createdAt": "2025-08-04T05:24:55.060Z",
+      "updatedAt": "2025-08-06T06:15:01.840Z",
+      "order": 17
+    },
+    "tc-1754285101154-bzumvzqjb": {
+      "id": "tc-1754285101154-bzumvzqjb",
+      "projectId": "crm-2x0",
+      "specification": "ランク詳細設定画面のデザイン確認",
+      "preconditions": "",
+      "steps": "1. デザイン確認",
+      "verification": "指定されたデザイン（「アンケートごとに表示」のオプションはない）に従っていること",
+      "tags": [
+        "ランク",
+        "デザイン",
+        "UI"
+      ],
+      "createdAt": "2025-08-04T05:25:01.154Z",
+      "updatedAt": "2025-08-06T06:15:01.842Z",
+      "order": 18
+    },
+    "tc-1754285105645-yeut6pxsu": {
+      "id": "tc-1754285105645-yeut6pxsu",
+      "projectId": "crm-2x0",
+      "specification": "ランク詳細設定でマイレージ情報の確認",
+      "preconditions": "",
+      "steps": "1. マイレージ名・系統名・実施期間を確認する",
+      "verification": "マイレージ名・系統名・実施期間が正しいこと",
+      "tags": [
+        "ランク",
+        "マイレージ情報"
+      ],
+      "createdAt": "2025-08-04T05:25:05.645Z",
+      "updatedAt": "2025-08-06T06:15:01.843Z",
+      "order": 19
+    },
+    "tc-1754285109628-1ad63tjt3": {
+      "id": "tc-1754285109628-1ad63tjt3",
+      "projectId": "crm-2x0",
+      "specification": "ランク詳細設定でグラフ種別の確認",
+      "preconditions": "",
+      "steps": "1. グラフ種別を確認する",
+      "verification": "グラフが「ランク」になっていること",
+      "tags": [
+        "ランク",
+        "グラフ種別"
+      ],
+      "createdAt": "2025-08-04T05:25:09.628Z",
+      "updatedAt": "2025-08-06T06:15:01.845Z",
+      "order": 20
+    },
+    "tc-1754285114464-f5ryp0ia4": {
+      "id": "tc-1754285114464-f5ryp0ia4",
+      "projectId": "crm-2x0",
+      "specification": "ランクのホーム設定編集",
+      "preconditions": "",
+      "steps": "1. ホーム設定を編集する",
+      "verification": "編集用の表示になること",
+      "tags": [
+        "ランク",
+        "ホーム設定",
+        "編集"
+      ],
+      "createdAt": "2025-08-04T05:25:14.464Z",
+      "updatedAt": "2025-08-06T06:15:01.846Z",
+      "order": 21
+    },
+    "tc-1754285118707-93y2lfib1": {
+      "id": "tc-1754285118707-93y2lfib1",
+      "projectId": "crm-2x0",
+      "specification": "ランクのホーム設定機能確認",
+      "preconditions": "",
+      "steps": "1. ホーム設定機能を確認する",
+      "verification": "アンケート > 項目設定と同じ設定ができること",
+      "tags": [
+        "ランク",
+        "ホーム設定",
+        "機能"
+      ],
+      "createdAt": "2025-08-04T05:25:18.707Z",
+      "updatedAt": "2025-08-06T06:15:01.847Z",
+      "order": 22
+    },
+    "tc-1754285123015-qfjq7ujls": {
+      "id": "tc-1754285123015-qfjq7ujls",
+      "projectId": "crm-2x0",
+      "specification": "ランクのホーム設定保存",
+      "preconditions": "",
+      "steps": "1. ホーム設定を保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "ランク",
+        "ホーム設定",
+        "保存"
+      ],
+      "createdAt": "2025-08-04T05:25:23.015Z",
+      "updatedAt": "2025-08-06T06:15:01.848Z",
+      "order": 23
+    },
+    "tc-1754285127666-1py5cf445": {
+      "id": "tc-1754285127666-1py5cf445",
+      "projectId": "crm-2x0",
+      "specification": "ランク設定変更の永続化確認",
+      "preconditions": "",
+      "steps": "1. リロードする",
+      "verification": "変更した状態が表示されていること",
+      "tags": [
+        "ランク",
+        "永続化",
+        "リロード"
+      ],
+      "createdAt": "2025-08-04T05:25:27.666Z",
+      "updatedAt": "2025-08-06T06:15:01.849Z",
+      "order": 24
+    },
+    "tc-1754285132907-vi3utpf51": {
+      "id": "tc-1754285132907-vi3utpf51",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントグラフの詳細設定画面への遷移",
+      "preconditions": "",
+      "steps": "1. グラフ設定一覧のうち、グラフ列が「保有ポイント」となっているものをクリックする",
+      "verification": "対象グラフの詳細設定画面に遷移すること",
+      "tags": [
+        "保有ポイント",
+        "詳細設定",
+        "遷移"
+      ],
+      "createdAt": "2025-08-04T05:25:32.907Z",
+      "updatedAt": "2025-08-06T06:15:01.850Z",
+      "order": 25
+    },
+    "tc-1754285137672-06rsa85cr": {
+      "id": "tc-1754285137672-06rsa85cr",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイント詳細設定画面のデザイン確認",
+      "preconditions": "",
+      "steps": "1. デザイン確認",
+      "verification": "指定されたデザイン（「アンケートごとに表示」のオプションはない）に従っていること",
+      "tags": [
+        "保有ポイント",
+        "デザイン",
+        "UI"
+      ],
+      "createdAt": "2025-08-04T05:25:37.672Z",
+      "updatedAt": "2025-08-06T06:15:01.851Z",
+      "order": 26
+    },
+    "tc-1754285141762-zdjzm267j": {
+      "id": "tc-1754285141762-zdjzm267j",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイント詳細設定でマイレージ情報の確認",
+      "preconditions": "",
+      "steps": "1. マイレージ名・系統名・実施期間を確認する",
+      "verification": "マイレージ名・系統名・実施期間が正しいこと",
+      "tags": [
+        "保有ポイント",
+        "マイレージ情報"
+      ],
+      "createdAt": "2025-08-04T05:25:41.762Z",
+      "updatedAt": "2025-08-06T06:15:01.851Z",
+      "order": 27
+    },
+    "tc-1754285145511-1vlbzu3xy": {
+      "id": "tc-1754285145511-1vlbzu3xy",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイント詳細設定でグラフ種別の確認",
+      "preconditions": "",
+      "steps": "1. グラフ種別を確認する",
+      "verification": "グラフが「保有ポイント」になっていること",
+      "tags": [
+        "保有ポイント",
+        "グラフ種別"
+      ],
+      "createdAt": "2025-08-04T05:25:45.511Z",
+      "updatedAt": "2025-08-06T06:15:01.852Z",
+      "order": 28
+    },
+    "tc-1754285150834-9y6ip8igm": {
+      "id": "tc-1754285150834-9y6ip8igm",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントのポイント閾値初期値確認",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を確認する",
+      "verification": "初期値が0以上になっていること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "初期値"
+      ],
+      "createdAt": "2025-08-04T05:25:50.834Z",
+      "updatedAt": "2025-08-06T06:15:01.853Z",
+      "order": 29
+    },
+    "tc-1754285159583-muhgfk8wf": {
+      "id": "tc-1754285159583-muhgfk8wf",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの項目設定編集",
+      "preconditions": "",
+      "steps": "1. 項目設定を編集する",
+      "verification": "マイレージ名・ポイントの種類・グラフは編集不可な状態であること",
+      "tags": [
+        "保有ポイント",
+        "項目設定",
+        "編集不可"
+      ],
+      "createdAt": "2025-08-04T05:25:59.583Z",
+      "updatedAt": "2025-08-06T06:15:01.854Z",
+      "order": 30
+    },
+    "tc-1754285164213-eqoxu6je7": {
+      "id": "tc-1754285164213-eqoxu6je7",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値編集可能性確認",
+      "preconditions": "",
+      "steps": "1. ポイント閾値の編集可能性を確認する",
+      "verification": "ポイント閾値が編集できること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "編集可能"
+      ],
+      "createdAt": "2025-08-04T05:26:04.213Z",
+      "updatedAt": "2025-08-06T06:15:01.855Z",
+      "order": 31
+    },
+    "tc-1754285168670-vo21ac1dx": {
+      "id": "tc-1754285168670-vo21ac1dx",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値追加機能",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を追加する",
+      "verification": "入力欄が増えること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "追加"
+      ],
+      "createdAt": "2025-08-04T05:26:08.670Z",
+      "updatedAt": "2025-08-06T06:15:01.856Z",
+      "order": 32
+    },
+    "tc-1754285173617-lzfj9wa16": {
+      "id": "tc-1754285173617-lzfj9wa16",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値入力と値反映",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてポイント閾値の値が変わること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "値反映"
+      ],
+      "createdAt": "2025-08-04T05:26:13.617Z",
+      "updatedAt": "2025-08-06T06:15:01.857Z",
+      "order": 33
+    },
+    "tc-1754285178132-nzioecpyw": {
+      "id": "tc-1754285178132-nzioecpyw",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値とプレビュー連動",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "保有ポイント",
+        "プレビュー",
+        "連動"
+      ],
+      "createdAt": "2025-08-04T05:26:18.132Z",
+      "updatedAt": "2025-08-06T06:15:01.858Z",
+      "order": 34
+    },
+    "tc-1754285182169-t8obbiyct": {
+      "id": "tc-1754285182169-t8obbiyct",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値複数追加（2回目）",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を追加する",
+      "verification": "入力欄が増えること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "複数追加"
+      ],
+      "createdAt": "2025-08-04T05:26:22.169Z",
+      "updatedAt": "2025-08-06T06:15:01.859Z",
+      "order": 35
+    },
+    "tc-1754285186262-h1x0loe2e": {
+      "id": "tc-1754285186262-h1x0loe2e",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値2回目入力と値反映",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてポイント閾値の値が変わること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "値反映"
+      ],
+      "createdAt": "2025-08-04T05:26:26.262Z",
+      "updatedAt": "2025-08-06T06:15:01.859Z",
+      "order": 36
+    },
+    "tc-1754285191021-56vuot13a": {
+      "id": "tc-1754285191021-56vuot13a",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値2回目とプレビュー連動",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "保有ポイント",
+        "プレビュー",
+        "連動"
+      ],
+      "createdAt": "2025-08-04T05:26:31.021Z",
+      "updatedAt": "2025-08-06T06:15:01.860Z",
+      "order": 37
+    },
+    "tc-1754285194621-qqnwxj875": {
+      "id": "tc-1754285194621-qqnwxj875",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの項目設定保存",
+      "preconditions": "",
+      "steps": "1. 項目設定を保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "保有ポイント",
+        "項目設定",
+        "保存"
+      ],
+      "createdAt": "2025-08-04T05:26:34.621Z",
+      "updatedAt": "2025-08-06T06:15:01.861Z",
+      "order": 38
+    },
+    "tc-1754285200820-ddxt0o81d": {
+      "id": "tc-1754285200820-ddxt0o81d",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値大小関係不正設定",
+      "preconditions": "",
+      "steps": "1. 項目設定を編集する\n2. ポイント閾値の値を入れ替えて、大小関係が不正な状態にする",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "保有ポイント",
+        "ポイント闾値",
+        "不正設定"
+      ],
+      "createdAt": "2025-08-04T05:26:40.820Z",
+      "updatedAt": "2025-08-06T06:15:01.862Z",
+      "order": 39
+    },
+    "tc-1754285205998-yfpfj4hjc": {
+      "id": "tc-1754285205998-yfpfj4hjc",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの不正閾値保存エラー",
+      "preconditions": "",
+      "steps": "1. 保存する",
+      "verification": "保存に失敗すること",
+      "tags": [
+        "保有ポイント",
+        "保存エラー",
+        "バリデーション"
+      ],
+      "createdAt": "2025-08-04T05:26:45.998Z",
+      "updatedAt": "2025-08-06T06:15:01.863Z",
+      "order": 40
+    },
+    "tc-1754285211535-r99zn6ni1": {
+      "id": "tc-1754285211535-r99zn6ni1",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントの閾値エラーメッセージ表示",
+      "preconditions": "",
+      "steps": "1. エラーメッセージを確認する",
+      "verification": "大小関係が不正な項目にエラーが表示されること「ポイント閾値は昇順にしてください」",
+      "tags": [
+        "保有ポイント",
+        "エラーメッセージ",
+        "バリデーション"
+      ],
+      "createdAt": "2025-08-04T05:26:51.535Z",
+      "updatedAt": "2025-08-06T06:15:01.864Z",
+      "order": 41
+    },
+    "tc-1754285215808-smxhxtbw2": {
+      "id": "tc-1754285215808-smxhxtbw2",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントのホーム設定編集",
+      "preconditions": "",
+      "steps": "1. ホーム設定を編集する",
+      "verification": "編集用の表示になること",
+      "tags": [
+        "保有ポイント",
+        "ホーム設定",
+        "編集"
+      ],
+      "createdAt": "2025-08-04T05:26:55.808Z",
+      "updatedAt": "2025-08-06T06:15:01.869Z",
+      "order": 42
+    },
+    "tc-1754285221822-bzyv3exya": {
+      "id": "tc-1754285221822-bzyv3exya",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントのホーム設定機能確認",
+      "preconditions": "",
+      "steps": "1. ホーム設定機能を確認する",
+      "verification": "アンケート > 項目設定と同じ設定ができること",
+      "tags": [
+        "保有ポイント",
+        "ホーム設定",
+        "機能"
+      ],
+      "createdAt": "2025-08-04T05:27:01.822Z",
+      "updatedAt": "2025-08-06T06:15:01.870Z",
+      "order": 43
+    },
+    "tc-1754285225431-4hzbh17xj": {
+      "id": "tc-1754285225431-4hzbh17xj",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイントのホーム設定保存",
+      "preconditions": "",
+      "steps": "1. ホーム設定を保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "保有ポイント",
+        "ホーム設定",
+        "保存"
+      ],
+      "createdAt": "2025-08-04T05:27:05.431Z",
+      "updatedAt": "2025-08-06T06:15:01.871Z",
+      "order": 44
+    },
+    "tc-1754285230151-wt5onrlc7": {
+      "id": "tc-1754285230151-wt5onrlc7",
+      "projectId": "crm-2x0",
+      "specification": "保有ポイント設定変更の永続化確認",
+      "preconditions": "",
+      "steps": "1. リロードする",
+      "verification": "変更した状態が表示されていること",
+      "tags": [
+        "保有ポイント",
+        "永続化",
+        "リロード"
+      ],
+      "createdAt": "2025-08-04T05:27:10.151Z",
+      "updatedAt": "2025-08-06T06:15:01.872Z",
+      "order": 45
+    },
+    "tc-1754285236072-zsdj9gdhq": {
+      "id": "tc-1754285236072-zsdj9gdhq",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントグラフの詳細設定画面への遷移",
+      "preconditions": "",
+      "steps": "1. グラフ設定一覧のうち、グラフ列が「累計ポイント」となっているものをクリックする",
+      "verification": "対象グラフの詳細設定画面に遷移すること",
+      "tags": [
+        "累計ポイント",
+        "詳細設定",
+        "遷移"
+      ],
+      "createdAt": "2025-08-04T05:27:16.072Z",
+      "updatedAt": "2025-08-06T06:15:01.873Z",
+      "order": 46
+    },
+    "tc-1754285241866-gkxg849ju": {
+      "id": "tc-1754285241866-gkxg849ju",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイント詳細設定画面のデザイン確認",
+      "preconditions": "",
+      "steps": "1. デザイン確認",
+      "verification": "指定されたデザイン（「アンケートごとに表示」のオプションはない）に従っていること",
+      "tags": [
+        "累計ポイント",
+        "デザイン",
+        "UI"
+      ],
+      "createdAt": "2025-08-04T05:27:21.866Z",
+      "updatedAt": "2025-08-06T06:15:01.874Z",
+      "order": 47
+    },
+    "tc-1754285247231-ll5meld80": {
+      "id": "tc-1754285247231-ll5meld80",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイント詳細設定でマイレージ情報の確認",
+      "preconditions": "",
+      "steps": "1. マイレージ名・系統名・実施期間を確認する",
+      "verification": "マイレージ名・系統名・実施期間が正しいこと",
+      "tags": [
+        "累計ポイント",
+        "マイレージ情報"
+      ],
+      "createdAt": "2025-08-04T05:27:27.231Z",
+      "updatedAt": "2025-08-06T06:15:01.874Z",
+      "order": 48
+    },
+    "tc-1754285251907-rk529zec3": {
+      "id": "tc-1754285251907-rk529zec3",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイント詳細設定でグラフ種別の確認",
+      "preconditions": "",
+      "steps": "1. グラフ種別を確認する",
+      "verification": "グラフが「累計ポイント」になっていること",
+      "tags": [
+        "累計ポイント",
+        "グラフ種別"
+      ],
+      "createdAt": "2025-08-04T05:27:31.907Z",
+      "updatedAt": "2025-08-06T06:15:01.876Z",
+      "order": 49
+    },
+    "tc-1754285262202-a81osrw9v": {
+      "id": "tc-1754285262202-a81osrw9v",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントのポイント閾値初期値確認",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を確認する",
+      "verification": "初期値が0以上になっていること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "初期値"
+      ],
+      "createdAt": "2025-08-04T05:27:42.202Z",
+      "updatedAt": "2025-08-06T06:15:01.878Z",
+      "order": 50
+    },
+    "tc-1754285267790-u11cggd92": {
+      "id": "tc-1754285267790-u11cggd92",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの項目設定編集",
+      "preconditions": "",
+      "steps": "1. 項目設定を編集する",
+      "verification": "マイレージ名・ポイントの種類・グラフは編集不可な状態であること",
+      "tags": [
+        "累計ポイント",
+        "項目設定",
+        "編集不可"
+      ],
+      "createdAt": "2025-08-04T05:27:47.790Z",
+      "updatedAt": "2025-08-06T06:15:01.878Z",
+      "order": 51
+    },
+    "tc-1754285272104-8gwktay8h": {
+      "id": "tc-1754285272104-8gwktay8h",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値編集可能性確認",
+      "preconditions": "",
+      "steps": "1. ポイント閾値の編集可能性を確認する",
+      "verification": "ポイント閾値が編集できること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "編集可能"
+      ],
+      "createdAt": "2025-08-04T05:27:52.104Z",
+      "updatedAt": "2025-08-06T06:15:01.879Z",
+      "order": 52
+    },
+    "tc-1754285277163-561d3hs00": {
+      "id": "tc-1754285277163-561d3hs00",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値追加機能",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を追加する",
+      "verification": "入力欄が増えること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "追加"
+      ],
+      "createdAt": "2025-08-04T05:27:57.163Z",
+      "updatedAt": "2025-08-06T06:15:01.880Z",
+      "order": 53
+    },
+    "tc-1754285283297-funrty4uu": {
+      "id": "tc-1754285283297-funrty4uu",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値入力と値反映",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてポイント閾値の値が変わること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "値反映"
+      ],
+      "createdAt": "2025-08-04T05:28:03.297Z",
+      "updatedAt": "2025-08-06T06:15:01.881Z",
+      "order": 54
+    },
+    "tc-1754285287975-nuoay4ijo": {
+      "id": "tc-1754285287975-nuoay4ijo",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値とプレビュー連動",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "累計ポイント",
+        "プレビュー",
+        "連動"
+      ],
+      "createdAt": "2025-08-04T05:28:07.975Z",
+      "updatedAt": "2025-08-06T06:15:01.882Z",
+      "order": 55
+    },
+    "tc-1754285292416-d7l63195n": {
+      "id": "tc-1754285292416-d7l63195n",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値複数追加（2回目）",
+      "preconditions": "",
+      "steps": "1. ポイント閾値を追加する",
+      "verification": "入力欄が増えること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "複数追加"
+      ],
+      "createdAt": "2025-08-04T05:28:12.416Z",
+      "updatedAt": "2025-08-06T06:15:01.883Z",
+      "order": 56
+    },
+    "tc-1754285297078-6d5bx6u8c": {
+      "id": "tc-1754285297078-6d5bx6u8c",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値2回目入力と値反映",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてポイント閾値の値が変わること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "値反映"
+      ],
+      "createdAt": "2025-08-04T05:28:17.078Z",
+      "updatedAt": "2025-08-06T06:15:01.885Z",
+      "order": 57
+    },
+    "tc-1754285301490-cqayqzr3n": {
+      "id": "tc-1754285301490-cqayqzr3n",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値2回目とプレビュー連動",
+      "preconditions": "",
+      "steps": "1. 入力欄に数値を入力する",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "累計ポイント",
+        "プレビュー",
+        "連動"
+      ],
+      "createdAt": "2025-08-04T05:28:21.490Z",
+      "updatedAt": "2025-08-06T06:15:01.887Z",
+      "order": 58
+    },
+    "tc-1754285305515-rm83tsh23": {
+      "id": "tc-1754285305515-rm83tsh23",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの項目設定保存",
+      "preconditions": "",
+      "steps": "1. 項目設定を保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "累計ポイント",
+        "項目設定",
+        "保存"
+      ],
+      "createdAt": "2025-08-04T05:28:25.515Z",
+      "updatedAt": "2025-08-06T06:15:01.887Z",
+      "order": 59
+    },
+    "tc-1754285311830-biszal1ph": {
+      "id": "tc-1754285311830-biszal1ph",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値大小関係不正設定",
+      "preconditions": "",
+      "steps": "1. 項目設定を編集する\n2. ポイント閾値の値を入れ替えて、大小関係が不正な状態にする",
+      "verification": "入力した値に合わせてホーム設定のプレビューが変わること",
+      "tags": [
+        "累計ポイント",
+        "ポイント闾値",
+        "不正設定"
+      ],
+      "createdAt": "2025-08-04T05:28:31.830Z",
+      "updatedAt": "2025-08-06T06:15:01.888Z",
+      "order": 60
+    },
+    "tc-1754285316452-pug73b0xx": {
+      "id": "tc-1754285316452-pug73b0xx",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの不正閾値保存エラー",
+      "preconditions": "",
+      "steps": "1. 保存する",
+      "verification": "保存に失敗すること",
+      "tags": [
+        "累計ポイント",
+        "保存エラー",
+        "バリデーション"
+      ],
+      "createdAt": "2025-08-04T05:28:36.452Z",
+      "updatedAt": "2025-08-06T06:15:01.889Z",
+      "order": 61
+    },
+    "tc-1754285322072-ja5sk7vqb": {
+      "id": "tc-1754285322072-ja5sk7vqb",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントの閾値エラーメッセージ表示",
+      "preconditions": "",
+      "steps": "1. エラーメッセージを確認する",
+      "verification": "大小関係が不正な項目にエラーが表示されること「ポイント閾値は昇順にしてください」",
+      "tags": [
+        "累計ポイント",
+        "エラーメッセージ",
+        "バリデーション"
+      ],
+      "createdAt": "2025-08-04T05:28:42.072Z",
+      "updatedAt": "2025-08-06T06:15:01.895Z",
+      "order": 62
+    },
+    "tc-1754285326624-oj3iok4m6": {
+      "id": "tc-1754285326624-oj3iok4m6",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントのホーム設定編集",
+      "preconditions": "",
+      "steps": "1. ホーム設定を編集する",
+      "verification": "編集用の表示になること",
+      "tags": [
+        "累計ポイント",
+        "ホーム設定",
+        "編集"
+      ],
+      "createdAt": "2025-08-04T05:28:46.624Z",
+      "updatedAt": "2025-08-06T06:15:01.896Z",
+      "order": 63
+    },
+    "tc-1754285331525-qeqv6b77r": {
+      "id": "tc-1754285331525-qeqv6b77r",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントのホーム設定機能確認",
+      "preconditions": "",
+      "steps": "1. ホーム設定機能を確認する",
+      "verification": "アンケート > 項目設定と同じ設定ができること",
+      "tags": [
+        "累計ポイント",
+        "ホーム設定",
+        "機能"
+      ],
+      "createdAt": "2025-08-04T05:28:51.525Z",
+      "updatedAt": "2025-08-06T06:15:01.897Z",
+      "order": 64
+    },
+    "tc-1754285335472-r8pspg6tf": {
+      "id": "tc-1754285335472-r8pspg6tf",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイントのホーム設定保存",
+      "preconditions": "",
+      "steps": "1. ホーム設定を保存する",
+      "verification": "保存に成功すること",
+      "tags": [
+        "累計ポイント",
+        "ホーム設定",
+        "保存"
+      ],
+      "createdAt": "2025-08-04T05:28:55.472Z",
+      "updatedAt": "2025-08-06T06:15:01.897Z",
+      "order": 65
+    },
+    "tc-1754285340411-ku5dwfyg0": {
+      "id": "tc-1754285340411-ku5dwfyg0",
+      "projectId": "crm-2x0",
+      "specification": "累計ポイント設定変更の永続化確認",
+      "preconditions": "",
+      "steps": "1. リロードする",
+      "verification": "変更した状態が表示されていること",
+      "tags": [
+        "累計ポイント",
+        "永続化",
+        "リロード"
+      ],
+      "createdAt": "2025-08-04T05:29:00.411Z",
+      "updatedAt": "2025-08-06T06:15:01.898Z",
+      "order": 66
+    },
+    "tc-1754285346339-kr4m94aoj": {
+      "id": "tc-1754285346339-kr4m94aoj",
+      "projectId": "crm-2x0",
+      "specification": "ホーム画面への移動",
+      "preconditions": "",
+      "steps": "1. ホーム画面に移動する",
+      "verification": "アンケート項目 > マイレージ項目の表示順でグラフが表示されること",
+      "tags": [
+        "ホーム",
+        "グラフ表示順"
+      ],
+      "createdAt": "2025-08-04T05:29:06.339Z",
+      "updatedAt": "2025-08-06T06:15:01.899Z",
+      "order": 67
+    },
+    "tc-1754285352121-mg4hkskwx": {
+      "id": "tc-1754285352121-mg4hkskwx",
+      "projectId": "crm-2x0",
+      "specification": "ホーム画面のマイレージグラフ表示確認",
+      "preconditions": "",
+      "steps": "1. ホーム画面のマイレージグラフを確認する",
+      "verification": "マイレージ項目のグラフは、グラフ設定ページで設定したとおりの表示になっていること",
+      "tags": [
+        "ホーム",
+        "マイレージグラフ",
+        "設定連動"
+      ],
+      "createdAt": "2025-08-04T05:29:12.121Z",
+      "updatedAt": "2025-08-06T06:15:01.900Z",
+      "order": 68
+    },
+    "tc-1754285357707-3r53yi3fi": {
+      "id": "tc-1754285357707-3r53yi3fi",
+      "projectId": "crm-2x0",
+      "specification": "ホーム設定OFF時のグラフ非表示確認",
+      "preconditions": "",
+      "steps": "1. グラフ設定画面で、ホーム設定をOFFにする\n2. ホームを開く",
+      "verification": "OFFにした項目のグラフはホームに表示されないこと",
+      "tags": [
+        "ホーム",
+        "グラフ非表示",
+        "設定OFF"
+      ],
+      "createdAt": "2025-08-04T05:29:17.707Z",
+      "updatedAt": "2025-08-06T06:15:01.900Z",
+      "order": 69
+    }
+  },
+  "metadata": {
+    "count": 70,
+    "lastUpdated": "2025-08-27T10:31:35.043Z",
+    "version": "1.0.0"
+  }
+}

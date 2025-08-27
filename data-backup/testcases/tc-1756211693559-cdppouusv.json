@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211693559-cdppouusv",
+  "projectId": "crm-griffin",
+  "specification": "初期表示するグラフ種類のグラフを確認する",
+  "preconditions": "マイレージ時系列ランクの詳細ページを開いている",
+  "steps": "",
+  "verification": "以下の選択肢があること\n- 積み上げ棒グラフ\n- グループ化棒グラフ",
+  "tags": [
+    "マイレージ時系列ランク",
+    "グラフ種類"
+  ],
+  "createdAt": "2025-08-26T12:34:53.559Z",
+  "updatedAt": "2025-08-26T12:34:53.559Z"
+}

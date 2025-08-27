@@ -1,0 +1,15 @@
+{
+  "id": "tc-1756211764316-2qsi5g88w",
+  "projectId": "crm-griffin",
+  "specification": "グラフ情報を切り替える\nリロードする",
+  "preconditions": "マイレージランクのグラフ設定を変更済み",
+  "steps": "",
+  "verification": "変更した情報で表示されていること",
+  "tags": [
+    "マイレージランク",
+    "リロード",
+    "設定反映"
+  ],
+  "createdAt": "2025-08-26T12:36:04.316Z",
+  "updatedAt": "2025-08-26T12:36:04.316Z"
+}

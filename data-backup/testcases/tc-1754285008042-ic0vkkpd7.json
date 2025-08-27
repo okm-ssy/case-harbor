@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285008042-ic0vkkpd7",
+  "projectId": "crm-2x0",
+  "specification": "CRMを開いてグローバルヘッダーを確認する",
+  "preconditions": "",
+  "steps": "1. CRMを開く\n2. グローバルヘッダーを確認する",
+  "verification": "タブが以下の4つであること\n- ホーム\n- アンケート\n- 分析\n- 配信",
+  "tags": [
+    "基本操作",
+    "ヘッダー"
+  ],
+  "createdAt": "2025-08-04T05:23:28.042Z",
+  "updatedAt": "2025-08-06T06:15:01.823Z",
+  "order": 0
+}

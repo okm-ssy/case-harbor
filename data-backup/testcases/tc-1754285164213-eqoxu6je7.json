@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285164213-eqoxu6je7",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントの閾値編集可能性確認",
+  "preconditions": "",
+  "steps": "1. ポイント閾値の編集可能性を確認する",
+  "verification": "ポイント閾値が編集できること",
+  "tags": [
+    "保有ポイント",
+    "ポイント闾値",
+    "編集可能"
+  ],
+  "createdAt": "2025-08-04T05:26:04.213Z",
+  "updatedAt": "2025-08-06T06:15:01.855Z",
+  "order": 31
+}

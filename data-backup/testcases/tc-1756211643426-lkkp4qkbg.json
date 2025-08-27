@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211643426-lkkp4qkbg",
+  "projectId": "crm-griffin",
+  "specification": "初期表示するグラフ種類のグラフを確認する",
+  "preconditions": "マイレージランクの詳細ページを開いている",
+  "steps": "",
+  "verification": "以下の選択肢があること\n- 円\n- 棒\n- 折れ線\n- 表",
+  "tags": [
+    "マイレージランク",
+    "グラフ種類"
+  ],
+  "createdAt": "2025-08-26T12:34:03.426Z",
+  "updatedAt": "2025-08-26T12:34:03.426Z"
+}

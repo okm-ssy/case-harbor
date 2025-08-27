@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285051287-w23sedu3e",
+  "projectId": "crm-2x0",
+  "specification": "作成したセグメントの友だち数確認",
+  "preconditions": "",
+  "steps": "1. 作成したセグメントを確認する",
+  "verification": "正しい友だち数が集計されること",
+  "tags": [
+    "セグメント",
+    "集計"
+  ],
+  "createdAt": "2025-08-04T05:24:11.287Z",
+  "updatedAt": "2025-08-06T06:15:01.831Z",
+  "order": 9
+}

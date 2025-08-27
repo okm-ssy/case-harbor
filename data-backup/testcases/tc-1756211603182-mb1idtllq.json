@@ -1,0 +1,15 @@
+{
+  "id": "tc-1756211603182-mb1idtllq",
+  "projectId": "crm-griffin",
+  "specification": "グラフ設定一覧を開く",
+  "preconditions": "取り込んだキャンペーンが複数ある\n取り込んだマイレージがある",
+  "steps": "",
+  "verification": "デザインがあっていること\nhttps://docs.google.com/presentation/d/1mmd-UTYDKMBkvfMV40sru4f5oZ5Jgq3AdNhV6mE-rww/edit?slide=id.g37173d02937_0_0#slide=id.g37173d02937_0_0",
+  "tags": [
+    "グラフ設定",
+    "マイレージ",
+    "キャンペーン"
+  ],
+  "createdAt": "2025-08-26T12:33:23.182Z",
+  "updatedAt": "2025-08-26T12:33:23.182Z"
+}

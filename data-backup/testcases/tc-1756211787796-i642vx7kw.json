@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211787796-i642vx7kw",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "マイレージ時系列ランクをホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "マイレージ時系列ランク",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:36:27.796Z",
+  "updatedAt": "2025-08-26T12:36:27.796Z"
+}

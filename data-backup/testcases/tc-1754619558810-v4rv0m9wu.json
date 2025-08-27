@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619558810-v4rv0m9wu",
+  "projectId": "crm-fairly",
+  "specification": "リセット機能 - リロード後もリセット状態保持",
+  "preconditions": "リセットを実行済み",
+  "steps": "リロードする",
+  "verification": "先ほどと同じ、リセットされたままの表示であること",
+  "tags": [
+    "ホーム",
+    "リセット",
+    "永続化"
+  ],
+  "createdAt": "2025-08-08T02:19:18.810Z",
+  "updatedAt": "2025-08-12T08:15:25.819Z",
+  "order": 15
+}

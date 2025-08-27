@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285326624-oj3iok4m6",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイントのホーム設定編集",
+  "preconditions": "",
+  "steps": "1. ホーム設定を編集する",
+  "verification": "編集用の表示になること",
+  "tags": [
+    "累計ポイント",
+    "ホーム設定",
+    "編集"
+  ],
+  "createdAt": "2025-08-04T05:28:46.624Z",
+  "updatedAt": "2025-08-06T06:15:01.896Z",
+  "order": 63
+}

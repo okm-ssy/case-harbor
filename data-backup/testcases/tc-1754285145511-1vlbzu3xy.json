@@ -1,0 +1,15 @@
+{
+  "id": "tc-1754285145511-1vlbzu3xy",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイント詳細設定でグラフ種別の確認",
+  "preconditions": "",
+  "steps": "1. グラフ種別を確認する",
+  "verification": "グラフが「保有ポイント」になっていること",
+  "tags": [
+    "保有ポイント",
+    "グラフ種別"
+  ],
+  "createdAt": "2025-08-04T05:25:45.511Z",
+  "updatedAt": "2025-08-06T06:15:01.852Z",
+  "order": 28
+}

@@ -1,0 +1,394 @@
+{
+  "projectId": "crm-griffin",
+  "projectName": "crm-griffin",
+  "testCases": {
+    "tc-1756211603182-mb1idtllq": {
+      "id": "tc-1756211603182-mb1idtllq",
+      "projectId": "crm-griffin",
+      "specification": "グラフ設定一覧を開く",
+      "preconditions": "取り込んだキャンペーンが複数ある\n取り込んだマイレージがある",
+      "steps": "",
+      "verification": "デザインがあっていること\nhttps://docs.google.com/presentation/d/1mmd-UTYDKMBkvfMV40sru4f5oZ5Jgq3AdNhV6mE-rww/edit?slide=id.g37173d02937_0_0#slide=id.g37173d02937_0_0",
+      "tags": [
+        "グラフ設定",
+        "マイレージ",
+        "キャンペーン"
+      ],
+      "createdAt": "2025-08-26T12:33:23.182Z",
+      "updatedAt": "2025-08-26T12:33:23.182Z"
+    },
+    "tc-1756211611333-6j4u8xp48": {
+      "id": "tc-1756211611333-6j4u8xp48",
+      "projectId": "crm-griffin",
+      "specification": "マイレージグラフの一覧を確認する",
+      "preconditions": "",
+      "steps": "",
+      "verification": "マイレージランクが表示されていること\nマイレージ保有ポイントが表示されていること\nマイレージ累計ポイントが表示されていること\nマイレージ時系列ランクが表示されていること\nマイレージ時系列ポイントが表示されていること",
+      "tags": [
+        "マイレージ",
+        "一覧表示"
+      ],
+      "createdAt": "2025-08-26T12:33:31.333Z",
+      "updatedAt": "2025-08-26T12:33:31.334Z"
+    },
+    "tc-1756211618806-s3uycv11l": {
+      "id": "tc-1756211618806-s3uycv11l",
+      "projectId": "crm-griffin",
+      "specification": "キャンペーングラフの一覧を確認する",
+      "preconditions": "",
+      "steps": "",
+      "verification": "キャンペーン参加数が表示されていること\nキャンペーン寄与数が表示されていること\nキャンペーン通算参加数が表示されていること",
+      "tags": [
+        "キャンペーン",
+        "一覧表示"
+      ],
+      "createdAt": "2025-08-26T12:33:38.806Z",
+      "updatedAt": "2025-08-26T12:33:38.806Z"
+    },
+    "tc-1756211625290-51runtmzu": {
+      "id": "tc-1756211625290-51runtmzu",
+      "projectId": "crm-griffin",
+      "specification": "マイレージランクの詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "マイレージランク",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:33:45.290Z",
+      "updatedAt": "2025-08-26T12:33:45.290Z"
+    },
+    "tc-1756211633895-acvb647h7": {
+      "id": "tc-1756211633895-acvb647h7",
+      "projectId": "crm-griffin",
+      "specification": "ホーム設定を編集する\nホーム表示を切り替える\n保存する",
+      "preconditions": "マイレージランクの詳細ページを開いている",
+      "steps": "",
+      "verification": "保存できること",
+      "tags": [
+        "マイレージランク",
+        "ホーム設定"
+      ],
+      "createdAt": "2025-08-26T12:33:53.896Z",
+      "updatedAt": "2025-08-26T12:33:53.896Z"
+    },
+    "tc-1756211643426-lkkp4qkbg": {
+      "id": "tc-1756211643426-lkkp4qkbg",
+      "projectId": "crm-griffin",
+      "specification": "初期表示するグラフ種類のグラフを確認する",
+      "preconditions": "マイレージランクの詳細ページを開いている",
+      "steps": "",
+      "verification": "以下の選択肢があること\n- 円\n- 棒\n- 折れ線\n- 表",
+      "tags": [
+        "マイレージランク",
+        "グラフ種類"
+      ],
+      "createdAt": "2025-08-26T12:34:03.426Z",
+      "updatedAt": "2025-08-26T12:34:03.426Z"
+    },
+    "tc-1756211653102-s4qbyh5h7": {
+      "id": "tc-1756211653102-s4qbyh5h7",
+      "projectId": "crm-griffin",
+      "specification": "グラフ種類のグラフを変更する\n\n初期表示するグラフ種類のアイコンを確認する",
+      "preconditions": "マイレージランクの詳細ページを開いている",
+      "steps": "",
+      "verification": "グラフごとにアイコンが切り替わること\nグラフとアイコンが正しい対応となっていること",
+      "tags": [
+        "マイレージランク",
+        "グラフ種類",
+        "アイコン"
+      ],
+      "createdAt": "2025-08-26T12:34:13.102Z",
+      "updatedAt": "2025-08-26T12:34:13.102Z"
+    },
+    "tc-1756211660535-jx1ti7bd7": {
+      "id": "tc-1756211660535-jx1ti7bd7",
+      "projectId": "crm-griffin",
+      "specification": "マイレージ保有ポイントの詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "マイレージ保有ポイント",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:34:20.535Z",
+      "updatedAt": "2025-08-26T12:34:20.535Z"
+    },
+    "tc-1756211676309-c60vvjxih": {
+      "id": "tc-1756211676309-c60vvjxih",
+      "projectId": "crm-griffin",
+      "specification": "マイレージ累計ポイントの詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "マイレージ累計ポイント",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:34:36.309Z",
+      "updatedAt": "2025-08-26T12:34:36.309Z"
+    },
+    "tc-1756211684312-x8rrmtt7y": {
+      "id": "tc-1756211684312-x8rrmtt7y",
+      "projectId": "crm-griffin",
+      "specification": "マイレージ時系列ランクの詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "マイレージ時系列ランク",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:34:44.312Z",
+      "updatedAt": "2025-08-26T12:34:44.312Z"
+    },
+    "tc-1756211693559-cdppouusv": {
+      "id": "tc-1756211693559-cdppouusv",
+      "projectId": "crm-griffin",
+      "specification": "初期表示するグラフ種類のグラフを確認する",
+      "preconditions": "マイレージ時系列ランクの詳細ページを開いている",
+      "steps": "",
+      "verification": "以下の選択肢があること\n- 積み上げ棒グラフ\n- グループ化棒グラフ",
+      "tags": [
+        "マイレージ時系列ランク",
+        "グラフ種類"
+      ],
+      "createdAt": "2025-08-26T12:34:53.559Z",
+      "updatedAt": "2025-08-26T12:34:53.559Z"
+    },
+    "tc-1756211701422-04v28z174": {
+      "id": "tc-1756211701422-04v28z174",
+      "projectId": "crm-griffin",
+      "specification": "マイレージ時系列ポイントの詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "マイレージ時系列ポイント",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:35:01.422Z",
+      "updatedAt": "2025-08-26T12:35:01.422Z"
+    },
+    "tc-1756211708912-5n8q68p81": {
+      "id": "tc-1756211708912-5n8q68p81",
+      "projectId": "crm-griffin",
+      "specification": "キャンペーン参加数の詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "キャンペーン参加数",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:35:08.912Z",
+      "updatedAt": "2025-08-26T12:35:08.912Z"
+    },
+    "tc-1756211718006-4e8pr0hb4": {
+      "id": "tc-1756211718006-4e8pr0hb4",
+      "projectId": "crm-griffin",
+      "specification": "項目設定を編集する\n関連キャンペーンを切り替える\n保存する",
+      "preconditions": "キャンペーン参加数の詳細ページを開いている",
+      "steps": "",
+      "verification": "保存できること",
+      "tags": [
+        "キャンペーン参加数",
+        "項目設定",
+        "関連キャンペーン"
+      ],
+      "createdAt": "2025-08-26T12:35:18.006Z",
+      "updatedAt": "2025-08-26T12:35:18.006Z"
+    },
+    "tc-1756211726875-lmm89ht9w": {
+      "id": "tc-1756211726875-lmm89ht9w",
+      "projectId": "crm-griffin",
+      "specification": "初期表示するグラフ種類のグラフを確認する",
+      "preconditions": "キャンペーン参加数の詳細ページを開いている",
+      "steps": "",
+      "verification": "以下の選択肢があること\n- 積み上げ棒グラフ\n- グループ化棒グラフ",
+      "tags": [
+        "キャンペーン参加数",
+        "グラフ種類"
+      ],
+      "createdAt": "2025-08-26T12:35:26.875Z",
+      "updatedAt": "2025-08-26T12:35:26.875Z"
+    },
+    "tc-1756211734076-r31kax9ch": {
+      "id": "tc-1756211734076-r31kax9ch",
+      "projectId": "crm-griffin",
+      "specification": "キャンペーン寄与数の詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "キャンペーン寄与数",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:35:34.076Z",
+      "updatedAt": "2025-08-26T12:35:34.076Z"
+    },
+    "tc-1756211740980-ooxorwzur": {
+      "id": "tc-1756211740980-ooxorwzur",
+      "projectId": "crm-griffin",
+      "specification": "キャンペーン通算参加数の詳細ページを開く",
+      "preconditions": "",
+      "steps": "",
+      "verification": "設定どおりの情報が表示されること",
+      "tags": [
+        "キャンペーン通算参加数",
+        "詳細表示"
+      ],
+      "createdAt": "2025-08-26T12:35:40.980Z",
+      "updatedAt": "2025-08-26T12:35:40.980Z"
+    },
+    "tc-1756211749047-9z9jdp85p": {
+      "id": "tc-1756211749047-9z9jdp85p",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "マイレージランクをホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "マイレージランク",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:35:49.047Z",
+      "updatedAt": "2025-08-26T12:35:49.047Z"
+    },
+    "tc-1756211756389-x8kpverlq": {
+      "id": "tc-1756211756389-x8kpverlq",
+      "projectId": "crm-griffin",
+      "specification": "グラフ設定ページでホーム情報を切り替える\nホーム画面を確認する",
+      "preconditions": "マイレージランクの詳細ページでホーム設定を変更済み",
+      "steps": "",
+      "verification": "変更した情報で表示されていること",
+      "tags": [
+        "マイレージランク",
+        "ホーム画面",
+        "設定反映"
+      ],
+      "createdAt": "2025-08-26T12:35:56.389Z",
+      "updatedAt": "2025-08-26T12:35:56.389Z"
+    },
+    "tc-1756211764316-2qsi5g88w": {
+      "id": "tc-1756211764316-2qsi5g88w",
+      "projectId": "crm-griffin",
+      "specification": "グラフ情報を切り替える\nリロードする",
+      "preconditions": "マイレージランクのグラフ設定を変更済み",
+      "steps": "",
+      "verification": "変更した情報で表示されていること",
+      "tags": [
+        "マイレージランク",
+        "リロード",
+        "設定反映"
+      ],
+      "createdAt": "2025-08-26T12:36:04.316Z",
+      "updatedAt": "2025-08-26T12:36:04.316Z"
+    },
+    "tc-1756211772077-evky6xkym": {
+      "id": "tc-1756211772077-evky6xkym",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "マイレージ保有ポイントをホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "マイレージ保有ポイント",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:12.077Z",
+      "updatedAt": "2025-08-26T12:36:12.077Z"
+    },
+    "tc-1756211779716-5n0qfas05": {
+      "id": "tc-1756211779716-5n0qfas05",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "マイレージ累計ポイントをホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "マイレージ累計ポイント",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:19.716Z",
+      "updatedAt": "2025-08-26T12:36:19.716Z"
+    },
+    "tc-1756211787796-i642vx7kw": {
+      "id": "tc-1756211787796-i642vx7kw",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "マイレージ時系列ランクをホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "マイレージ時系列ランク",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:27.796Z",
+      "updatedAt": "2025-08-26T12:36:27.796Z"
+    },
+    "tc-1756211796002-llf20g14u": {
+      "id": "tc-1756211796002-llf20g14u",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "マイレージ時系列ポイントをホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "マイレージ時系列ポイント",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:36.002Z",
+      "updatedAt": "2025-08-26T12:36:36.002Z"
+    },
+    "tc-1756211804123-c6sg1wp9g": {
+      "id": "tc-1756211804123-c6sg1wp9g",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "キャンペーン参加数をホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "キャンペーン参加数",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:44.123Z",
+      "updatedAt": "2025-08-26T12:36:44.123Z"
+    },
+    "tc-1756211812523-y8ltdrg28": {
+      "id": "tc-1756211812523-y8ltdrg28",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "キャンペーン寄与数をホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "キャンペーン寄与数",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:52.523Z",
+      "updatedAt": "2025-08-26T12:36:52.523Z"
+    },
+    "tc-1756211819902-3ov4d0rpf": {
+      "id": "tc-1756211819902-3ov4d0rpf",
+      "projectId": "crm-griffin",
+      "specification": "ホーム画面で確認する",
+      "preconditions": "キャンペーン通算参加数をホーム表示設定にしている",
+      "steps": "",
+      "verification": "チャートが表示されていること",
+      "tags": [
+        "キャンペーン通算参加数",
+        "ホーム画面"
+      ],
+      "createdAt": "2025-08-26T12:36:59.902Z",
+      "updatedAt": "2025-08-26T12:36:59.902Z"
+    }
+  },
+  "metadata": {
+    "count": 27,
+    "lastUpdated": "2025-08-27T10:31:35.044Z",
+    "version": "1.0.0"
+  }
+}

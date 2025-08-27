@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619641172-th2lx3edr",
+  "projectId": "crm-fairly",
+  "specification": "削除項目非表示 - ウィジェットリストからも削除",
+  "preconditions": "項目を削除済み",
+  "steps": "ウィジェットリストを確認する",
+  "verification": "削除された項目のグラフは表示されないこと",
+  "tags": [
+    "ホーム",
+    "項目削除",
+    "ウィジェットリスト"
+  ],
+  "createdAt": "2025-08-08T02:20:41.172Z",
+  "updatedAt": "2025-08-12T08:15:25.847Z",
+  "order": 36
+}

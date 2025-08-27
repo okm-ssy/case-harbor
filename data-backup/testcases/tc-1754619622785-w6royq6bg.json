@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754619622785-w6royq6bg",
+  "projectId": "crm-fairly",
+  "specification": "ドラッグ&ドロップ - リロード後の表示保持",
+  "preconditions": "グラフを移動済み",
+  "steps": "リロードする",
+  "verification": "ホーム画面の表示は変わらないこと",
+  "tags": [
+    "ホーム",
+    "ドラッグアンドドロップ",
+    "永続化"
+  ],
+  "createdAt": "2025-08-08T02:20:22.785Z",
+  "updatedAt": "2025-08-12T08:15:25.840Z",
+  "order": 30
+}

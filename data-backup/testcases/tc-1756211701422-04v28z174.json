@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211701422-04v28z174",
+  "projectId": "crm-griffin",
+  "specification": "マイレージ時系列ポイントの詳細ページを開く",
+  "preconditions": "",
+  "steps": "",
+  "verification": "設定どおりの情報が表示されること",
+  "tags": [
+    "マイレージ時系列ポイント",
+    "詳細表示"
+  ],
+  "createdAt": "2025-08-26T12:35:01.422Z",
+  "updatedAt": "2025-08-26T12:35:01.422Z"
+}

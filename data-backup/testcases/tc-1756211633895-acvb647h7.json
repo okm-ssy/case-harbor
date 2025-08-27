@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211633895-acvb647h7",
+  "projectId": "crm-griffin",
+  "specification": "ホーム設定を編集する\nホーム表示を切り替える\n保存する",
+  "preconditions": "マイレージランクの詳細ページを開いている",
+  "steps": "",
+  "verification": "保存できること",
+  "tags": [
+    "マイレージランク",
+    "ホーム設定"
+  ],
+  "createdAt": "2025-08-26T12:33:53.896Z",
+  "updatedAt": "2025-08-26T12:33:53.896Z"
+}

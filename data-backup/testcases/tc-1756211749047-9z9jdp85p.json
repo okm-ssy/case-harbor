@@ -1,0 +1,14 @@
+{
+  "id": "tc-1756211749047-9z9jdp85p",
+  "projectId": "crm-griffin",
+  "specification": "ホーム画面で確認する",
+  "preconditions": "マイレージランクをホーム表示設定にしている",
+  "steps": "",
+  "verification": "チャートが表示されていること",
+  "tags": [
+    "マイレージランク",
+    "ホーム画面"
+  ],
+  "createdAt": "2025-08-26T12:35:49.047Z",
+  "updatedAt": "2025-08-26T12:35:49.047Z"
+}

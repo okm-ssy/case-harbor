@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285277163-561d3hs00",
+  "projectId": "crm-2x0",
+  "specification": "累計ポイントの閾値追加機能",
+  "preconditions": "",
+  "steps": "1. ポイント閾値を追加する",
+  "verification": "入力欄が増えること",
+  "tags": [
+    "累計ポイント",
+    "ポイント闾値",
+    "追加"
+  ],
+  "createdAt": "2025-08-04T05:27:57.163Z",
+  "updatedAt": "2025-08-06T06:15:01.880Z",
+  "order": 53
+}

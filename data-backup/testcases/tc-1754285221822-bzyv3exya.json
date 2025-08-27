@@ -1,0 +1,16 @@
+{
+  "id": "tc-1754285221822-bzyv3exya",
+  "projectId": "crm-2x0",
+  "specification": "保有ポイントのホーム設定機能確認",
+  "preconditions": "",
+  "steps": "1. ホーム設定機能を確認する",
+  "verification": "アンケート > 項目設定と同じ設定ができること",
+  "tags": [
+    "保有ポイント",
+    "ホーム設定",
+    "機能"
+  ],
+  "createdAt": "2025-08-04T05:27:01.822Z",
+  "updatedAt": "2025-08-06T06:15:01.870Z",
+  "order": 43
+}
